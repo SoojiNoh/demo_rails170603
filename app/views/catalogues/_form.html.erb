@@ -1,0 +1,25 @@
+<%= form_for(@catalogue) do |f| %>
+  <% if @catalogue.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@catalogue.errors.count, "error") %> prohibited this catalogue from being saved:</h2>
+      <ul>
+      <% @catalogue.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>3
+
+  <div class="field" col="3">
+    <%= f.label :title, "도록 제목" %><br>
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :description, "도록 설명" %><br>
+    <%= f.text_area :description %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

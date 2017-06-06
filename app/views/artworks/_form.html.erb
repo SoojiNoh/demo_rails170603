@@ -1,0 +1,52 @@
+<%= form_for(@artwork) do |f| %>
+  <% if @artwork.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@artwork.errors.count, "error") %> prohibited this artwork from being saved:</h2>
+      <ul>
+      <% @artwork.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field" col="3">
+    <%= f.label :category %><br>
+    <%= f.text_field :category %>
+  </div>
+  <div class="field">
+    <%= f.label :artist_name %><br>
+    <%= f.text_area :artist_name %>
+  </div>
+  <div class="field">
+    <%= f.label :photo %><br>
+    <%= f.text_area :photo %>
+  </div>
+  <div class="field">
+    <%= f.label :title %><br>
+    <%= f.text_area :title %>
+  </div>
+  <div class="field">
+    <%= f.label :size %><br>
+    <%= f.text_area :size %>
+  </div>
+  <div class="field">
+    <%= f.label :width %><br>
+    <%= f.text_area :width %>
+  </div>
+  <div class="field">
+    <%= f.label :height %><br>
+    <%= f.text_area :height %>
+  </div>
+  <div class="field">
+    <%= f.label :material %><br>
+    <%= f.text_area :material %>
+  </div>
+  <div class="field">
+    <%= f.label :created_at %><br>
+    <%= select_date Date.today, prefix: :created_at %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Workspace</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+  
+  <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+</head>
+<body>
+<ul class="nav nav-tabs nav-justified">
+  <li role="presentation" class="<%= 'active' if(params[:controller] != 'artists' && !(params[:controller].include? "users/"))%>"><a href="/dashboards/index">Dashboard</a></li>
+  <%if user_signed_in?%>
+    <li role="presentation" class="<%= 'active' if params[:controller] == 'artists' %>"><%=link_to "사용자 정보보기", artists_path%></li>
+  <%else%>
+    <li role="presentation" class="<%= 'active' if params[:controller].include? "users/" %>"><%=link_to "로그인", new_user_session_path%></li>
+  <%end%>
+</ul>
+<!--
+User Profile Sidebar by @keenthemes
+A component of Metronic Theme - #1 Selling Bootstrap 3 Admin Theme in Themeforest: http://j.mp/metronictheme
+Licensed under MIT
+-->
+
+<div class="container">
+    <div class="row profile">
+		<div class="col-md-3">
+		  <div class="profile-sidebar">
+			   <a href='/'><img style="margin: 0 auto; display: block;" src="http://demo.flytheme.net/themes/sm_cherry/media/logo_footer/logo1.png"></img></a>
+		  </div>
+		  <br>
+			<div class="profile-sidebar">
+				<!-- SIDEBAR USERPIC -->
+				<div class="profile-userpic">
+					<img src="https://getlorem.com/images/cicero2.jpg" class="img-responsive" alt="">
+				</div>
+				<!-- END SIDEBAR USERPIC -->
+				<!-- SIDEBAR USER TITLE -->
+				<div class="profile-usertitle">
+					<div class="profile-usertitle-name">
+						Marcus Doe
+					</div>
+					<div class="profile-usertitle-job">
+						ARTIST
+					</div>
+				</div>
+				<!-- END SIDEBAR USER TITLE -->
+				<!-- SIDEBAR BUTTONS -->
+				<div class="profile-userbuttons">
+					<button type="button" class="btn btn-success btn-sm">Follow</button>
+					<button type="button" class="btn btn-danger btn-sm">Message</button>
+				</div>
+				<!-- END SIDEBAR BUTTONS -->
+				<!-- SIDEBAR MENU -->
+				<div class="profile-usermenu">
+					<ul class="nav">
+						<li class="<%= 'active' if params[:controller] == 'dashboards' %>">
+							<a href="/dashboards/index">
+							<i class="glyphicon glyphicon-home"></i>
+							메인보드 </a>
+						</li>
+						<li class="<%= 'active' if current_page?(new_catalogue_path) %>">
+							<a href="/catalogues/new">
+							<i class="glyphicon glyphicon-scissors"></i>
+							  도록 만들기 </a>
+						</li>
+						<li class="<%= 'active' if current_page?(catalogues_path) %>">
+						  <a href="/catalogues">
+						    <i class="glyphicon glyphicon-book"></i>
+						    도록 보기 </a>
+						</li>
+						<li class="<%= 'active' if current_page?(artworks_path) %>">
+						  <a href="/artworks">
+						    <i class="glyphicon glyphicon-picture"></i>
+						    작품 보기
+						  </a>
+						</li>
+						<li>
+							<a href="/dashboards/help" target="_blank">
+							<i class="glyphicon glyphicon-user"></i>
+							문의하기 </a>
+						</li>
+					</ul>
+				</div>
+				<!-- END MENU -->
+			</div>
+		</div>
+		<div class="col-md-9">
+            <div class="profile-content">
+			         <%= yield %>
+            </div>
+		</div>
+	</div>
+</div>
+<center>
+  <strong>Powered by <a href="http://j.mp/metronictheme" target="_blank">KeenThemes</a></strong>
+</center>
+<br>
+<br>
+<style>
+    body {
+    background: #F1F3FA;
+  }
+  
+  /* Profile container */
+  .profile {
+    margin: 20px 0;
+  }
+  
+  /* Profile sidebar */
+  .profile-sidebar {
+    padding: 20px 0 10px 0;
+    background: #fff;
+  }
+  
+  .profile-userpic img {
+    float: none;
+    margin: 0 auto;
+    width: 50%;
+    height: 50%;
+    -webkit-border-radius: 50% !important;
+    -moz-border-radius: 50% !important;
+    border-radius: 50% !important;
+  }
+  
+  .profile-usertitle {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .profile-usertitle-name {
+    color: #5a7391;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 7px;
+  }
+  
+  .profile-usertitle-job {
+    text-transform: uppercase;
+    color: #5b9bd1;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 15px;
+  }
+  
+  .profile-userbuttons {
+    text-align: center;
+    margin-top: 10px;
+  }
+  
+  .profile-userbuttons .btn {
+    text-transform: uppercase;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 6px 15px;
+    margin-right: 5px;
+  }
+  
+  .profile-userbuttons .btn:last-child {
+    margin-right: 0px;
+  }
+      
+  .profile-usermenu {
+    margin-top: 30px;
+  }
+  
+  .profile-usermenu ul li {
+    border-bottom: 1px solid #f0f4f7;
+  }
+  
+  .profile-usermenu ul li:last-child {
+    border-bottom: none;
+  }
+  
+  .profile-usermenu ul li a {
+    color: #93a3b5;
+    font-size: 14px;
+    font-weight: 400;
+  }
+  
+  .profile-usermenu ul li a i {
+    margin-right: 8px;
+    font-size: 14px;
+  }
+  
+  .profile-usermenu ul li a:hover {
+    background-color: #fafcfd;
+    color: #5b9bd1;
+  }
+  
+  .profile-usermenu ul li.active {
+    border-bottom: none;
+  }
+  
+  .profile-usermenu ul li.active a {
+    color: #5b9bd1;
+    background-color: #f6f9fb;
+    border-left: 2px solid #5b9bd1;
+    margin-left: -2px;
+  }
+  
+  /* Profile Content */
+  .profile-content {
+    padding: 20px;
+    background: #fff;
+    min-height: 460px;
+  }
+</style>
+
+
+
+</body>
+</html>

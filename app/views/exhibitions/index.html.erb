@@ -1,7 +1,7 @@
 <table>
   <tr>
     <th>Title</th>
-    <th>Artist Name</th>
+    <th>start_date</th>
     <th></th>
     <th></th>
     <th></th>
@@ -10,7 +10,7 @@
 <% @exhibitions.each do |exhibition| %>
   <tr>
     <td><%= exhibition.title %></td>
-    <td><%= exhibition.artist_name %></td>
+    <td><%= exhibition.start_date %></td>
     <td><%= link_to "Show", exhibition %></td>
     <td><%= link_to "Edit", edit_exhibition_path(exhibition) %></td>
     <td><%= link_to "Remove", exhibition, method: :delete, data: { confirm: "Are you sure?" } %></td>

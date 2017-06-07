@@ -1,9 +1,9 @@
-<%= form_for(@exhibition) do |f| %>
-  <% if @exhibition.errors.any? %>
+<%= form_for @history, url: {action: "create"}, html: {class: "history_group_form"} do |f| %>
+  <% if @history.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@exhibition.errors.count, "error") %> prohibited this exhibition from being saved:</h2>
+      <h2><%= pluralize(@history.errors.count, "error") %> prohibited this history from being saved:</h2>
       <ul>
-      <% @exhibition.errors.full_messages.each do |message| %>
+      <% @history.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>

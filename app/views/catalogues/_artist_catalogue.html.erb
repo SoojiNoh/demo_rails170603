@@ -1,0 +1,45 @@
+<%= form_for @artist, url: {action: "create"}, html: {class: "artist_group_form"} do |f| %>
+  <% if @artist.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@artist.errors.count, "error") %> prohibited this artist from being saved:</h2>
+      <ul>
+      <% @artist.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field" col="3">
+    <%= f.label :name, "작가명" %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :role %><br>
+    <%= f.text_area :role %>
+  </div>
+  <div class="field">
+    <%= f.label :academic %><br>
+    <%= f.text_area :academic %>
+  </div>
+  
+  <div class="panel panel-success">
+      <div class="panel-heading">
+        경력추가
+      </div>
+      <div class="panel-body">
+        <%= render partial: 'history_catalogue' %>
+      </div>
+  </div>
+  
+  
+  <% if false%>
+    <%= fields_for :permission, @person.permission do |permission_fields| %>
+      Admin?  : <%= permission_fields.check_box :admin %>
+    <% end %>
+  <% end %>
+  
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,2 +1,23 @@
-<h1>Spaces#index</h1>
-<p>Find me in app/views/spaces/index.html.erb</p>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Location</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+ 
+<% @spaces.each do |space| %>
+  <tr>
+    <td><%= space.name %></td>
+    <td><%= space.location %></td>
+    <td><%= link_to "Show", space %></td>
+    <td><%= link_to "Edit", edit_space_path(space) %></td>
+    <td><%= link_to "Remove", space, method: :delete, data: { confirm: "Are you sure?" } %></td>
+  </tr>
+<% end %>
+</table>
+ 
+<br>
+ 
+<%= link_to "New space", new_space_path %>

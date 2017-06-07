@@ -1,4 +1,4 @@
-<%= form_for(@exhibition) do |f| %>
+<%= form_for @exhibition, url: {action: "create"}, html: {class: "exhibition_group_form"} do |f| %>
   <% if @exhibition.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@exhibition.errors.count, "error") %> prohibited this exhibition from being saved:</h2>
@@ -11,19 +11,19 @@
   <% end %>
 
   <div class="field" col="3">
-    <%= f.label :category %><br>
+    <%= f.label :category, "전시 분류" %><br>
     <%= f.text_field :category %>
   </div>
   <div class="field">
-    <%= f.label :title %><br>
+    <%= f.label :title, "전시 제목" %><br>
     <%= f.text_area :title %>
   </div>
   <div class="field">
-    <%= f.label :start_date %><br>
+    <%= f.label :start_date, "전시 시작" %><br>
     <%= select_date Date.today, prefix: :start_date %>
   </div>
   <div class="field">
-    <%= f.label :end_date %><br>
+    <%= f.label :end_date, "전시 종료" %><br>
     <%= select_date Date.today, prefix: :end_date %>
   </div>
   <div class="actions">

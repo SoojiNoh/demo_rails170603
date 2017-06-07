@@ -1,2 +1,23 @@
-<h1>Artists#index</h1>
-<p>Find me in app/views/artists/index.html.erb</p>
+<table>
+  <tr>
+    <th>name</th>
+    <th>role</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+ 
+
+  <tr>
+    <td><%= @artist.name %></td>
+    <td><%= @artist.role %></td>
+    <td><%= link_to "Show", @artist %></td>
+    <td><%= link_to "Edit", edit_artist_path(@artist) %></td>
+    <td><%= link_to "Remove", @artist, method: :delete, data: { confirm: "Are you sure?" } %></td>
+  </tr>
+
+</table>
+ 
+<br>
+ 
+<%= link_to "New artist", new_artist_path %>

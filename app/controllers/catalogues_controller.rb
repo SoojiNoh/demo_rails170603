@@ -15,7 +15,9 @@ class CataloguesController < ApplicationController
   # GET /catalogues/new
   def new
     @catalogue = Catalogue.new
+    @artist = Artist.new
     @artwork = Artwork.new
+    @exhibition = Exhibition.new
   end
 
   # GET /catalogues/1/edit
@@ -27,7 +29,11 @@ class CataloguesController < ApplicationController
   def create
     @catalogue = Catalogue.new(catalogue_params)
     @artwork = Artwork.new(artwork_params)
-
+    @artist = Artist.new(artist_params)
+    @contact = Contact.new(contact_params)
+    @history = Histroy.new(history_params)
+    
+    
     respond_to do |format|
       if @catalogue.save
         format.html { redirect_to @catalogue, notice: 'Catalogue was successfully created.' }
@@ -39,11 +45,10 @@ class CataloguesController < ApplicationController
     end
   end
   
-  def create_via_catalogue
-      # POST /catalogues
-  # POST /catalogues.json
-  def create
-    @catalogue = Catalogue.new(catalogue_params)
+  def artwork_create
+    # POST /catalogues
+    # POST /catalogues.json
+    # @catalogue = Catalogue.new(catalogue_params)
     @artwork = Artwork.new(artwork_params)
 
     respond_to do |format|
@@ -55,7 +60,6 @@ class CataloguesController < ApplicationController
         format.json { render json: @catalogue.errors, status: :unprocessable_entity }
       end
     end
-  end    
   end
 
   # PATCH/PUT /catalogues/1
@@ -93,7 +97,19 @@ class CataloguesController < ApplicationController
       params.require(:catalogue).permit(:title, :description)
     end
     
-    # def artwork_params
-    #   params.require(:artwork).permit(:artwork, :type, :artist_name, :photo, :title, :size, :width, :height, :material, :created_at)
-    # end
+    def artwork_params
+      params.require(:artwork).permit(:artwork, :type, :artist_name, :photo, :title, :size, :width, :height, :material, :created_date)
+    end
+    
+    def artist_params
+      params.require(:artist).permit(:name, :role, :academic, :user_id)
+    end
+    
+    def contact_params
+      params.require(:contact).permit(:name, :role, :academic, :user_id)
+    end
+    
+    def history_params
+      params.require(:history).permit(:category, :title, :academic, :user_id)
+    end
 end

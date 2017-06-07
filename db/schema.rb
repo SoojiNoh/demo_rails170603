@@ -11,7 +11,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170604024639) do
+ActiveRecord::Schema.define(version: 20170607132727) do
+
+  create_table "admins", force: :cascade do |t|
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+  end
+
+  add_index "admins", ["email"], name: "index_admins_on_email", unique: true
+  add_index "admins", ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
 
   create_table "artist_exhibitions", force: :cascade do |t|
     t.integer  "artist_id",     null: false
@@ -24,15 +42,13 @@ ActiveRecord::Schema.define(version: 20170604024639) do
   add_index "artist_exhibitions", ["exhibition_id"], name: "index_artist_exhibitions_on_exhibition_id"
 
   create_table "artists", force: :cascade do |t|
-    t.string   "name",       default: "none", null: false
+    t.string   "name",       null: false
     t.string   "role"
     t.string   "academic"
     t.integer  "user_id"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
-
-  add_index "artists", ["user_id"], name: "index_artists_on_user_id"
 
   create_table "artworks", force: :cascade do |t|
     t.string   "category"
@@ -76,30 +92,31 @@ ActiveRecord::Schema.define(version: 20170604024639) do
   add_index "catalogues", ["user_id"], name: "index_catalogues_on_user_id"
 
   create_table "contacts", force: :cascade do |t|
-    t.string   "type",             default: "none", null: false
-    t.string   "content",          default: "none", null: false
+    t.string   "category",         null: false
+    t.string   "content",          null: false
     t.integer  "contactable_id"
     t.string   "contactable_type"
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
   end
 
   create_table "exhibitions", force: :cascade do |t|
     t.string   "category"
-    t.string   "title",      default: "none", null: false
-    t.date     "start_date",                  null: false
+    t.string   "title",      null: false
+    t.date     "start_date", null: false
     t.date     "end_date"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "histories", force: :cascade do |t|
-    t.string   "type"
-    t.string   "title",      default: "none", null: false
-    t.string   "year"
+    t.string   "category"
+    t.string   "title",                             null: false
+    t.string   "start_date"
+    t.string   "end_date",   default: "start_date"
     t.integer  "artist_id"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
   end
 
   add_index "histories", ["artist_id"], name: "index_histories_on_artist_id"
@@ -118,7 +135,7 @@ ActiveRecord::Schema.define(version: 20170604024639) do
   add_index "pages", ["catalogue_id"], name: "index_pages_on_catalogue_id"
 
   create_table "players", force: :cascade do |t|
-    t.string   "type"
+    t.string   "category"
     t.integer  "interval"
     t.integer  "catalogue_id", null: false
     t.datetime "created_at",   null: false
@@ -135,12 +152,12 @@ ActiveRecord::Schema.define(version: 20170604024639) do
   end
 
   create_table "spaces", force: :cascade do |t|
-    t.string   "name",        default: "none", null: false
+    t.string   "name",         default: "none", null: false
     t.string   "location"
     t.string   "map"
-    t.string   "serviceTime"
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.string   "service_time"
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
   end
 
   create_table "users", force: :cascade do |t|

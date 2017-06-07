@@ -90,6 +90,6 @@ class ExhibitionsController < ApplicationController
     # end
     
     def exhibition_params
-      params.require(:exhibition).permit(:category, :artist_name, :photo, :title, :size, :width, :height, :material, :created_at)
+      params.require(:exhibition).permit(:category, :artist_name, :photo, :title, :size, :width, :height, :material)
     end
 end

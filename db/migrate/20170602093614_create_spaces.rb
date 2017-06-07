@@ -4,7 +4,7 @@ class CreateSpaces < ActiveRecord::Migration
       t.string :name, null: false, default: 'none'
       t.string :location, null: true
       t.string :map, null: true
-      t.string :serviceTime, null: true
+      t.string :service_time, null: true
       t.timestamps null: false
     end
   end

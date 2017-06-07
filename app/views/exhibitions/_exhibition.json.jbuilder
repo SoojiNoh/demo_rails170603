@@ -1,2 +1,2 @@
-json.extract! exhibition, :id, :category, :artist_name, :photo, :title, :size, :width, :height, :material, :create_start,, :updated_at
-json.url catalogue_url(catalogue, format: :json)
+json.extract! exhibition, :id, :category, :title, :start_date, :end_date, :create_at, :updated_at
+json.url exhibition_url(exhibition, format: :json)

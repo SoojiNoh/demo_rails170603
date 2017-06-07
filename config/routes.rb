@@ -1,33 +1,45 @@
 Rails.application.routes.draw do
 
+  devise_for :admins
   devise_for :users, controllers: {
     sessions: 'users/sessions',
     registrations: 'users/registrations',
     passwords: 'users/passwords'
   }
-  get 'artists/index'
-
-  get 'spaces/index'
-
-  get 'exhibition/index'
-
+  
+  
   resources :catalogues
-  get 'catalogues/create_via_catalogue'
   resources :artworks  
   resources :artists
+  resources :exhibitions
+  resources :spaces
+  resources :histories
+  resources :contacts
   
   get 'dashboards/index'
   get 'dashboards/help'
+  get 'home/index'
+
+  
+  root 'dashboards#index'
+  # get 'artists/index'
+
+  # get 'spaces/index'
+
+  # get 'exhibition/index'
+
+
+  # get 'catalogues/artwork_create'
+
+  
+
 
   # get 'artworks/index'
 
   # get 'catalogues/index'
   # get 'catalogues/new'
 
-  get 'home/index'
 
-  
-  root 'dashboards#index'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -2,6 +2,6 @@ class Space < ActiveRecord::Base
     #Space : Contact = 1 : N
     has_many :contacts, as: :contactable
     
-    #Space : Catalogue = 1 : N
-    has_many :catalogues
+    #Exhibition : Space = M : N
+    has_many :spaces, through: :exhibition_spaces
 end

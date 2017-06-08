@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem "react-rails"
 gem 'will_paginate'
 gem 'devise'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

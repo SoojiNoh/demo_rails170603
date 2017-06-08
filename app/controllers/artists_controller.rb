@@ -8,7 +8,6 @@ class ArtistsController < ApplicationController
   # GET /artists.json
   def index
     @artist = current_user.artist
-    puts current_user.artist.name
   end
 
   # GET /artists/1

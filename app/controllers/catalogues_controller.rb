@@ -18,6 +18,7 @@ class CataloguesController < ApplicationController
     @artist = Artist.new
     @artwork = Artwork.new
     @exhibition = Exhibition.new
+    @history = History.new
   end
 
   # GET /catalogues/1/edit
@@ -31,7 +32,7 @@ class CataloguesController < ApplicationController
     @artwork = Artwork.new(artwork_params)
     @artist = Artist.new(artist_params)
     @contact = Contact.new(contact_params)
-    @history = Histroy.new(history_params)
+    @history = History.new(history_params)
     
     
     respond_to do |format|

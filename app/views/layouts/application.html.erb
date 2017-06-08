@@ -26,12 +26,12 @@
   <%end%>
 </ul>
 
-<% if params[:controller] == 'dashboards' %>
-  <%= render partial: "layouts/dashboard_sidenav" %>
-<% else %>
+<% if params[:controller] == 'artists' or params[:controller].include? "users/"%>
   <div class="container">
     <%= yield %>
   </div>
+<% else %>
+  <%= render partial: "layouts/dashboard_sidenav" %>
 <% end %>
 
 

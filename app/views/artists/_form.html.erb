@@ -10,6 +10,7 @@
     </div>
   <% end %>
 
+  <h3>기본 정보</h3>
   <div class="field" col="3">
     <%= artist_form.label :name %><br>
     <%= artist_form.text_field :name %>
@@ -23,17 +24,31 @@
     <%= artist_form.text_area :academic %>
   </div>
   
-  <%= artist_form.fields_for :contacts do |contact_fields| %>
-    category  : <%= contact_fields.text_field :category %> <br>
-    content : <%= contact_fields.text_field :content %>
-  <% end %>
+  <기본정보>
+  <div class="field">
+    <%= artist_form.fields_for :contacts do |contact_fields| %>
+      <%= contact_fields.label :contacts, "연락처" %><br>
+      <%= contact_fields.select(:category, :category) do %>
+        <% [[:category]].each do |c| -%>
+          <%= content_tag(:option, c.first, value: c.first) %>
+        <% end %>
+      <% end %>
+        category  : <%= contact_fields.text_field :category %> <br>
+        content : <%= contact_fields.text_field :content %>
+    <% end %>
+  </div>
   
+  <학력>
+  <div class="field">
   <%= artist_form.fields_for :histories do |history_fields| %>
-    category  : <%= history_fields.text_field :category %>
-    title : <%= history_fields.text_field :title %>
-    title : <%= history_fields.text_field :title %>
+
+    분류  : <%= history_fields.text_field :category %><br>
+    title : <%= history_fields.text_field :title %><br>
+    title : <%= history_fields.text_field :content %>
   <% end %>
+  </div>
   
+  <
   <div class="actions">
     <%= artist_form.submit %>
   </div>

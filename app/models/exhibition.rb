@@ -5,4 +5,7 @@ class Exhibition < ActiveRecord::Base
     
     #Catalogue : Exhibition = M : N
     has_many :catalogues, through: :catalogue_exhibitions
+    
+    #Exhibition : Space = M : N
+    has_many :spaces, through: :exhibition_spaces
 end

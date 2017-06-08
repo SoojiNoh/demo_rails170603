@@ -13,8 +13,8 @@ class Artist < ActiveRecord::Base
     #Artist : Catalogue = 1 : N
     has_many :catalogues
     
-    #Artist : Artwork = 1 : N
-    has_many :artworks
+    #Artist : Artwork = M : N
+    has_many :artworks, through: :artist_artworks
     
     #Artist : Exhibition = M : N
     has_many :exhibitions, through: :artist_exhibitions

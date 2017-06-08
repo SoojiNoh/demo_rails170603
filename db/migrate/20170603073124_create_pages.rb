@@ -5,7 +5,7 @@ class CreatePages < ActiveRecord::Migration
       t.string :content
       t.string :route
       t.string :title
-      t.integer :pageNum
+      t.integer :page_num
       t.references :catalogue, index: true, null: false
       t.timestamps null: false
     end

@@ -9,11 +9,13 @@
  
 
   <tr>
-    <td><%= @artist.name %></td>
-    <td><%= @artist.role %></td>
-    <td><%= link_to "Show", @artist %></td>
-    <td><%= link_to "Edit", edit_artist_path(@artist) %></td>
-    <td><%= link_to "Remove", @artist, method: :delete, data: { confirm: "Are you sure?" } %></td>
+    <% if @artist.present?%>
+      <td><%= @artist.name %></td>
+      <td><%= @artist.role %></td>
+      <td><%= link_to "Show", @artist %></td>
+      <td><%= link_to "Edit", edit_artist_path(@artist) %></td>
+      <td><%= link_to "Remove", @artist, method: :delete, data: { confirm: "Are you sure?" } %></td>
+    <%end%>
   </tr>
 
 </table>

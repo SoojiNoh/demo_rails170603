@@ -92,12 +92,12 @@ ActiveRecord::Schema.define(version: 20170607132727) do
   add_index "catalogues", ["user_id"], name: "index_catalogues_on_user_id"
 
   create_table "contacts", force: :cascade do |t|
-    t.string   "category",         null: false
-    t.string   "content",          null: false
+    t.string   "category",         default: "---\n- facebook\n- twitter\n", null: false
+    t.string   "content",                                                   null: false
     t.integer  "contactable_id"
     t.string   "contactable_type"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",                                                null: false
+    t.datetime "updated_at",                                                null: false
   end
 
   create_table "exhibitions", force: :cascade do |t|
@@ -110,8 +110,9 @@ ActiveRecord::Schema.define(version: 20170607132727) do
   end
 
   create_table "histories", force: :cascade do |t|
-    t.string   "category"
+    t.string   "category",                          null: false
     t.string   "title",                             null: false
+    t.string   "content"
     t.string   "start_date"
     t.string   "end_date",   default: "start_date"
     t.integer  "artist_id"

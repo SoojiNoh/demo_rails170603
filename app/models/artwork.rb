@@ -1,4 +1,4 @@
 class Artwork < ActiveRecord::Base
-    #Artist : Artwork = 1 : N
-    belongs_to :artist
+    #Artist : Artwork = M : N
+    has_many :artists, through: :artist_artworks
 end

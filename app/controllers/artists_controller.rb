@@ -1,5 +1,6 @@
 class ArtistsController < ApplicationController
   before_action :set_artist, only: [:show, :edit, :update, :destroy]
+  before_action :reject_create, except: [:index, :show, :edit, :destroy]
   before_filter :authenticate_user!
   # helper FormHelper
   
@@ -17,6 +18,7 @@ class ArtistsController < ApplicationController
 
   # GET /artists/new
   def new
+
     @artist = Artist.new
     # @artist = Artist.new
   end
@@ -30,6 +32,8 @@ class ArtistsController < ApplicationController
   def create
     @artist = Artist.new(artist_params)
     @artist.user = current_user
+    
+    puts "artist_params #{artist_params}"
 
     respond_to do |format|
       if @artist.save
@@ -46,6 +50,9 @@ class ArtistsController < ApplicationController
   # PATCH/PUT /artists/1
   # PATCH/PUT /artists/1.json
   def update
+    
+    puts "artist_params #{artist_params}"
+    
     respond_to do |format|
       if @artist.update(artist_params)
         format.html { redirect_to @artist, notice: 'Artist was successfully updated.' }
@@ -78,8 +85,16 @@ class ArtistsController < ApplicationController
     #   params.require(:artist).permit(:title, :description)
     # end
     
+    def reject_create
+      if current_user.artist.present?
+        respond_to do |format|
+          format.html { redirect_to artists_url, notice: 'Your artist account already exists.' }
+        end
+      end
+    end
+    
     def artist_params
-      params.require(:artist).permit(:name, :role, :academic, :user_id)
+      params.require(:artist).permit(:name, :role, contacts_attributes: [:id, :category, :content ])
     end
     
     

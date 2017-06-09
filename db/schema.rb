@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170607132727) do
+ActiveRecord::Schema.define(version: 20170608053357) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -31,6 +31,16 @@ ActiveRecord::Schema.define(version: 20170607132727) do
   add_index "admins", ["email"], name: "index_admins_on_email", unique: true
   add_index "admins", ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
 
+  create_table "artist_artworks", force: :cascade do |t|
+    t.integer  "artist_id",  null: false
+    t.integer  "artwork_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "artist_artworks", ["artist_id"], name: "index_artist_artworks_on_artist_id"
+  add_index "artist_artworks", ["artwork_id"], name: "index_artist_artworks_on_artwork_id"
+
   create_table "artist_exhibitions", force: :cascade do |t|
     t.integer  "artist_id",     null: false
     t.integer  "exhibition_id", null: false
@@ -44,28 +54,32 @@ ActiveRecord::Schema.define(version: 20170607132727) do
   create_table "artists", force: :cascade do |t|
     t.string   "name",       null: false
     t.string   "role"
-    t.string   "academic"
     t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "artworks", force: :cascade do |t|
-    t.string   "category"
-    t.string   "artist_name"
-    t.string   "photo"
-    t.string   "title"
-    t.string   "size"
-    t.integer  "width"
-    t.integer  "height"
-    t.string   "material"
-    t.date     "created_date"
-    t.integer  "artist_id"
+  create_table "artwork_catalogues", force: :cascade do |t|
+    t.integer  "artwork_id",   null: false
+    t.integer  "catalogue_id", null: false
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
   end
 
-  add_index "artworks", ["artist_id"], name: "index_artworks_on_artist_id"
+  add_index "artwork_catalogues", ["artwork_id"], name: "index_artwork_catalogues_on_artwork_id"
+  add_index "artwork_catalogues", ["catalogue_id"], name: "index_artwork_catalogues_on_catalogue_id"
+
+  create_table "artworks", force: :cascade do |t|
+    t.string   "category"
+    t.string   "photo"
+    t.string   "title",        default: "Untitled"
+    t.string   "size",         default: "--- []\n"
+    t.string   "unit"
+    t.string   "material"
+    t.date     "created_date"
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+  end
 
   create_table "catalogue_exhibitions", force: :cascade do |t|
     t.integer  "catalogue_id",  null: false
@@ -78,7 +92,7 @@ ActiveRecord::Schema.define(version: 20170607132727) do
   add_index "catalogue_exhibitions", ["exhibition_id"], name: "index_catalogue_exhibitions_on_exhibition_id"
 
   create_table "catalogues", force: :cascade do |t|
-    t.integer  "user_id"
+    t.integer  "user_id",     null: false
     t.integer  "artist_id"
     t.integer  "space_id"
     t.string   "title",       null: false
@@ -92,13 +106,23 @@ ActiveRecord::Schema.define(version: 20170607132727) do
   add_index "catalogues", ["user_id"], name: "index_catalogues_on_user_id"
 
   create_table "contacts", force: :cascade do |t|
-    t.string   "category",         default: "---\n- facebook\n- twitter\n", null: false
-    t.string   "content",                                                   null: false
+    t.string   "category",         null: false
+    t.string   "content",          null: false
     t.integer  "contactable_id"
     t.string   "contactable_type"
-    t.datetime "created_at",                                                null: false
-    t.datetime "updated_at",                                                null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
   end
+
+  create_table "exhibition_spaces", force: :cascade do |t|
+    t.integer  "exhibition_id", null: false
+    t.integer  "space_id",      null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "exhibition_spaces", ["exhibition_id"], name: "index_exhibition_spaces_on_exhibition_id"
+  add_index "exhibition_spaces", ["space_id"], name: "index_exhibition_spaces_on_space_id"
 
   create_table "exhibitions", force: :cascade do |t|
     t.string   "category"
@@ -112,10 +136,11 @@ ActiveRecord::Schema.define(version: 20170607132727) do
   create_table "histories", force: :cascade do |t|
     t.string   "category",                          null: false
     t.string   "title",                             null: false
-    t.string   "content"
+    t.string   "detail"
+    t.string   "status"
     t.string   "start_date"
     t.string   "end_date",   default: "start_date"
-    t.integer  "artist_id"
+    t.integer  "artist_id",                         null: false
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
   end
@@ -127,7 +152,7 @@ ActiveRecord::Schema.define(version: 20170607132727) do
     t.string   "content"
     t.string   "route"
     t.string   "title"
-    t.integer  "pageNum"
+    t.integer  "page_num"
     t.integer  "catalogue_id", null: false
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
@@ -153,12 +178,12 @@ ActiveRecord::Schema.define(version: 20170607132727) do
   end
 
   create_table "spaces", force: :cascade do |t|
-    t.string   "name",         default: "none", null: false
+    t.string   "name",         null: false
     t.string   "location"
     t.string   "map"
     t.string   "service_time"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   create_table "users", force: :cascade do |t|

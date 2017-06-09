@@ -1,4 +1,4 @@
-<%= form_for @artist, url: {action: "create"}, html: {class: "artist_group_form"} do |artist_form| %>
+<%= simple_form_for(setup_artist(@artist)) do |artist_form| %>
   <% if @artist.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@artist.errors.count, "error") %> prohibited this artist from being saved:</h2>
@@ -23,29 +23,28 @@
   <기본정보>
   <div class="field">
     <%= artist_form.fields_for :contacts do |contact_fields| %>
-      <%= contact_fields.label :contacts, "연락처" %><br>
-      <%= contact_fields.select(:category, :category) do %>
-        <% [[:category]].each do |c| -%>
-          <%= content_tag(:option, c.first, value: c.first) %>
+      <%= contact_fields.select(:category) do %>
+        <% [['이메일', 'email'], ['휴대폰', 'phone']].each do |c| -%>
+          <%= content_tag(:option, c.first, value: c.last) %>
         <% end %>
       <% end %>
-        category  : <%= contact_fields.text_field :category %> <br>
-        content : <%= contact_fields.text_field :content %>
+      <%= contact_fields.text_field :content %>
     <% end %>
   </div>
   
-  <학력>
-  <div class="field">
-  <%= artist_form.fields_for :histories do |history_fields| %>
-
-    분류  : <%= history_fields.text_field :category %><br>
-    title : <%= history_fields.text_field :title %><br>
-    title : <%= history_fields.text_field :content %>
-  <% end %>
-  </div>
   
-  <
+
   <div class="actions">
     <%= artist_form.submit %>
   </div>
 <% end %>
+
+
+<script>
+  $('.add-contact-button').click(function(ev){
+    ev.preventDefault()
+    $lastContactField = $('input[name="artist[contacts_attributes][0][content][]"]:last-of-type').clone()
+    $lastContactField.val("")
+    $(".input.artist_contacts_content").append($lastContactField)
+  })
+</script>

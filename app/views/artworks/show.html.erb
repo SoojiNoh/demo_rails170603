@@ -1,4 +1,40 @@
 <p id="notice"><%= notice %></p>
 
+<p>
+  <strong>분류:</strong>
+  <%= @artwork.category %>
+</p>
+
+<p>
+  <strong>사진:</strong>
+  <%= @artwork.photo %>
+</p>
+
+<p>
+  <strong>제목:</strong>
+  <%= @artwork.title %>
+</p>
+
+<p>
+  <strong>크기:</strong>
+  <%= @artwork.size %>
+</p>
+
+<p>
+  <strong>단위:</strong>
+  <%= @artwork.unit %>
+</p>
+
+<p>
+  <strong>재료:</strong>
+  <%= @artwork.material %>
+</p>
+
+<p>
+  <strong>창작시점:</strong>
+  <%= @artwork.created_date %>
+</p>
+
+
 <%= link_to 'Edit', edit_artwork_path(@artwork) %> |
 <%= link_to 'Back', artworks_path %>

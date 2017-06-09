@@ -1,4 +1,22 @@
 <p id="notice"><%= notice %></p>
+<p>
+  <strong>이름:</strong>
+  <%= @artist.name %>
+</p>
+
+<p>
+  <strong>직업:</strong>
+  <%= @artist.role %>
+</p>
+
+<p>
+  <strong>연락처:</strong>
+  <% @artist.contacts.each do |contact| %>
+     <%= contact.category %><br>
+     <%= contact.content %><br>
+  <%end%>
+</p>
+
 
 <%= link_to 'Edit', edit_artist_path(@artist) %> |
 <%= link_to 'Back', artists_path %>

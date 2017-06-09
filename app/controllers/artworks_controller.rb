@@ -27,25 +27,10 @@ class ArtworksController < ApplicationController
   def create
     @artwork = Artwork.new(artwork_params)
     # @artwork = Artwork.new(artwork_params)
-
+    puts @artwork
     respond_to do |format|
       if @artwork.save
         format.html { redirect_to :back, notice: 'Artwork was successfully created.' }
-        format.json { render :show, status: :created, location: @artwork }
-      else
-        format.html { render :new }
-        format.json { render json: @artwork.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-  
-  def create_via_catalogue
-    @artwork = Artwork.new(artwork_params)
-    # @artwork = Artwork.new(artwork_params)
-
-    respond_to do |format|
-      if @artwork.save
-        format.html { redirect_to '/', notice: 'Artwork was successfully created.' }
         format.json { render :show, status: :created, location: @artwork }
       else
         format.html { render :new }
@@ -57,6 +42,7 @@ class ArtworksController < ApplicationController
   # PATCH/PUT /artworks/1
   # PATCH/PUT /artworks/1.json
   def update
+    puts artwork_params
     respond_to do |format|
       if @artwork.update(artwork_params)
         format.html { redirect_to @artwork, notice: 'Artwork was successfully updated.' }
@@ -90,6 +76,6 @@ class ArtworksController < ApplicationController
     # end
     
     def artwork_params
-      params.require(:artwork).permit(:category, :artist_name, :photo, :title, :size, :width, :height, :material, :created_at)
+      params.require(:artwork).permit(:category, :photo, :title, :unit, :material, :created_date, size: [])
     end
 end

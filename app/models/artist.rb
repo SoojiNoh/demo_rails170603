@@ -8,7 +8,7 @@ class Artist < ActiveRecord::Base
     
     #Artist : Contact = 1 : N
     has_many :contacts, as: :contactable
-    accepts_nested_attributes_for :contacts, reject_if: proc { |attributes| attributes['category'].blank? or attributes['content'] }
+    accepts_nested_attributes_for :contacts, reject_if: proc { |attributes| attributes['category'].blank? or attributes['content'].blank? }
     
     #Artist : Catalogue = 1 : N
     has_many :catalogues

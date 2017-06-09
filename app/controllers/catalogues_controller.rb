@@ -1,5 +1,6 @@
 class CataloguesController < ApplicationController
   before_action :set_catalogue, only: [:show, :edit, :update, :destroy]
+  # input ArrayInput
 
   # GET /catalogues
   # GET /catalogues.json
@@ -99,11 +100,11 @@ class CataloguesController < ApplicationController
     end
     
     def artwork_params
-      params.require(:artwork).permit(:artwork, :type, :artist_name, :photo, :title, :size, :width, :height, :material, :created_date)
+      params.require(:artwork).permit(:artwork, :type, :photo, :title, {size: []}, :unit, :material, :created_date)
     end
     
     def artist_params
-      params.require(:artist).permit(:name, :role, :academic, :user_id)
+      params.require(:artist).permit(:name, :role, :user_id)
     end
     
     def contact_params

@@ -1,6 +1,6 @@
 class ArtistsController < ApplicationController
   before_action :set_artist, only: [:show, :edit, :update, :destroy]
-  before_action :reject_create, except: [:index, :show, :edit, :destroy]
+  before_action :reject_create, except: [:index, :show, :edit, :update, :destroy]
   before_filter :authenticate_user!
   # helper FormHelper
   
@@ -37,7 +37,7 @@ class ArtistsController < ApplicationController
 
     respond_to do |format|
       if @artist.save
-        format.html { redirect_to :back, notice: 'Artist was successfully created.' }
+        format.html { redirect_to edit_artist_path(@artist), notice: 'Artist was successfully created.' }
         format.json { render :show, status: :created, location: @artist }
       else
         format.html { render :new }
@@ -51,11 +51,11 @@ class ArtistsController < ApplicationController
   # PATCH/PUT /artists/1.json
   def update
     
-    puts "artist_params #{artist_params}"
+    puts "***************artist_params #{artist_params}"
     
     respond_to do |format|
       if @artist.update(artist_params)
-        format.html { redirect_to @artist, notice: 'Artist was successfully updated.' }
+        format.html { redirect_to edit_artist_path(@artist), notice: 'Artist was successfully updated.' }
         format.json { render :show, status: :ok, location: @artist }
       else
         format.html { render :edit }
@@ -94,7 +94,7 @@ class ArtistsController < ApplicationController
     end
     
     def artist_params
-      params.require(:artist).permit(:name, :role, contacts_attributes: [:id, :category, :content ])
+      params.require(:artist).permit(:name, :role, contacts_attributes: Contact.attribute_names.map(&:to_sym).push(:_destroy))
     end
     
     

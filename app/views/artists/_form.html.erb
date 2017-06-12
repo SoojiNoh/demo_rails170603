@@ -1,4 +1,4 @@
-<%= simple_form_for(setup_artist(@artist)) do |artist_form| %>
+<%= simple_form_for(@artist) do |f| %>
   <% if @artist.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@artist.errors.count, "error") %> prohibited this artist from being saved:</h2>
@@ -12,45 +12,32 @@
 
   <h3>기본 정보</h3>
   <div class="field" col="3">
-    <%= artist_form.label :name %><br>
-    <%= artist_form.text_field :name %>
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= artist_form.label :role %><br>
-    <%= artist_form.text_area :role %>
+    <%= f.label :role %><br>
+    <%= f.text_area :role %>
   </div>
   
-  <기본정보>
-  <div class="contact_field">
-    <%= artist_form.fields_for :contacts do |contact_fields| %>
-      <%= contact_fields.select(:category) do %>
-        <% [['이메일', 'email'], ['휴대폰', 'phone']].each do |c| -%>
-          <%= content_tag(:option, c.first, value: c.last) %>
-        <% end %>
+  <table class='table'>
+    <thead>
+      <tr>
+        <th></th>
+        <th>Artist Name</th>
+        <th>Artist Role</th>
+      </tr>
+    </thead>
+    <tbody class="fields">
+      <%= f.simple_fields_for :contacts do |builder| %>
+        <%= render 'contact', f: builder %>
       <% end %>
-      <%= contact_fields.text_field :content %>
-      <button class="delete-contact-button">X</button>
-    <% end %>
-    <div class="field">
-      <button class="add-contact-button">추가</button><br>
-    </div>
-  </div>
-  
-  
+    </tbody>
+  </table>
 
-  <div class="actions">
-    <%= artist_form.submit %>
+  <div class="form-actions">
+    <%= f.button :submit %>
+    <%= link_to_add_row('Add Artist', f, :contacts, class: 'btn btn-primary') %>
   </div>
 <% end %>
 
-
-<script>
-  $('.add-contact-button').click(function(ev){
-    ev.preventDefault()
-    $lastContactFieldCategory = $('select[name="artist[contacts_attributes][0][category]"]:last-of-type').clone()
-    $lastContactFieldCategory.val("")
-    $lastContactFieldContent = $('input[name="artist[contacts_attributes][0][content]"]:last-of-type').clone()
-    $lastContactFieldContent.val("")
-    $(".contact_field").append($lastContactFieldCategory, $lastContactFieldContent)
-  })
-</script>

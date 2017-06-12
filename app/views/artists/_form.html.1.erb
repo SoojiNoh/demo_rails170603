@@ -20,35 +20,25 @@
     <%= artist_form.text_area :role %>
   </div>
   
-  <기본정보>
-  <div class="contact_field">
-    <%= artist_form.fields_for :contacts do |contact_fields| %>
-      <%= contact_fields.label :contacts, "연락처" %><br>
-      <%= contact_fields.select(:category) do %>
-        <% [['이메일', 'email'], ['휴대폰', 'phone'], ['직접입력', 'etc']].each do |c| -%>
-          <%= content_tag(:option, c.first, value: c.last) %>
-        <% end %>
+  <table class='table'>
+    <thead>
+      <tr>
+        <th></th>
+        <th>Task Name</th>
+        <th>Completed</th>
+        <th>Due</th>
+      </tr>
+    </thead>
+    <tbody class="fields">
+      <%= f.simple_fields_for :tasks do |builder| %>
+        <%= render 'task', f: builder %>
       <% end %>
-      <div class="field">
-        <%= contact_fields.input :content, as: :array %>
-        <button class="add-contact-button">추가</button><br>
-      </div>
-    <% end %>
-  </div>
-  
-  <학력>
-  <div class="field">
-  <%= artist_form.fields_for :histories do |history_fields| %>
+    </tbody>
+  </table>
 
-    분류  : <%= history_fields.text_field :category %><br>
-    title : <%= history_fields.text_field :title %><br>
-    title : <%= history_fields.text_field :content %>
-  <% end %>
-  </div>
-  
-
-  <div class="actions">
-    <%= artist_form.submit %>
+  <div class="form-actions">
+    <%= f.button :submit %>
+    <%= link_to_add_row('Add Task', f, :tasks, class: 'btn btn-primary') %>
   </div>
 <% end %>
 
@@ -56,8 +46,10 @@
 <script>
   $('.add-contact-button').click(function(ev){
     ev.preventDefault()
-    $lastContactField = $('input[name="artist[contacts_attributes][0][content][]"]:last-of-type').clone()
-    $lastContactField.val("")
-    $(".input.artist_contacts_content").append($lastContactField)
+    $lastContactFieldCategory = $('select[name="artist[contacts_attributes][0][category]"]:last-of-type').clone()
+    $lastContactFieldCategory.val("")
+    $lastContactFieldContent = $('input[name="artist[contacts_attributes][0][content]"]:last-of-type').clone()
+    $lastContactFieldContent.val("")
+    $(".contact_field").append($lastContactFieldCategory, $lastContactFieldContent)
   })
 </script>

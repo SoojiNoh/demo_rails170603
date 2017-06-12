@@ -1,0 +1,16 @@
+<tr>
+    <%= f.input_field :category, as: :hidden, value: 'academic'%>
+    <td>
+        <%= f.input_field :_destroy, as: :hidden %>
+        <%= link_to 'Delete', '#', class: 'remove_record'%>
+    </td>
+    <td>
+        <%= f.input :start_date, label: false %>
+
+        <%= link_to 'show_end_date', '#', class: 'show_field'%>
+        <%= f.input :end_date, as: :hidden, value: :start_date %>
+    </td>
+    <td><%= f.input :title, label: false %></td>
+    <td><%= f.input :detail, label: false %></td>
+    <td><%= f.input :status, label: false %></td>
+</tr>

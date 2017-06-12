@@ -15,7 +15,7 @@
 //= require turbolinks
 //= require_tree .
 $(document).on('turbolinks:load', function() {
-          console.log('loaded');
+        console.log('loaded');
    $('form').on('click', '.remove_record', function(event) {
        $(this).prev('input[type=hidden]').val('1');
        $(this).closest('tr').hide();
@@ -24,10 +24,12 @@ $(document).on('turbolinks:load', function() {
    
    $('form').on('click', '.add_fields', function(event) {
        console.log('clicked');
-       var regexp, time;
+       var regexp, time, type;
+       type = $(this).data('type');
        time = new Date().getTime();
        regexp = new RegExp($(this).data('id'), 'g');
-       $('.fields').append($(this).data('fields').replace(regexp, time));
+       $('.'+type).append($(this).data('fields').replace(regexp, time));
        return event.preventDefault();
-   }); 
+   });
+
 });

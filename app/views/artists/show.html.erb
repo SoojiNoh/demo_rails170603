@@ -9,13 +9,25 @@
   <%= @artist.role %>
 </p>
 
-<p>
-  <strong>연락처:</strong>
-  <% @artist.contacts.each do |contact| %>
-     <%= contact.category %><br>
-     <%= contact.content %><br>
-  <%end%>
-</p>
+
+  <table class='table'>
+    <thead>
+      <tr>
+        <th></th>
+        <th>Contact Category</th>
+        <th>Contact Content</th>
+      </tr>
+    </thead>
+    <tbody class="fields">
+      <% @artist.contacts.each do |contact| %>
+        <tr>
+         <td></td>
+         <td><%= contact.category %><br></td>
+         <td><%= contact.content %><br></td>
+        </tr>
+      <%end%>
+    </tbody>
+  </table>
 
 
 <%= link_to 'Edit', edit_artist_path(@artist) %> |

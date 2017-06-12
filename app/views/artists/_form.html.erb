@@ -24,20 +24,40 @@
     <thead>
       <tr>
         <th></th>
-        <th>Artist Name</th>
-        <th>Artist Role</th>
+        <th>Contact :category</th>
+        <th>Contact :content</th>
       </tr>
     </thead>
-    <tbody class="fields">
+    <tbody class="fields_contacts">
       <%= f.simple_fields_for :contacts do |builder| %>
         <%= render 'contact', f: builder %>
       <% end %>
     </tbody>
   </table>
+  <%= link_to_add_row('Add Contact', f, :contacts, class: 'btn btn-primary', type: "fields_contacts") %>
+
+  
+  <table class='table'>
+    <thead>
+      <tr>
+        <th></th>
+        <th>History :start_date</th>
+        <th>History :title</th>
+        <th>History :detail</th>
+        <th>History :status</th>
+      </tr>
+    </thead>
+    <tbody class="fields_histories">
+      <%= f.simple_fields_for :histories do |builder| %>
+        <%= render 'history', f: builder %>
+      <% end %>
+    </tbody>
+  </table>
+  <%= link_to_add_row('Add History', f, :histories, class: 'btn btn-primary', type: 'fields_histories') %>
+
 
   <div class="form-actions">
-    <%= f.button :submit %>
-    <%= link_to_add_row('Add Artist', f, :contacts, class: 'btn btn-primary') %>
+    <br><br><%= f.button :submit %>
   </div>
 <% end %>
 

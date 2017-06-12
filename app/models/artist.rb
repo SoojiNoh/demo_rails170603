@@ -5,6 +5,7 @@ class Artist < ActiveRecord::Base
     
     #Artist : History = 1 : N
     has_many :histories
+    accepts_nested_attributes_for :histories, reject_if: proc { |attributes| attributes['title'].blank? }
     
     #Artist : Contact = 1 : N
     has_many :contacts, as: :contactable

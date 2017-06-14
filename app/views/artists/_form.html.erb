@@ -23,6 +23,7 @@
     <% if builder.object.category == "email" or builder.object.category == "phone" %>
       <div class="field">
         <%= builder.object.category %>
+        <%= builder.hidden_field :category, value: builder.object.category %>
         <%= builder.input :content, label: false %>
       </div>
     <% end %>

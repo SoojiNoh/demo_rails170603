@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  get 'contacts/index'
+
+  get 'contacts/new'
+
   devise_for :admins
   devise_for :users, controllers: {
     sessions: 'users/sessions',
@@ -8,13 +12,22 @@ Rails.application.routes.draw do
   }
   
   
-  resources :catalogues
+  resources :catalogues do
+    resources :players
+    resources :pages
+  end
   resources :artworks  
-  resources :artists
+  resources :artists do
+    resources :contacts
+    resources :histories
+  end
   resources :exhibitions
-  resources :spaces
-  resources :histories
-  resources :contacts
+  resources :spaces do
+    resources :contacts
+  end
+  
+  # resources :histories
+  # resources :contacts
   
   get 'dashboards/index'
   get 'dashboards/help'

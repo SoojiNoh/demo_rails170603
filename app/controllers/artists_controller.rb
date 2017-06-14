@@ -20,11 +20,17 @@ class ArtistsController < ApplicationController
   def new
 
     @artist = Artist.new
-    # @artist = Artist.new
+    
+    @email = @artist.contacts.new(category: 'email')
+    @phone = @artist.contacts.new(category: 'phone')
+    puts (">>>>>>>>>>>>>>#{@email.category}>>>>>>>>>>#{@phone.category}")
   end
 
   # GET /artists/1/edit
   def edit
+    @artist_email=@artist.contacts.find_by_category('email').content
+    @artist_phone=@artist.contacts.find_by_category('phone').content
+
   end
 
   # POST /artists
@@ -37,6 +43,8 @@ class ArtistsController < ApplicationController
 
     respond_to do |format|
       if @artist.save
+        @email = @artist.contacts.create(category: "email", content: params[:artist_email])
+        @phone = @artist.contacts.create(category: "phone", content: params[:artist_phone])
         format.html { redirect_to edit_artist_path(@artist), notice: 'Artist was successfully created.' }
         format.json { render :show, status: :created, location: @artist }
       else
@@ -50,7 +58,8 @@ class ArtistsController < ApplicationController
   # PATCH/PUT /artists/1
   # PATCH/PUT /artists/1.json
   def update
-    
+    @artist.contacts.find_by_category('email').content
+    @artist.contacts.find_by_category('phone').content
     puts "***************artist_params #{artist_params}"
     
     respond_to do |format|

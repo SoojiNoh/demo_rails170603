@@ -1,2 +1,2 @@
-json.extract! artist, :id, :name, :role, :contacts, histories, :user_id, :created_at, :updated_at
+json.extract! artist, :id, :name, :role, :contacts, :histories, :user_id, :created_at, :updated_at
 json.url artist_url(artist, format: :json)

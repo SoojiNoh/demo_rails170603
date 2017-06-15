@@ -28,8 +28,6 @@ class ArtistsController < ApplicationController
 
   # GET /artists/1/edit
   def edit
-    # @artist_email=@artist.contacts.find_by_category('email').content
-    # @artist_phone=@artist.contacts.find_by_category('phone').content
 
   end
 
@@ -43,8 +41,8 @@ class ArtistsController < ApplicationController
 
     respond_to do |format|
       if @artist.save
-        @email = @artist.contacts.create(category: "email", content: params[:artist_email])
-        @phone = @artist.contacts.create(category: "phone", content: params[:artist_phone])
+        # @email = @artist.contacts.create(category: "email", content: params[:artist_email])
+        # @phone = @artist.contacts.create(category: "phone", content: params[:artist_phone])
         format.html { redirect_to edit_artist_path(@artist), notice: 'Artist was successfully created.' }
         format.json { render :show, status: :created, location: @artist }
       else
@@ -62,8 +60,6 @@ class ArtistsController < ApplicationController
     
     respond_to do |format|
       if @artist.update(artist_params)
-        # @artist.contacts.find_by_category('email').content = params[:artist_email]
-        # @artist.contacts.find_by_category('phone').content = params[:artist_phone]
         format.html { redirect_to edit_artist_path(@artist), notice: 'Artist was successfully updated.' }
         format.json { render :show, status: :ok, location: @artist }
       else

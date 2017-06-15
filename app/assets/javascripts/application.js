@@ -31,5 +31,15 @@ $(document).on('turbolinks:load', function() {
        $('.'+type).append($(this).data('fields').replace(regexp, time));
        return event.preventDefault();
    });
+   
+    $('form').on('click', '.show_hidden_fields', function(event) {
+       console.log('clicked');
+       var regexp, time, type;
+       type = $(this).data('type');
+       time = new Date().getTime();
+       regexp = new RegExp($(this).data('id'), 'g');
+       $('.'+type).append($(this).data('fields').replace(regexp, time));
+       return event.preventDefault();
+   });
 
 });

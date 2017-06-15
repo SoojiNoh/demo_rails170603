@@ -1,13 +1,21 @@
 <p id="notice"><%= notice %></p>
 <p>
-  <strong>이름:</strong>
+  <strong>이름 :</strong>
   <%= @artist.name %>
 </p>
 
 <p>
-  <strong>직업:</strong>
+  <strong>직업 :</strong>
   <%= @artist.role %>
 </p>
+
+<% @artist.contacts.where(category: ["email", "phone"]).each do |contact| %>
+  <tr>
+   <td></td>
+   <td><strong><%= contact.category %> :</strong></td>
+   <td><%= contact.content %><br></td>
+  </tr>
+<%end%>
 
 
   <table class='table'>
@@ -24,6 +32,29 @@
          <td></td>
          <td><%= contact.category %><br></td>
          <td><%= contact.content %><br></td>
+        </tr>
+      <%end%>
+    </tbody>
+  </table>
+  
+  <table class='table'>
+    <thead>
+      <tr>
+        <th></th>
+        <th>History start_date</th>
+        <th>History title</th>
+        <th>History detail</th>
+        <th>History status</th>
+      </tr>
+    </thead>
+    <tbody class="fields">
+      <% @artist.histories.each do |history| %>
+        <tr>
+         <td></td>
+         <td><%= history.start_date %><br></td>
+         <td><%= history.title %><br></td>
+         <td><%= history.detail %><br></td>
+         <td><%= history.status %><br></td>
         </tr>
       <%end%>
     </tbody>

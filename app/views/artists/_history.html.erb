@@ -5,10 +5,15 @@
         <%= link_to 'Delete', '#', class: 'remove_record'%>
     </td>
     <td>
-        <%= f.input :start_date, label: false %>
-
-        <%= link_to 'show_end_date', '#', class: 'show_fields'%>
-        <%= f.input :end_date, as: :hidden, value: :start_date %>
+        <% puts "title.end_date? : #{f.object.title}.#{f.object.end_date}" %>
+        <%= f.input :start_date, label: false %>~
+        <% if f.object.end_date? %>
+            <%= f.input :end_date, label: false %>
+        <% else %>
+            <%= f.input :end_date, as: :hidden %>
+        <% end %>
+        <%= link_to 'toggle_end_date', '#', class: 'toggle_hidden_fields'%>
+        
     </td>
     <td><%= f.input :title, label: false %></td>
     <td><%= f.input :detail, label: false %></td>

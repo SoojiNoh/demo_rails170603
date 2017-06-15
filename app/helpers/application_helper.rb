@@ -5,15 +5,6 @@ module ApplicationHelper
         fields = f.simple_fields_for(association, new_object, child_index: id) do |builder|
             render(association.to_s.singularize, f: builder)
         end
-        link_to(name, '#', class: "add_fields " + args[:class], data: {id: id, fields: fields.gsub("\n",""), type: args[:type]}) 
-    end
-    
-    def link_to_show_hidden_field(name, f, association, **args)
-        new_object = f.object.send(association).klass.new
-        id = new_object.object_id
-        fields = f.simple_fields_for(association, new_object, child_index: id) do |builder|
-            render(association.to_s.singularize, f: builder)
-        end
-        link_to(name, '#', class: "add_fields " + args[:class], data: {id: id, fields: fields.gsub("\n",""), type: args[:type]}) 
+        link_to(name, '#', class: "add_fields " + args[:class], data: {id: id, fields: fields.gsub("\n",""), label: args[:label]}) 
     end
 end

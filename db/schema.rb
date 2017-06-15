@@ -134,15 +134,15 @@ ActiveRecord::Schema.define(version: 20170608053357) do
   end
 
   create_table "histories", force: :cascade do |t|
-    t.string   "category",                          null: false
-    t.string   "title",                             null: false
+    t.string   "category",   null: false
+    t.string   "title",      null: false
     t.string   "detail"
     t.string   "status"
     t.string   "start_date"
-    t.string   "end_date",   default: "start_date"
-    t.integer  "artist_id",                         null: false
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
+    t.string   "end_date"
+    t.integer  "artist_id",  null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_index "histories", ["artist_id"], name: "index_histories_on_artist_id"

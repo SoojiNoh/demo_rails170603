@@ -6,7 +6,7 @@ class CreateHistories < ActiveRecord::Migration
       t.string :detail, null: true
       t.string :status, null: true
       t.string :start_date, null: true
-      t.string :end_date, null: true, default: :start_date
+      t.string :end_date, null: true
       t.references :artist, index: true, null: false
       t.timestamps null: false
     end

@@ -24,21 +24,27 @@ $(document).on('turbolinks:load', function() {
    
    $('form').on('click', '.add_fields', function(event) {
        console.log('clicked');
-       var regexp, time, type;
-       type = $(this).data('type');
+       var regexp, time, label;
+       label = $(this).data('label'); //내가 추가한 것
        time = new Date().getTime();
        regexp = new RegExp($(this).data('id'), 'g');
-       $('.'+type).append($(this).data('fields').replace(regexp, time));
+       $('.'+label).append($(this).data('fields').replace(regexp, time)); //내가 수정한 것
        return event.preventDefault();
    });
    
-    $('form').on('click', '.show_hidden_fields', function(event) {
+    $('form').on('click', '.toggle_hidden_fields', function(event) {
        console.log('clicked');
-       var regexp, time, type;
-       type = $(this).data('type');
-       time = new Date().getTime();
-       regexp = new RegExp($(this).data('id'), 'g');
-       $('.'+type).append($(this).data('fields').replace(regexp, time));
+        var object = $(this).prev('.hidden');
+        if (object.get(0)){
+            object.removeClass('hidden');
+            object.find('input').removeClass('hidden');
+            object.find('input').attr( "type", "text" );
+        } else {
+            object = $(this).prev('.input');
+            object.addClass('hidden');
+            object.find('input').addClass('hidden');
+            object.find('input').attr( "type", "hidden" );
+        }
        return event.preventDefault();
    });
 

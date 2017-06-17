@@ -17,17 +17,32 @@
 
 </head>
 <body>
+
 <ul class="nav nav-tabs nav-justified">
   <li role="presentation" class="<%= 'active' if(params[:controller] != 'artists' && !(params[:controller].include? "users/"))%>"><a href="/dashboards/index">Dashboard</a></li>
   <%if user_signed_in?%>
     <li role="presentation" class="<%= 'active' if params[:controller] == 'artists' %>"><%=link_to "사용자 정보보기", artists_path%></li>
+    <%=link_to "로그아웃", destroy_user_session_path, method: :delete%>
   <%else%>
     <li role="presentation" class="<%= 'active' if params[:controller].include? "users/" %>"><%=link_to "로그인", new_user_session_path%></li>
   <%end%>
 </ul>
+  <% flash.each do |name, msg| %>
+    <% if msg.class == Array %>
+      <% msg.each do |message| %>
+        <%= content_tag :div, message, :id => "flash_#{name}" %>
+      <% end %>
+    <% else %>
+  
+  
+      <%= content_tag :div, msg, :id => "flash_#{name}" %>
+  
+    <% end %>
+  <% end %>   
 
 <% if params[:controller] == 'artists' or params[:controller].include? "users/"%>
   <div class="container">
+    
     <%= yield %>
   </div>
 <% else %>

@@ -5,12 +5,22 @@
         <%= link_to 'Delete', '#', class: 'remove_record'%>
     </td>
     <td>
-        <% puts "title.end_date? : #{f.object.title}.#{f.object.end_date}" %>
-        <%= f.input :start_date, label: false %>~
+        <%#= f.week_field :start_date, label: false, as: :date %>
+        <%#= f.select_year :start_date, (Time.zone.now.year - 100)..(Time.zone.now.year + 1) %>
+        <%= f.input :start_date, label: false, as: :date, include_blank: true, order: [:year], discard_day: true, :end_year => 1910, :start_year => Time.now.year + 10%>~
+        <%#= f.input :start_date, label: false, as: :date, include_blank: true, order: [:month]%>~
+        <%#= f.input :start_date, label: false, as: :date, include_blank: true, order: [:date]%>~
+
+        <%= link_to 'toggle_detail_date', '#', class: 'toggle_date_fields'%>
+
         <% if f.object.end_date? %>
-            <%= f.input :end_date, label: false %>
+            <div id="hidden_field"%>
+                <%= f.input :end_date, label: false, as: :date, include_blank: true, order: [:year], prompt: { day: 'Select day', month: 'Select month', year: 'Select year' } %>
+            </div>
         <% else %>
-            <%= f.input :end_date, as: :hidden %>
+            <div id="hidden_field" class="hidden"%>
+                <%= f.input :end_date, label: false, as: :date, include_blank: true, order: [:year], prompt: { day: 'Select day', month: 'Select month', year: 'Select year' }%>
+            </div>
         <% end %>
         <%= link_to 'toggle_end_date', '#', class: 'toggle_hidden_fields'%>
         

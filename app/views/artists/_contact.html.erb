@@ -5,7 +5,7 @@
     </td>
     <td>
         <%#= f.input :category, label: false %>
-        <%= f.select(:category, options_for_select([['페이스북', 'facebook'], ['인스타그램', 'instagram'], ['블로그','blog']],f.object.category)) %>
+        <%= f.select(:category, options_for_select([['페이스북', 'facebook'], ['인스타그램', 'instagram'], ['블로그','blog']], f.object.category), {prompt: '선택해주세요' }) %>
 
     </td>
     <td><%= f.input :content, label: false %></td>

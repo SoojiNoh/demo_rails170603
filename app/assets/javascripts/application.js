@@ -34,18 +34,43 @@ $(document).on('turbolinks:load', function() {
    
     $('form').on('click', '.toggle_hidden_fields', function(event) {
        console.log('clicked');
-        var object = $(this).prev('.hidden');
-        if (object.get(0)){
+        // var object = $(this).prev('.hidden');
+        var object = $(this).prev('#hidden_field');
+        console.log(object);
+        if (object.hasClass("hidden")){
             object.removeClass('hidden');
-            object.find('input').removeClass('hidden');
-            object.find('input').attr( "type", "text" );
+            // object.removeClass('hidden');
+            // object.find('input').removeClass('hidden');
+            // object.find('input').attr( "type", "text" );
         } else {
-            object = $(this).prev('.input');
             object.addClass('hidden');
-            object.find('input').addClass('hidden');
-            object.find('input').attr( "type", "hidden" );
+            // object = $(this).prev('.input');
+            // object.addClass('hidden');
+            // object.find('input').addClass('hidden');
+            // object.find('input').attr( "type", "hidden" );
         }
        return event.preventDefault();
    });
+   
+   
+    $('form').on('click', '.toggle_date_fields', function(event) {
+       console.log('clicked');
+        var object = $(this).prev('.i');
+        // var object = $(this).prev('#hidden_field');
+        console.log(object);
+        if (object.hasClass("hidden")){
+            object.removeClass('hidden');
+            // object.removeClass('hidden');
+            // object.find('input').removeClass('hidden');
+            // object.find('input').attr( "type", "text" );
+        } else {
+            object.addClass('hidden');
+            // object = $(this).prev('.input');
+            // object.addClass('hidden');
+            // object.find('input').addClass('hidden');
+            // object.find('input').attr( "type", "hidden" );
+        }
+       return event.preventDefault();
+   });   
 
 });

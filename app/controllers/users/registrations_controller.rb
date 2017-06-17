@@ -1,20 +1,22 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
-
+  before_action :error_messages_expose, only: :all
   # GET /resource/sign_up
   # def new
-  #   super
+    # super
   # end
 
   # POST /resource
   # def create
-  #   super
+    # super
+    # flash[:notice] = flash[:notice].to_a.concat resource.errors.full_messages
   # end
 
   # GET /resource/edit
   # def edit
-  #   super
+    # super
+    # flash[:notice] = flash[:notice].to_a.concat resource.errors.full_messages
   # end
 
   # PUT /resource
@@ -57,4 +59,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # def after_inactive_sign_up_path_for(resource)
   #   super(resource)
   # end
+  protected
+    def error_messages_expose
+      flash[:notice] = flash[:notice].to_a.concat resource.errors.full_messages
+    end
 end

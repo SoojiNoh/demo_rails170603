@@ -36,11 +36,14 @@ class ArtistsController < ApplicationController
   def create
     @artist = Artist.new(artist_params)
     @artist.user = current_user
-    
-    puts "artist_params #{artist_params}"
 
     respond_to do |format|
       if @artist.save
+        # if (@artist.contacts.find_by_category("email").nil)
+        #   @artist.contacts.create(category: "email", content: params[:artist_email])
+        # end
+        # if (@artist.contacts.find_by_category("email").nil)
+          
         # @email = @artist.contacts.create(category: "email", content: params[:artist_email])
         # @phone = @artist.contacts.create(category: "phone", content: params[:artist_phone])
         format.html { redirect_to edit_artist_path(@artist), notice: 'Artist was successfully created.' }

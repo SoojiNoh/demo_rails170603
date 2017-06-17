@@ -107,7 +107,7 @@ ActiveRecord::Schema.define(version: 20170608053357) do
 
   create_table "contacts", force: :cascade do |t|
     t.string   "category",         null: false
-    t.string   "content",          null: false
+    t.string   "content"
     t.integer  "contactable_id"
     t.string   "contactable_type"
     t.datetime "created_at",       null: false
@@ -138,8 +138,8 @@ ActiveRecord::Schema.define(version: 20170608053357) do
     t.string   "title",      null: false
     t.string   "detail"
     t.string   "status"
-    t.string   "start_date"
-    t.string   "end_date"
+    t.date     "start_date"
+    t.date     "end_date"
     t.integer  "artist_id",  null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

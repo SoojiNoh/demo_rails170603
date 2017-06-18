@@ -14,4 +14,5 @@ module ExhibitionsHelper
     # }
     exhibition
   end
+  
 end

@@ -1,4 +1,7 @@
 <%= simple_form_for(setup_artist(@artist)) do |f| %>
+<%#=javascript_tag do %>
+  <!--alert("<%#=setup_artist(@artist).class%>");-->
+<%# end %>
 <%=f.object.errors%>
   <%= render 'layouts/error_messages', object: f.object %>  
 
@@ -21,12 +24,12 @@
     <% end %>
   <% end %>
     <table class='table'>
-      <h3>SNS</h3>
+      <h3>SNS ::Contact</h3>
       <thead>
         <tr>
           <th></th>
-          <th>Contact :category</th>
-          <th>Contact :content</th>
+          <th>종류 :category</th>
+          <th>내용 :content</th>
         </tr>
       </thead>
       <tbody class="field_contacts">
@@ -42,11 +45,11 @@
   <table class='table'>
     <thead>
       <tr>
-        <th>History</th>
-        <th>History :start_date</th>
-        <th>History :title</th>
-        <th>History :detail</th>
-        <th>History :status</th>
+        <th>학력 :: History</th>
+        <th>연도 :start_date</th>
+        <th>교육기관명 :title</th>
+        <th>학부/학과 :detail</th>
+        <th>학적 :status</th>
       </tr>
     </thead>
     <tbody class="field_history_academics">
@@ -56,6 +59,27 @@
     </tbody>
   </table>
   <%= link_to_add_row('Add History', f, :histories, class: 'btn btn-primary', label: 'field_history_academics') %>
+
+
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>전시경력 ::Exhibition</th>
+        <th>구분 :category</th>
+        <th>전시명 :title</th>
+        <th>전시장소 ::Space :name</th>
+        <th>Exhibition :start_date</th>
+        <th>Exhibition :end_date</th>
+
+      </tr>
+    </thead>
+    <tbody class="field_exhibitions">
+      <%= f.simple_fields_for :exhibitions do |builder| %>
+          <%= render 'exhibition', f: field_exhibition(builder) %>
+      <% end %>
+    </tbody>
+  </table>
+  <%= link_to_add_nested_row('Add Exhibition', f, :exhibitions, class: 'btn btn-primary', label: 'field_exhibitions') %>
 
 
   <div class="form-actions">

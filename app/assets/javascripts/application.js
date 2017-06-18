@@ -55,7 +55,7 @@ $(document).on('turbolinks:load', function() {
    
     $('form').on('click', '.toggle_date_fields', function(event) {
        console.log('clicked');
-        var object = $(this).prev('.i');
+        var object = $(this).prev('.input');
         // var object = $(this).prev('#hidden_field');
         console.log(object);
         if (object.hasClass("hidden")){

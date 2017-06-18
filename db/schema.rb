@@ -127,7 +127,7 @@ ActiveRecord::Schema.define(version: 20170608053357) do
   create_table "exhibitions", force: :cascade do |t|
     t.string   "category"
     t.string   "title",      null: false
-    t.date     "start_date", null: false
+    t.date     "start_date"
     t.date     "end_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

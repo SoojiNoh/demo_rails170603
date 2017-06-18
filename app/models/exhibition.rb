@@ -8,4 +8,8 @@ class Exhibition < ActiveRecord::Base
     
     #Exhibition : Space = M : N
     has_many :spaces, through: :exhibition_spaces
+    has_many :exhibition_spaces
+    accepts_nested_attributes_for :exhibition_spaces, allow_destroy: true
+    accepts_nested_attributes_for :spaces, allow_destroy: true,  reject_if: proc { |attributes| puts attributes['name'].blank?}
+
 end

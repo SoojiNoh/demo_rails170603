@@ -3,5 +3,6 @@ class Space < ActiveRecord::Base
     has_many :contacts, as: :contactable
     
     #Exhibition : Space = M : N
-    has_many :spaces, through: :exhibition_spaces
+    has_many :exhibitions, through: :exhibition_spaces
+    
 end

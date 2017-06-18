@@ -20,5 +20,8 @@ class Artist < ActiveRecord::Base
     
     #Artist : Exhibition = M : N
     has_many :exhibitions, through: :artist_exhibitions
-    
+    has_many :artist_exhibitions
+    accepts_nested_attributes_for :artist_exhibitions, allow_destroy: true
+    accepts_nested_attributes_for :exhibitions, allow_destroy: true,  reject_if: proc { |attributes| attributes['title'].blank?}
+   
 end

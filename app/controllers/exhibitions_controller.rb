@@ -90,6 +90,7 @@ class ExhibitionsController < ApplicationController
     # end
     
     def exhibition_params
-      params.require(:exhibition).permit(:category, :artist_name, :photo, :title, :size, :width, :height, :material)
+      params.require(:exhibition).permit(:category, :artist_name, :photo, :title, :size, :width, :height, :material,
+              space_attributes: Contact.attribute_names.map(&:to_sym))
     end
 end

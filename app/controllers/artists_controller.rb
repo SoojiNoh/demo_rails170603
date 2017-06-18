@@ -102,7 +102,10 @@ class ArtistsController < ApplicationController
     end
     
     def artist_params
-      params.require(:artist).permit(:name, :role, contacts_attributes: Contact.attribute_names.map(&:to_sym).push(:_destroy), histories_attributes: History.attribute_names.map(&:to_sym).push(:_destroy))
+      params.require(:artist).permit(:name, :role,
+        contacts_attributes: Contact.attribute_names.map(&:to_sym).push(:_destroy),
+        histories_attributes: History.attribute_names.map(&:to_sym).push(:_destroy),
+        exhibitions_attributes: [Exhibition.attribute_names.map(&:to_sym).push(:_destroy), spaces_attributes: Space.attribute_names.map(&:to_sym)])
     end
     
     

@@ -16,5 +16,8 @@ class Catalogue < ActiveRecord::Base
     
     #Catalogue : Exhibition = M : N
     has_many :exhibitions, through: :catalogue_exhibitions
+    has_many :catalogue_exhibitions
     accepts_nested_attributes_for :exhibitions
+    accepts_nested_attributes_for :catalogue_exhibitions, allow_destroy: true
+
 end

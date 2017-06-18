@@ -1,0 +1,45 @@
+<h1>도록 만들기</h1>
+
+<div class="panel panel-success">
+  <div class="panel-heading">
+    전시 정보 입력
+  </div>
+  <div class="panel-body">
+    <%= render partial: 'exhibition_catalogue'%>
+  </div>
+</div>
+
+<div class="panel panel-success">
+  <div class="panel-heading">
+    작가 정보 입력
+  </div>
+  <div class="panel-body">
+    <%= render partial: 'artist_catalogue'%>
+  </div>
+</div>
+
+<div class="panel panel-success">
+  <div class="panel-heading">
+    도록추가
+  </div>
+  <div class="panel-body">
+    <%= render partial: 'catalogue' %>
+  </div>
+</div>
+
+<div class="panel panel-success">
+  <div class="panel-heading">
+    작품추가
+  </div>
+  <div class="panel-body">
+    <%= render partial: 'artwork_catalogue', locals: { user: current_user }%>
+  </div>
+</div>
+
+<%= link_to 'Back', catalogues_path %>
+
+
+    // <script>
+    // var foo = localStorage.getItem("bar");
+    // localStorage.setItem("bar", foo);
+    // </script>

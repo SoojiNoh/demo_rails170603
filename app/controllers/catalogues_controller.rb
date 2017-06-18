@@ -15,11 +15,11 @@ class CataloguesController < ApplicationController
 
   # GET /catalogues/new
   def new
-    @catalogue = Catalogue.new
-    @artist = Artist.new
-    @artwork = Artwork.new
-    @exhibition = Exhibition.new
-    @history = History.new
+    @catalogue = current_user.catalogues.new
+    # @artist = Artist.new
+    # @artwork = Artwork.new
+    # @exhibition = Exhibition.new
+    # @history = History.new
   end
 
   # GET /catalogues/1/edit
@@ -29,16 +29,16 @@ class CataloguesController < ApplicationController
   # POST /catalogues
   # POST /catalogues.json
   def create
-    @catalogue = Catalogue.new(catalogue_params)
-    @artwork = Artwork.new(artwork_params)
-    @artist = Artist.new(artist_params)
-    @contact = Contact.new(contact_params)
-    @history = History.new(history_params)
+    @catalogue = current_user.catalogues.new(catalogue_params)
+    # @artwork = Artwork.new(artwork_params)
+    # @artist = Artist.new(artist_params)
+    # @contact = Contact.new(contact_params)
+    # @history = History.new(history_params)
     
     
     respond_to do |format|
       if @catalogue.save
-        format.html { redirect_to @catalogue, notice: 'Catalogue was successfully created.' }
+        format.html { redirect_to edit_catalogue_path(@catalogue), notice: 'Catalogue was successfully created.' }
         format.json { render :show, status: :created, location: @catalogue }
       else
         format.html { render :new }
@@ -69,7 +69,7 @@ class CataloguesController < ApplicationController
   def update
     respond_to do |format|
       if @catalogue.update(catalogue_params)
-        format.html { redirect_to @catalogue, notice: 'Catalogue was successfully updated.' }
+        format.html { redirect_to edit_catalogue_path(@catalogue), notice: 'Catalogue was successfully updated.' }
         format.json { render :show, status: :ok, location: @catalogue }
       else
         format.html { render :edit }
@@ -97,6 +97,10 @@ class CataloguesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def catalogue_params
       params.require(:catalogue).permit(:title, :description)
+    end
+    def catalogue_params
+      params.require(:catalogue).permit(:title, :description,
+        exhibitions_attributes: [Exhibition.attribute_names.map(&:to_sym), spaces_attributes: Space.attribute_names.map(&:to_sym)])
     end
     
     def artwork_params

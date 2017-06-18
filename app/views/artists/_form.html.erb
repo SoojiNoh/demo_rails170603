@@ -2,7 +2,7 @@
 <%#=javascript_tag do %>
   <!--alert("<%#=setup_artist(@artist).class%>");-->
 <%# end %>
-<%=f.object.errors%>
+
   <%= render 'layouts/error_messages', object: f.object %>  
 
   <h3>기본 정보</h3>
@@ -24,10 +24,9 @@
     <% end %>
   <% end %>
     <table class='table'>
-      <h3>SNS ::Contact</h3>
       <thead>
         <tr>
-          <th></th>
+          <th>SNS ::Contact</th>
           <th>종류 :category</th>
           <th>내용 :content</th>
         </tr>
@@ -53,12 +52,12 @@
       </tr>
     </thead>
     <tbody class="field_history_academics">
-      <%= f.simple_fields_for :histories do |builder| %>
-        <%= render 'history', f: builder %>
+      <%= f.simple_fields_for :histories, f.object.histories.where("category = 'academic'") do |builder| %>
+        <%= render 'history_academic', f: builder %>
       <% end %>
     </tbody>
   </table>
-  <%= link_to_add_row('Add History', f, :histories, class: 'btn btn-primary', label: 'field_history_academics') %>
+  <%= link_to_add_row_category('Add History', f, :histories, class: 'btn btn-primary', label: 'field_history_academics', category: 'academic') %>
 
 
   <table class='table'>
@@ -80,6 +79,23 @@
     </tbody>
   </table>
   <%= link_to_add_nested_row('Add Exhibition', f, :exhibitions, buildhelper: "field_exhibition", class: 'btn btn-primary', label: 'field_exhibitions') %>
+
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>수상&레지던시 :: History</th>
+        <th>연도 :start_date</th>
+        <th>내용 :detail</th>
+        <th>기관명 :title</th>
+      </tr>
+    </thead>
+    <tbody class="field_history_awards">
+      <%= f.simple_fields_for :histories, f.object.histories.where("category = 'award'") do |builder| %>
+        <%= render 'history_award', f: builder %>
+      <% end %>
+    </tbody>
+  </table>
+  <%= link_to_add_row_category('Add History', f, :histories, class: 'btn btn-primary', label: 'field_history_awards', category: 'award') %>
 
 
   <div class="form-actions">

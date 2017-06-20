@@ -3,6 +3,7 @@ class Catalogue < ActiveRecord::Base
     #User, Artist : Catalogue = 1 : N
     belongs_to :user
     belongs_to :artist
+    accepts_nested_attributes_for :artist
    
     #Catalogue : Page = 1 : N
     has_many :pages

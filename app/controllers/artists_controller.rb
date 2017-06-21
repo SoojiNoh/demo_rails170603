@@ -21,9 +21,9 @@ class ArtistsController < ApplicationController
 
     @artist = Artist.new
     
-    @email = @artist.contacts.new(category: 'email')
-    @phone = @artist.contacts.new(category: 'phone')
-    puts (">>>>>>>>>>>>>>#{@email.category}>>>>>>>>>>#{@phone.category}")
+    # @email = @artist.contacts.new(category: 'email')
+    # @phone = @artist.contacts.new(category: 'phone')
+    # puts (">>>>>>>>>>>>>>#{@email.category}>>>>>>>>>>#{@phone.category}")
   end
 
   # GET /artists/1/edit

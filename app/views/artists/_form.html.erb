@@ -74,7 +74,7 @@
     </thead>
     <tbody class="field_exhibitions">
       <%= f.simple_fields_for :exhibitions do |builder| %>
-          <%= render 'exhibition_catalogue', f: builder_exhibition(builder) %>
+          <%= render 'exhibition', f: builder_exhibition(builder) %>
       <% end %>
     </tbody>
   </table>

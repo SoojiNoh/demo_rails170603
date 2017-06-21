@@ -104,14 +104,14 @@ class CataloguesController < ApplicationController
   # PATCH/PUT /catalogues/1
   # PATCH/PUT /catalogues/1.json
   def update
-    
+    # @artist_params = catalogue_params.extract!(:artist_attributes)["artist_attributes"]
+
     respond_to do |format|
       if @catalogue.update(catalogue_params)
-        @artist=Artist.find_by_id(@artist_params["id"])
-        if current_user.artist.present?
-          @artist.update(@artist_params)
-        else
-          current_user.create_artist(@artist_params)
+        if !current_user.artist.present? #in case of user deleted artist after catalogue created
+          @artist_params = catalogue_params.extract!(:artist_attributes)["artist_attributes"]
+          @artist=Artist.find_by_id(@artist_params["id"])
+          current_user.artist=(@artist)
         end
         format.html { redirect_to edit_catalogue_path(@catalogue), notice: 'Catalogue was successfully updated.' }
         format.json { render :show, status: :ok, location: @catalogue }

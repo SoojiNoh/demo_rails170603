@@ -3,11 +3,11 @@ module SpacesHelper
     # ... code from above omitted
 
     if !space.contacts.find_by_category("phone").present?
-      spaces.contacts.build(contactable: space, category: "phone")
+      space.contacts.build(contactable: space, category: "phone")
     end
     
     if !space.contacts.find_by_category("website").present?
-      spaces.contacts.build(contactable: space, category: "website");
+      space.contacts.build(contactable: space, category: "website");
     end
     
     # space.contacts ||= Contact.new

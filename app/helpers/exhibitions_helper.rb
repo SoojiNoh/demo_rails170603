@@ -1,18 +1,20 @@
 module ExhibitionsHelper
     
-  def field_exhibition(exhibition)
+  def setup_exhibition(exhibiton)
+  end 
+  def builder_exhibition(exhibition_builder)
     # ... code from above omitted
 
     
     # artist.contacts ||= Contact.new
     # puts exhibition.object.spaces.present?
-    if !exhibition.object.spaces.present?
-      exhibition.object.spaces.build
+    if !exhibition_builder.object.spaces.present?
+      exhibition_builder.object.spaces.build
     end
     # 1.times {
     #   exhibition.object.spaces.build;
     # }
-    exhibition
+    exhibition_builder
   end
   
 end

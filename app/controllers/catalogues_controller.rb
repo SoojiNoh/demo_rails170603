@@ -16,11 +16,25 @@ class CataloguesController < ApplicationController
   # GET /catalogues/new
   def new
     @catalogue = current_user.catalogues.new
+    
+    # EXHIBITION preset
+    @exhibition = @catalogue.exhibitions.new
+    
+    # ARTIST preset
     if current_user.artist.present?
       @artist = current_user.artist
     else
       @artist = current_user.build_artist
     end
+    
+    # EXHIBITION.SPACE preset
+    @space = @exhibition.spaces.new
+    @space.contacts.new(category: 'phone')
+    @space.contacts.new(category: 'website')
+
+    
+    
+    
     # @artwork = Artwork.new
     # @exhibition = Exhibition.new
     # @history = History.new
@@ -39,12 +53,15 @@ class CataloguesController < ApplicationController
   # POST /catalogues.json
   def create
     @artist_params = catalogue_params.extract!(:artist_attributes)["artist_attributes"]
+
+    # ARTIST process
     if current_user.artist.present?
       @catalogue = current_user.catalogues.new(catalogue_params.except(:artist_attributes))
       @catalogue.artist_id = @artist_params["id"]
     else
       @catalogue = current_user.catalogues.new(catalogue_params)
     end
+    
     # @artwork = Artwork.new(artwork_params)
     # @artist = Artist.new(artist_params)
     # @contact = Contact.new(contact_params)
@@ -53,9 +70,8 @@ class CataloguesController < ApplicationController
     
     respond_to do |format|
       if @catalogue.save
-        @artist=Artist.find_by_id(@artist_params["id"])
         if current_user.artist.present?
-          @artist.update(@artist_params)
+          Artist.find_by_id(@catalogue.artist_id).update(@artist_params)
         else
           current_user.create_artist(@artist_params)
         end
@@ -128,12 +144,15 @@ class CataloguesController < ApplicationController
     end
     def catalogue_params
       params.require(:catalogue).permit(:title, :description,
-        exhibitions_attributes: [Exhibition.attribute_names.map(&:to_sym), spaces_attributes: Space.attribute_names.map(&:to_sym)],
+        # exhibitions_attributes: [Exhibition.attribute_names.map(&:to_sym), spaces_attributes: Space.attribute_names.map(&:to_sym)],
         artist_attributes: [Artist.attribute_names.map(&:to_sym),         contacts_attributes: Contact.attribute_names.map(&:to_sym).push(:_destroy),
           histories_attributes: History.attribute_names.map(&:to_sym).push(:_destroy),
           exhibitions_attributes: [Exhibition.attribute_names.map(&:to_sym).push(:_destroy),
-          spaces_attributes: Space.attribute_names.map(&:to_sym)
+            spaces_attributes: Space.attribute_names.map(&:to_sym)
           ]
+        ],
+        exhibitions_attributes: [Exhibition.attribute_names.map(&:to_sym),
+          spaces_attributes: [Space.attribute_names.map(&:to_sym), contacts_attributes: Contact.attribute_names.map(&:to_sym).push(:_destroy)]
         ]
       )
     end
@@ -142,12 +161,12 @@ class CataloguesController < ApplicationController
       params.require(:artwork).permit(:artwork, :type, :photo, :title, {size: []}, :unit, :material, :created_date)
     end
     
-    def artist_params
-      params.require(:artist).permit(:name, :role,
-        contacts_attributes: Contact.attribute_names.map(&:to_sym).push(:_destroy),
-        histories_attributes: History.attribute_names.map(&:to_sym).push(:_destroy),
-        exhibitions_attributes: [Exhibition.attribute_names.map(&:to_sym).push(:_destroy), spaces_attributes: Space.attribute_names.map(&:to_sym)])
-    end
+    # def artist_params
+    #   params.require(:artist).permit(:name, :role,
+    #     contacts_attributes: Contact.attribute_names.map(&:to_sym).push(:_destroy),
+    #     histories_attributes: History.attribute_names.map(&:to_sym).push(:_destroy),
+    #     exhibitions_attributes: [Exhibition.attribute_names.map(&:to_sym).push(:_destroy), spaces_attributes: Space.attribute_names.map(&:to_sym)])
+    # end
     
     def contact_params
       params.require(:contact).permit(:name, :role, :academic, :user_id)

@@ -1,138 +1,109 @@
-<%= simple_form_for (setup_catalogue(@catalogue)) do |g| %>
-<%#=javascript_tag do %>
-  <!--alert("<%#=setup_artist(@artist).class%>");-->
-<%# end %>
-
-  <%= render 'layouts/error_messages', object: g.object %>  
-
-
-  <div class="field" col="3">
-    <%= g.label :title, "도록 제목" %><br>
-    <%= g.text_field :title %>
-  </div>
-  <div class="field">
-    <%= g.label :description, "도록 설명" %><br>
-    <%= g.text_area :description %>
-  </div>
-  
-  
-  <table class='table'>
-    <h4>1단계: 전시정보입력 :: Exhibition</h4>
-    <thead>
-      <tr>
-        <th>전시제목 :title</th>
-        <th>전시종류 :category</th>
-        <th>전시시작 :start_date</th>
-        <th>전시종료 :end_date</th>
-      </tr>
-    </thead>
-    <tbody class="field_history_academics">
-      <%= g.simple_fields_for :exhibitions do |builder| %>
-        <%= render 'exhibition', f: builder %>
-      <% end %>
-    </tbody>
-  </table>
-  
-<%= g.simple_fields_for :artist, (setup_artist(@artist)) do |f| %>
-<%#=javascript_tag do %>
-  <!--alert("<%#=setup_artist(@artist).class%>");-->
-<%# end %>
-
-  <%= render 'layouts/error_messages', object: f.object %>  
-
-  <h3>기본 정보</h3>
-  <div class="field" col="3">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %><br>
-  </div>
-  <div class="field">
-    <%= f.label :role %><br>
-    <%= f.text_area :role %><br>
-  </div>
-  <%= f.simple_fields_for :contacts do |builder| %>
-    <% if builder.object.category == "email" or builder.object.category == "phone" %>
-      <div class="field">
-        <%= builder.object.category %>
-        <%= builder.hidden_field :category, value: builder.object.category %>
-        <%= builder.input :content, label: false %>
-      </div>
-    <% end %>
+<%= simple_form_for (setup_catalogue(@catalogue)) do |catalogue_builder| %>
+  <%=javascript_tag do %>
+    <!--alert("");-->
   <% end %>
-    <table class='table'>
-      <thead>
-        <tr>
-          <th>SNS ::Contact</th>
-          <th>종류 :category</th>
-          <th>내용 :content</th>
-        </tr>
-      </thead>
-      <tbody class="field_contacts">
-      <%= f.simple_fields_for :contacts do |builder| %>
-        <% if builder.object.category != "email" and builder.object.category != "phone"%>
-          <%= render 'contact', f: builder %>
-        <% end %> 
-      <% end %>
-      </tbody>
-    </table>
-    <%= link_to_add_row('Add Contact', f, :contacts, class: 'btn btn-primary', label: "field_contacts") %>
+
+  <%= render 'layouts/error_messages', object: catalogue_builder.object %>  
+
+  <div class="panel panel-success">
+    <div class="panel-heading">
+      <h5>1단계: 전시정보입력 :: Exhibition</h5>
+    </div>
+    <div class="panel-body">
+      <div class="field" col="3">
+        <%= catalogue_builder.label :title, "도록 제목" %><br>
+        <%= catalogue_builder.text_field :title %>
+      </div>
+      <div class="field">
+        <%= catalogue_builder.label :description, "도록 설명" %><br>
+        <%= catalogue_builder.text_area :description %>
+      </div>
+      
+      
+      <table class='table'>
+        <thead>
+          <tr>
+            <th>전시제목 :title</th>
+            <th>전시종류 :category</th>
+            <th>전시시작 :start_date</th>
+            <th>전시종료 :end_date</th>
+          </tr>
+        </thead>
+        <tbody class="field_history_academics">
+          <%= catalogue_builder.simple_fields_for :exhibitions do |exhibition_builder| %>
+            <%= render 'exhibition_catalogue', f: exhibition_builder %>
+
+
+                  </tbody>
+                </table>
+              </div>
+            </div>
   
-  <table class='table'>
-    <thead>
-      <tr>
-        <th>학력 :: History</th>
-        <th>연도 :start_date</th>
-        <th>교육기관명 :title</th>
-        <th>학부/학과 :detail</th>
-        <th>학적 :status</th>
-      </tr>
-    </thead>
-    <tbody class="field_history_academics">
-      <%= f.simple_fields_for :histories, f.object.histories.where("category = 'academic'") do |builder| %>
-        <%= render 'history_academic', f: builder %>
-      <% end %>
-    </tbody>
-  </table>
-  <%= link_to_add_row_category('Add History', f, :histories, class: 'btn btn-primary', label: 'field_history_academics', category: 'academic') %>
+            <div class="panel panel-success">
+              <div class="panel-heading">
+                <h5>2단계: 작가정보입력 :: Artist</h5>
+              </div>
+              <div class="panel-body">
+            
+                <%= catalogue_builder.simple_fields_for :artist, (setup_artist(@artist)) do |artist_builder| %>
+                  <%= render 'artist', artist_builder: artist_builder %>
+                <% end %>
+              </div>
+            </div>
+            
+            <div class="panel panel-success">
+              <div class="panel-heading">
+                <h5>3단계: 전시장 정보입력 :: Space</h5>
+              </div>
+              <div class="panel-body">
+                <table class='table'>
+                  <h4>3단계: 전시장 정보입력 :: Space</h4>
+                  <thead>
+                    <tr>
+                      <th>장소명 :name</th>
+                      <th>주소 :location</th>
+                      <th>연락처 :Contact</th>
+                      <th>웹사이트 :Contact</th>
+                    </tr>
+                  </thead>
+                  <tbody class="field_space">
+                      <%= exhibition_builder.simple_fields_for :spaces, @space do |space_builder| %>
+                                <td><%=space_builder.input :name, label: false %></td>
+                                <td><%=space_builder.input :location, label: false %></td>
+                                <%= space_builder.simple_fields_for :contacts do |contact_builder| %>
+                                  <% if contact_builder.object.category == "phone" or contact_builder.object.category == "website" %>
+                                    <td>
+                                      <%= contact_builder.hidden_field :category, value: contact_builder.object.category %>
+                                      <%= contact_builder.input :content, label: false %>
+                                    </td>
+                                  <% end %>
+                                <% end %>
+                          </tbody>
+                        </table> 
+                        <table class='table'>
+                          <thead>
+                            <tr>
+                              <th>SNS ::Contact</th>
+                              <th>종류 :category</th>
+                              <th>내용 :content</th>
+                            </tr>
+                          </thead>
+                          <tbody class="field_contacts">
+                                <%= space_builder.simple_fields_for :contacts do |contact_builder| %>
+                                  <% if contact_builder.object.category != "phone" and contact_builder.object.category != "website"%>
+                                    <%= render 'contact', f: contact_builder %>
+                                  <% end %>
+                                <% end %>
+                          </tbody>
+                        </table>
+                                  <%= link_to_add_row('Add Contact', space_builder, :contacts, class: 'btn btn-primary', label: "field_contacts") %>
+          <% end %>
+        <% end %>
 
+    
+    </div>
+  </div>
 
-  <table class='table'>
-    <thead>
-      <tr>
-        <th>전시경력 ::Exhibition</th>
-        <th>구분 :category</th>
-        <th>전시명 :title</th>
-        <th>전시장소 ::Space :name</th>
-        <th>Exhibition :start_date</th>
-        <th>Exhibition :end_date</th>
-
-      </tr>
-    </thead>
-    <tbody class="field_exhibitions">
-      <%= f.simple_fields_for :exhibitions do |builder| %>
-          <%= render 'exhibition', f: field_exhibition(builder) %>
-      <% end %>
-    </tbody>
-  </table>
-  <%= link_to_add_nested_row('Add Exhibition', f, :exhibitions, buildhelper: "field_exhibition", class: 'btn btn-primary', label: 'field_exhibitions') %>
-
-  <table class='table'>
-    <thead>
-      <tr>
-        <th>수상&레지던시 :: History</th>
-        <th>연도 :start_date</th>
-        <th>내용 :detail</th>
-        <th>기관명 :title</th>
-      </tr>
-    </thead>
-    <tbody class="field_history_awards">
-      <%= f.simple_fields_for :histories, f.object.histories.where("category = 'award'") do |builder| %>
-        <%= render 'history_award', f: builder %>
-      <% end %>
-    </tbody>
-  </table>
-  <%= link_to_add_row_category('Add History', f, :histories, class: 'btn btn-primary', label: 'field_history_awards', category: 'award') %>
-
-<% end %>
 
 
   
@@ -142,7 +113,7 @@
   
 
   <div class="form-actions">
-    <br><br><%= g.button :submit, "save" %>
+    <br><br><%= catalogue_builder.button :submit, "save" %>
   </div>
 <% end %>
 

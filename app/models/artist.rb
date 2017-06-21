@@ -24,4 +24,5 @@ class Artist < ActiveRecord::Base
     accepts_nested_attributes_for :artist_exhibitions, allow_destroy: true
     accepts_nested_attributes_for :exhibitions, allow_destroy: true,  reject_if: proc { |attributes| attributes['title'].blank?}
    
+  
 end

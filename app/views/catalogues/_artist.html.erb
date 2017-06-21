@@ -1,94 +1,92 @@
-  <h3>기본 정보</h3>
-  <div class="field" col="3">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %><br>
-  </div>
-  <div class="field">
-    <%= f.label :role %><br>
-    <%= f.text_area :role %><br>
-  </div>
-  <%= f.simple_fields_for :contacts do |builder| %>
-    <% if builder.object.category == "email" or builder.object.category == "phone" %>
-      <div class="field">
-        <%= builder.object.category %>
-        <%= builder.hidden_field :category, value: builder.object.category %>
-        <%= builder.input :content, label: false %>
-      </div>
-    <% end %>
-  <% end %>
-    <table class='table'>
-      <thead>
-        <tr>
-          <th>SNS ::Contact</th>
-          <th>종류 :category</th>
-          <th>내용 :content</th>
-        </tr>
-      </thead>
-      <tbody class="field_contacts">
-      <%= f.simple_fields_for :contacts do |builder| %>
-        <% if builder.object.category != "email" and builder.object.category != "phone"%>
-          <%= render 'contact', f: builder %>
-        <% end %> 
-      <% end %>
-      </tbody>
-    </table>
-    <%= link_to_add_row('Add Contact', f, :contacts, class: 'btn btn-primary', label: "field_contacts") %>
-  
-  <table class='table'>
-    <thead>
-      <tr>
-        <th>학력 :: History</th>
-        <th>연도 :start_date</th>
-        <th>교육기관명 :title</th>
-        <th>학부/학과 :detail</th>
-        <th>학적 :status</th>
-      </tr>
-    </thead>
-    <tbody class="field_history_academics">
-      <%= f.simple_fields_for :histories, f.object.histories.where("category = 'academic'") do |builder| %>
-        <%= render 'history_academic', f: builder %>
-      <% end %>
-    </tbody>
-  </table>
-  <%= link_to_add_row_category('Add History', f, :histories, class: 'btn btn-primary', label: 'field_history_academics', category: 'academic') %>
-
-
-  <table class='table'>
-    <thead>
-      <tr>
-        <th>전시경력 ::Exhibition</th>
-        <th>구분 :category</th>
-        <th>전시명 :title</th>
-        <th>전시장소 ::Space :name</th>
-        <th>Exhibition :start_date</th>
-        <th>Exhibition :end_date</th>
-
-      </tr>
-    </thead>
-    <tbody class="field_exhibitions">
-      <%= f.simple_fields_for :exhibitions do |builder| %>
-          <%= render 'exhibition', f: field_exhibition(builder) %>
-      <% end %>
-    </tbody>
-  </table>
-  <%= link_to_add_nested_row('Add Exhibition', f, :exhibitions, buildhelper: "field_exhibition", class: 'btn btn-primary', label: 'field_exhibitions') %>
-
-  <table class='table'>
-    <thead>
-      <tr>
-        <th>수상&레지던시 :: History</th>
-        <th>연도 :start_date</th>
-        <th>내용 :detail</th>
-        <th>기관명 :title</th>
-      </tr>
-    </thead>
-    <tbody class="field_history_awards">
-      <%= f.simple_fields_for :histories, f.object.histories.where("category = 'award'") do |builder| %>
-        <%= render 'history_award', f: builder %>
-      <% end %>
-    </tbody>
-  </table>
-  <%= link_to_add_row_category('Add History', f, :histories, class: 'btn btn-primary', label: 'field_history_awards', category: 'award') %>
-
-
-
+    
+        <h3>기본 정보</h3>
+        <div class="field" col="3">
+          <%= artist_builder.label :name %><br>
+          <%= artist_builder.text_field :name %><br>
+        </div>
+        <div class="field">
+          <%= artist_builder.label :role %><br>
+          <%= artist_builder.text_area :role %><br>
+        </div>
+        <%= artist_builder.simple_fields_for :contacts do |builder| %>
+          <% if builder.object.category == "email" or builder.object.category == "phone" %>
+            <div class="field">
+              <%= builder.object.category %>
+              <%= builder.hidden_field :category, value: builder.object.category %>
+              <%= builder.input :content, label: false %>
+            </div>
+          <% end %>
+        <% end %>
+          <table class='table'>
+            <thead>
+              <tr>
+                <th>SNS ::Contact</th>
+                <th>종류 :category</th>
+                <th>내용 :content</th>
+              </tr>
+            </thead>
+            <tbody class="field_contacts">
+            <%= artist_builder.simple_fields_for :contacts do |builder| %>
+              <% if builder.object.category != "email" and builder.object.category != "phone"%>
+                <%= render 'contact', f: builder %>
+              <% end %> 
+            <% end %>
+            </tbody>
+          </table>
+          <%= link_to_add_row('Add Contact', artist_builder, :contacts, class: 'btn btn-primary', label: "field_contacts") %>
+        
+        <table class='table'>
+          <thead>
+            <tr>
+              <th>학력 :: History</th>
+              <th>연도 :start_date</th>
+              <th>교육기관명 :title</th>
+              <th>학부/학과 :detail</th>
+              <th>학적 :status</th>
+            </tr>
+          </thead>
+          <tbody class="field_history_academics">
+            <%= artist_builder.simple_fields_for :histories, artist_builder.object.histories.where("category = 'academic'") do |builder| %>
+              <%= render 'history_academic', f: builder %>
+            <% end %>
+          </tbody>
+        </table>
+        <%= link_to_add_row_category('Add History', artist_builder, :histories, class: 'btn btn-primary', label: 'field_history_academics', category: 'academic') %>
+      
+      
+        <table class='table'>
+          <thead>
+            <tr>
+              <th>전시경력 ::Exhibition</th>
+              <th>구분 :category</th>
+              <th>전시명 :title</th>
+              <th>전시장소 ::Space :name</th>
+              <th>Exhibition :start_date</th>
+              <th>Exhibition :end_date</th>
+      
+            </tr>
+          </thead>
+          <tbody class="field_exhibitions">
+            <%= artist_builder.simple_fields_for :exhibitions do |builder| %>
+                <%= render 'exhibition', f: builder_exhibition(builder) %>
+            <% end %>
+          </tbody>
+        </table>
+        <%= link_to_add_nested_row('Add Exhibition', artist_builder, :exhibitions, buildhelper: "builder_exhibition", class: 'btn btn-primary', label: 'field_exhibitions') %>
+      
+        <table class='table'>
+          <thead>
+            <tr>
+              <th>수상&레지던시 :: History</th>
+              <th>연도 :start_date</th>
+              <th>내용 :detail</th>
+              <th>기관명 :title</th>
+            </tr>
+          </thead>
+          <tbody class="field_history_awards">
+            <%= artist_builder.simple_fields_for :histories, artist_builder.object.histories.where("category = 'award'") do |builder| %>
+              <%= render 'history_award', f: builder %>
+            <% end %>
+          </tbody>
+        </table>
+        <%= link_to_add_row_category('Add History', artist_builder, :histories, class: 'btn btn-primary', label: 'field_history_awards', category: 'award') %>

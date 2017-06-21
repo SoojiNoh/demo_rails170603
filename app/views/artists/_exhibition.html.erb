@@ -5,7 +5,8 @@
             <%= f.input_field :_destroy, as: :hidden %>
             <%= link_to 'Delete', '#', class: 'remove_record'%>
         </td>
-        <td><%= f.input :category, label: false %></td>
+        <td><%= f.select(:category, options_for_select([['개인전', 'single'], ['그룹전', 'group']], f.object.category), {prompt: '선택해주세요' }) %></td>
+
         <td><%= f.input :title, label: false %></td>
         <!--<td><%#= f.input :space, label: false %></td>-->
         <td>

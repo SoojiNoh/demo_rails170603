@@ -21,4 +21,5 @@ class Catalogue < ActiveRecord::Base
     accepts_nested_attributes_for :exhibitions
     accepts_nested_attributes_for :catalogue_exhibitions, allow_destroy: true
 
+
 end

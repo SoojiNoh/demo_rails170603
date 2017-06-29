@@ -1,5 +1,8 @@
 class ArtworkImgUploader < CarrierWave::Uploader::Base
 
+  before :store, :remember_cache_id
+  after :store, :delete_tmp_dir
+  
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
   include CarrierWave::MiniMagick
@@ -34,6 +37,10 @@ class ArtworkImgUploader < CarrierWave::Uploader::Base
   version :thumb do
     process resize_to_fit: [200, 200]
   end
+  
+  version :large do
+    process resize_to_fit: [1920, 1920]
+  end
 
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:
@@ -49,6 +56,18 @@ class ArtworkImgUploader < CarrierWave::Uploader::Base
     # apple = Time.now.to_f.to_s + [*('A'...'Z')].sample(8).join + "." + file.extension if original_filename
     puts "%%%%%%%%%%%%%%%%%%%%%%#{apple}"
     apple
+  end
+
+  # store! nil's the cache_id after it finishes so we need to remember it for deletion
+  def remember_cache_id(new_file)
+    @cache_id_was = cache_id
+  end
+  
+  def delete_tmp_dir(new_file)
+    # make sure we don't delete other things accidentally by checking the name pattern
+    if @cache_id_was.present? && @cache_id_was =~ /\A[\d]{8}\-[\d]{4}\-[\d]+\-[\d]{4}\z/
+      FileUtils.rm_rf(File.join(root, cache_dir, @cache_id_was))
+    end
   end
 
 end

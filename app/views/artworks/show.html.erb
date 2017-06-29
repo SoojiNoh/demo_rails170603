@@ -10,7 +10,8 @@
     <p>
       <strong>사진:</strong>
       <%= @artwork.image.thumb.url %>
-      <img src="<%=@artwork.image.url%>"/>
+      <img src="<%=@artwork.image.large.url%>"/>
+      <img src="<%=@artwork.image_url%>"/>
     </p>
 
 <%# end %>

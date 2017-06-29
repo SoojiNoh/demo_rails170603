@@ -14,10 +14,17 @@
     <%= f.label :category %><br>
     <%= f.text_field :category %>
   </div>
+  <% if @artwork.image.present? %>
+    <%= image_tag @artwork.image.url(:thumb) %><br/>
+    <%= f.check_box :remove_image %>Remove Image<br/>
+
+  <% end %>
+  
   <div class="field">
     <%#= f.label :image %><br>
     <%#= f.input :image, label: false, as: :file, accept: 'image/*', multiple: true %>
     <%= f.file_field :image, label: false, accept: 'image/*'%>
+    <%= f.hidden_field :image_cache %>
   </div>
   <!--<div class="form-group">-->
   <!--  <input type="file" name="image" accept="images/*" />-->

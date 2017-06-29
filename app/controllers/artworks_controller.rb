@@ -20,6 +20,9 @@ class ArtworksController < ApplicationController
 
   # GET /artworks/1/edit
   def edit
+    if @artwork.image.present?
+      @artwork.image.cache!
+    end
   end
 
   # POST /artworks
@@ -92,6 +95,6 @@ class ArtworksController < ApplicationController
     # end
     
     def artwork_params
-      params.require(:artwork).permit(:category, :title, :unit, :material, :created_date, :image, size: [])
+      params.require(:artwork).permit(:category, :title, :unit, :material, :created_date, :image, :remove_image, :image_cache, size: [])
     end
 end

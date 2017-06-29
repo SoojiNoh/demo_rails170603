@@ -25,11 +25,22 @@ class ArtworksController < ApplicationController
   # POST /artworks
   # POST /artworks.json
   def create
+    
+    # if !params[ :files ].nil?
+    #   params[ :files ].each{ |file|
+    #     # do your staff
+    #   }
+    # end    
+
     @artwork = Artwork.new(artwork_params)
-    # @artwork = Artwork.new(artwork_params)
-    puts @artwork
+    # uploader = ArtworkImgUploader.new
+    # uploader.store!(params[:image_upload])
+    # @artwork.image_url = uploader.url
+    # @artwork.thumbnail_url = uploader.thumb.url
+    # @artwork.image = params[:image]
     respond_to do |format|
       if @artwork.save
+        puts @artwork.image.url
         format.html { redirect_to :back, notice: 'Artwork was successfully created.' }
         format.json { render :show, status: :created, location: @artwork }
       else
@@ -42,7 +53,12 @@ class ArtworksController < ApplicationController
   # PATCH/PUT /artworks/1
   # PATCH/PUT /artworks/1.json
   def update
-    puts artwork_params
+    if params[:image].present?
+      uploader = ArtworkImgUploader.new
+      uploader.store!(params[:image_upload])
+      # @artwork.image_url = uploader.url
+      # @artwork.thumbnail_url = uploader.thumb.url
+    end
     respond_to do |format|
       if @artwork.update(artwork_params)
         format.html { redirect_to @artwork, notice: 'Artwork was successfully updated.' }
@@ -76,6 +92,6 @@ class ArtworksController < ApplicationController
     # end
     
     def artwork_params
-      params.require(:artwork).permit(:category, :photo, :title, :unit, :material, :created_date, size: [])
+      params.require(:artwork).permit(:category, :title, :unit, :material, :created_date, :image, size: [])
     end
 end

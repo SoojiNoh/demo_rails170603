@@ -1,5 +1,8 @@
 class CataloguesController < ApplicationController
   before_action :set_catalogue, only: [:show, :edit, :update, :destroy]
+  # before_filter :authenticate_user!
+
+
   # input ArrayInput
 
   # GET /catalogues

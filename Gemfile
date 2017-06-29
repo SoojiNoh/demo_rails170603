@@ -1,5 +1,9 @@
 source 'https://rubygems.org'
 
+gem 'figaro'
+gem 'fog-aws'
+gem 'carrierwave'
+gem 'mini_magick'
 gem 'simple_form'
 gem 'will_paginate'
 gem 'devise'

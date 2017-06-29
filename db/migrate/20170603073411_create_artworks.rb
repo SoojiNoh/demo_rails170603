@@ -2,7 +2,9 @@ class CreateArtworks < ActiveRecord::Migration
   def change
     create_table :artworks do |t|
       t.string :category
-      t.string :photo
+      t.string :image
+      # t.string :image_url
+      # t.string :thumbnail_url
       t.string :title, default: 'Untitled'
       t.string :size, array: true, default: []
       t.string :unit

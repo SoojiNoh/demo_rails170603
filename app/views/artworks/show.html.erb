@@ -5,11 +5,15 @@
   <%= @artwork.category %>
 </p>
 
-<p>
-  <strong>사진:</strong>
-  <%= @artwork.photo %>
-</p>
+<%# if @artwork.image_url.present? %>
 
+    <p>
+      <strong>사진:</strong>
+      <%= @artwork.image.thumb.url %>
+      <img src="<%=@artwork.image.url%>"/>
+    </p>
+
+<%# end %>
 <p>
   <strong>제목:</strong>
   <%= @artwork.title %>

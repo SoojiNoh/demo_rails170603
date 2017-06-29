@@ -71,7 +71,7 @@ ActiveRecord::Schema.define(version: 20170608053357) do
 
   create_table "artworks", force: :cascade do |t|
     t.string   "category"
-    t.string   "photo"
+    t.string   "image"
     t.string   "title",        default: "Untitled"
     t.string   "size",         default: "--- []\n"
     t.string   "unit"

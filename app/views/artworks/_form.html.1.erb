@@ -1,4 +1,4 @@
-<%= form_for @artwork, html: {class: "artwork_group_form", enctype: "multipart/form-data"} do |f| %>
+<%= simple_form_for @artwork, html: {class: "artwork_group_form", enctype: "multipart/form-data"} do |f| %>
   <% if @artwork.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@artwork.errors.count, "error") %> prohibited this artwork from being saved:</h2>
@@ -17,18 +17,18 @@
   <div class="field">
     <%#= f.label :image %><br>
     <%#= f.input :image, label: false, as: :file, accept: 'image/*', multiple: true %>
-    <%= f.file_field :image, label: false, accept: 'image/*'%>
+    <%#= f.file_field :image, label: false, accept: 'image/*'%>
   </div>
-  <!--<div class="form-group">-->
-  <!--  <input type="file" name="image" accept="images/*" />-->
-  <!--</div>-->
+  <div class="form-group">
+    <input type="file" name="image" accept="images/*" />
+  </div>
 
   <div class="field">
     <%= f.label :title %><br>
     <%= f.text_area :title %>
   </div>
   <div class="field">
-    <%= f.text_field :size, as: :array %>
+    <%= f.input :size, as: :array %>
     <button class="add-size-button">추가</button><br>
   </div>
   <div class="field">

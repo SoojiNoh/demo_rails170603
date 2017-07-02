@@ -14,6 +14,9 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+//= require jquery-fileupload/basic
+//= require jquery-fileupload/vendor/tmpl
+
 $(document).on('turbolinks:load', function() {
         console.log('loaded');
    $('form').on('click', '.remove_record', function(event) {
@@ -73,4 +76,33 @@ $(document).on('turbolinks:load', function() {
        return event.preventDefault();
    });   
 
+});
+
+
+
+
+jQuery(function() {
+  return $('#new_artwork').fileupload({
+    dataType: "script",
+    add: function(e, data) {
+      var file, types;
+      types = /(\.|\/)(gif|jpe?g|png)$/i;
+      file = data.files[0];
+      if (types.test(file.type) || types.test(file.name)) {
+        data.context = $(tmpl("template-upload", file));
+        $('#new_artwork').append(data.context);
+        return data.submit();
+      } else {
+        return alert(file.name + " is not a gif, jpeg, or png image file");
+      }
+    },
+    progress: function(e, data) {
+      var progress;
+      if (data.context) {
+        progress = parseInt(data.loaded / data.total * 100, 10);
+        console.log(data.context.find('.bar'));
+        return data.context.find('.bar').css('width', progress + '%');
+      }
+    }
+  });
 });

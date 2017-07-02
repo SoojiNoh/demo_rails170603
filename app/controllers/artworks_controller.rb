@@ -5,6 +5,11 @@ class ArtworksController < ApplicationController
   # GET /artworks.json
   def index
     @artworks = Artwork.all
+    # @artworks.each do |artwork|
+    #   if artwork.image.present?
+    #     artwork.image.cache!
+    #   end
+    # end
   end
 
   # GET /artworks/1
@@ -35,15 +40,16 @@ class ArtworksController < ApplicationController
     #   }
     # end    
 
-    @artwork = Artwork.new(artwork_params)
+    # @artwork = Artwork.new(artwork_params)
     # uploader = ArtworkImgUploader.new
     # uploader.store!(params[:image_upload])
     # @artwork.image_url = uploader.url
     # @artwork.thumbnail_url = uploader.thumb.url
     # @artwork.image = params[:image]
+    
+    @artwork = Artwork.create(artwork_params)
     respond_to do |format|
       if @artwork.save
-        puts @artwork.image.url
         format.html { redirect_to :back, notice: 'Artwork was successfully created.' }
         format.json { render :show, status: :created, location: @artwork }
       else

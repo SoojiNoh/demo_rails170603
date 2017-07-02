@@ -1,0 +1,8 @@
+  <tr>
+    <td><%= artwork.title %></td>
+    <td><img src="<%=artwork.image.thumb.url%>"/></td>
+    <td><%= artwork.size %></td>
+    <td><%= link_to "Show", artwork %></td>
+    <td><%= link_to "Edit", edit_artwork_path(artwork) %></td>
+    <td><%= link_to "Remove", artwork, method: :delete, data: { confirm: "Are you sure?" } %></td>
+  </tr>

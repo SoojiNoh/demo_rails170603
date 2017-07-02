@@ -50,13 +50,13 @@ class ArtworkImgUploader < CarrierWave::Uploader::Base
 
   # Override the filename of the uploaded files:
   # Avoid using model.id or version_name here, see uploader/store.rb for details.
-  def filename
-    @name ||= Digest::MD5.hexdigest(File.dirname(current_path))
-    apple = "#{@name}.#{file.extension}"
-    # apple = Time.now.to_f.to_s + [*('A'...'Z')].sample(8).join + "." + file.extension if original_filename
-    puts "%%%%%%%%%%%%%%%%%%%%%%#{apple}"
-    apple
-  end
+  # def filename
+  #   @name ||= Digest::MD5.hexdigest(File.dirname(current_path))
+  #   apple = "#{@name}.#{file.extension}"
+  #   # apple = Time.now.to_f.to_s + [*('A'...'Z')].sample(8).join + "." + file.extension if original_filename
+  #   puts "%%%%%%%%%%%%%%%%%%%%%%#{apple}"
+  #   apple
+  # end
 
   # store! nil's the cache_id after it finishes so we need to remember it for deletion
   def remember_cache_id(new_file)

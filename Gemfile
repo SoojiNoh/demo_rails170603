@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'jquery-fileupload-rails'
 gem 'figaro'
 gem 'fog-aws'
 gem 'carrierwave'

@@ -73,7 +73,7 @@ ActiveRecord::Schema.define(version: 20170608053357) do
     t.string   "category"
     t.string   "image"
     t.string   "title",        default: "Untitled"
-    t.string   "size",         default: "--- []\n"
+    t.string   "size"
     t.string   "unit"
     t.string   "material"
     t.date     "created_date"

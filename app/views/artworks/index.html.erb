@@ -1,24 +1,44 @@
-<table>
-  <tr>
-    <th>Title</th>
-    <th>Artist Name</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
- 
+
 <% @artworks.each do |artwork| %>
-  <tr>
-    <td><%= artwork.title %></td>
-    <td><img src="<%=artwork.image.thumb.url%>"/></td>
-    <td><%= artwork.size %></td>
-    <td><%= link_to "Show", artwork %></td>
-    <td><%= link_to "Edit", edit_artwork_path(artwork) %></td>
-    <td><%= link_to "Remove", artwork, method: :delete, data: { confirm: "Are you sure?" } %></td>
-  </tr>
+  <%= render partial: "form_jquery", :locals => { artwork: artwork }%>
 <% end %>
-</table>
+
+
+<!--<table>-->
+<!--  <tr>-->
+<!--    <th>Title</th>-->
+<!--    <th>Artist Name</th>-->
+<!--    <th></th>-->
+<!--    <th></th>-->
+<!--    <th></th>-->
+<!--  </tr>-->
  
-<br>
+<!--  <#% @artworks.each do |artwork| %>-->
+<!--    <tr>-->
+<!--      <td><#%= artwork.title %></td>-->
+<!--      <td><img src="<#%=artwork.image.thumb.url%>"/></td>-->
+<!--      <td><#%= artwork.size %></td>-->
+<!--      <td><#%= link_to "Show", artwork %></td>-->
+<!--      <td><#%= link_to "Edit", edit_artwork_path(artwork) %></td>-->
+<!--      <td><#%= link_to "Remove", artwork, method: :delete, data: { confirm: "Are you sure?" } %></td>-->
+<!--    </tr>-->
+<!--  <#% end %>-->
+<!--  <div class="artworks"></div>-->
+<!--</table>-->
+ 
+<%= form_for Artwork.new do |f| %>
+  <%= f.label :image, "Upload artworks:" %>
+  <%= f.file_field :image, multiple: true, name: "artwork[image]" %>
+  <%= f.hidden_field :image_cache %>
+<% end %>
+
+<script id="template-upload" type="text/x-tmpl">
+  <div class="upload">
+    {%=o.name%}
+    <div class="progress" style="border: 1px solid black;">
+      <div class="bar" style="width: 0%; background-color: green; height: 20px;" ></div>
+    </div>
+  </div>
+</script>
  
 <%= link_to "New artwork", new_artwork_path %>

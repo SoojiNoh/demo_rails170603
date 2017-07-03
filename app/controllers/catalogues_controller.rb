@@ -35,6 +35,9 @@ class CataloguesController < ApplicationController
     @space.contacts.new(category: 'phone')
     @space.contacts.new(category: 'website')
 
+
+    # ARTWORK preset
+    @artwork = @catalogue.artworks.new
     
     
     

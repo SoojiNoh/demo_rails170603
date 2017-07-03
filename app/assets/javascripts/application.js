@@ -20,18 +20,33 @@
 $(document).on('turbolinks:load', function() {
         console.log('loaded');
    $('form').on('click', '.remove_record', function(event) {
+       console.log('remove');
        $(this).prev('input[type=hidden]').val('1');
+       console.log($(this).closest('tr'));
        $(this).closest('tr').hide();
        return event.preventDefault();
    })
    
+    $('form').on('click', '.remove_form', function(event) {
+       console.log('remove');
+       $(this).prev('input[type=hidden]').val('1');
+       console.log($(this).closest('.panel'));
+       $(this).closest('.panel').hide();
+       return event.preventDefault();
+   })
+   
    $('form').on('click', '.add_fields', function(event) {
-       console.log('clicked');
+       console.log('clicked1');
        var regexp, time, label;
+              console.log('clicked1');
        label = $(this).data('label'); //내가 추가한 것
+              console.log('clicked2');
        time = new Date().getTime();
+              console.log('clicked3');
        regexp = new RegExp($(this).data('id'), 'g');
+              console.log('clicked4');
        $('.'+label).append($(this).data('fields').replace(regexp, time)); //내가 수정한 것
+              console.log('clicked5');
        return event.preventDefault();
    });
    

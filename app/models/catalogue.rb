@@ -13,7 +13,9 @@ class Catalogue < ActiveRecord::Base
     
     #Catalogue : Artwork = M : N
     has_many :artworks, through: :artwork_catalogues
+    has_many :artwork_catalogues
     accepts_nested_attributes_for :artworks
+    accepts_nested_attributes_for :artwork_catalogues
     
     #Catalogue : Exhibition = M : N
     has_many :exhibitions, through: :catalogue_exhibitions

@@ -1,4 +1,4 @@
-<%= simple_form_for (setup_catalogue(@catalogue)) do |catalogue_builder| %>
+<%= simple_form_for ((setup_catalogue(@catalogue)), html: { multipart: true }) do |catalogue_builder| %>
   <%=javascript_tag do %>
     <!--alert("");-->
   <% end %>
@@ -110,11 +110,12 @@
               </div>
               <div class="panel-body">
                 <div class="form_artworks">
-                  <% @artworks.each do |artwork| %>
-                    <%= render partial: "artwork", :locals => { artwork: artwork }%>
+                  <%= catalogue_builder.simple_fields_for :artworks do |artwork_builder| %>
+                    <%= render 'artwork', f: artwork_builder %>
                   <% end %>
-                   
                 </div>
+                <%#= link_to_add_form('Add Artwork', catalogue_builder, :artworks, class: 'btn btn-primary', label: "form_artworks") %>
+                <%= link_to_add_row_nested('Add Artwork', catalogue_builder, :artworks, buildhelper: "builder_artwork", class: 'btn btn-primary', label: 'form_artworks') %>
               </div>
 
             </div>
@@ -131,20 +132,5 @@
     <br><br><%= catalogue_builder.button :submit, "save" %>
   </div>
 <% end %>
-
-                  <%= form_for @artwork, url: artworks_path, :html => {:method => :post} do |f| %>
-                    <%= f.label :image, "Upload artworks:" %>
-                    <%= f.file_field :image, multiple: true, name: "artwork[image]" %>
-                    <%= f.hidden_field :image_cache %>
-                  <% end %>
-                  
-                  <script id="template-upload" type="text/x-tmpl">
-                    <div class="upload">
-                      {%=o.name%}
-                      <div class="progress" style="border: 1px solid black;">
-                        <div class="bar" style="width: 0%; background-color: green; height: 20px;" ></div>
-                      </div>
-                    </div>
-                  </script>
 
 

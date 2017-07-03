@@ -34,20 +34,8 @@ class ArtworksController < ApplicationController
   # POST /artworks.json
   def create
     
-    # if !params[ :files ].nil?
-    #   params[ :files ].each{ |file|
-    #     # do your staff
-    #   }
-    # end    
+    @artwork = current_user.artist.artworks.create(artwork_params)
 
-    # @artwork = Artwork.new(artwork_params)
-    # uploader = ArtworkImgUploader.new
-    # uploader.store!(params[:image_upload])
-    # @artwork.image_url = uploader.url
-    # @artwork.thumbnail_url = uploader.thumb.url
-    # @artwork.image = params[:image]
-    
-    @artwork = Artwork.create(artwork_params)
     respond_to do |format|
       if @artwork.save
         format.html { redirect_to :back, notice: 'Artwork was successfully created.' }

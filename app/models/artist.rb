@@ -17,6 +17,7 @@ class Artist < ActiveRecord::Base
     
     #Artist : Artwork = M : N
     has_many :artworks, through: :artist_artworks
+    has_many :artist_artworks
     
     #Artist : Exhibition = M : N
     has_many :exhibitions, through: :artist_exhibitions

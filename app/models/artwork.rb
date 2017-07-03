@@ -1,12 +1,15 @@
 class Artwork < ActiveRecord::Base
-
-    has_many :artists, through: :artist_artworks
     mount_uploader :image, ArtworkImgUploader
+
+    #Artist : Artwork = M : N
+    has_many :artists, through: :artist_artworks
+    has_many :artist_artworks
     # mount_uploader :image_url, ArtworkImgUploader
     # mount_uploader :thumbnail_url, ArtworkImgUploader
 
     #Catalogue : Artwork = M : N
     has_many :catalogues, through: :artwork_catalogues
+    has_many :artwork_catalogues
 
 
     

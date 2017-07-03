@@ -37,7 +37,8 @@ class CataloguesController < ApplicationController
 
 
     # ARTWORK preset
-    @artwork = @catalogue.artworks.new
+    @artworks = @artist.artworks.all
+    @artwork = @artist.artworks.new
     
     
     
@@ -53,6 +54,11 @@ class CataloguesController < ApplicationController
     else
       @artist = current_user.build_artist
     end
+    
+    # ARTWORK preset
+    @artworks = @artist.artworks.all
+    @artwork = @artist.artworks.new
+ 
   end
 
   # POST /catalogues
@@ -159,7 +165,8 @@ class CataloguesController < ApplicationController
         ],
         exhibitions_attributes: [Exhibition.attribute_names.map(&:to_sym),
           spaces_attributes: [Space.attribute_names.map(&:to_sym), contacts_attributes: Contact.attribute_names.map(&:to_sym).push(:_destroy)]
-        ]
+        ],
+        artworks_attributes: [Artwork.attribute_names(&:to_sym).push(:_destroy, :image_cache)],
       )
     end
     

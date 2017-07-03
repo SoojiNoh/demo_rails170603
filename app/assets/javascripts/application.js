@@ -115,9 +115,11 @@ jQuery(function() {
       var progress;
       if (data.context) {
         progress = parseInt(data.loaded / data.total * 100, 10);
-        console.log(data.context.find('.bar'));
+        if (progress == 100)
+            console.log("업로딩이 거의 끝나갑니다. 기다려주세요");
         return data.context.find('.bar').css('width', progress + '%');
       }
     }
   });
 });
+

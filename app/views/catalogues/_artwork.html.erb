@@ -1,63 +1,76 @@
-
-<div class="panel panel-danger">
-<tr>
-  <td>  
-    <%= f.input_field :_destroy, as: :hidden %>
-    <%= link_to 'Delete', '#', class: 'remove_form'%>
-  </td>
-  <td>
-    <%#= link_to "Remove", f.object, method: :delete, data: { confirm: "Are you sure?" } %>
-    <div class="field" col="3">
-      <%= f.label :category %><br>
-      <%= f.text_field :category %>
+<%= form_for artwork, html: {class: "artwork_group_form", enctype: "multipart/form-data"} do |f| %>
+  <% if artwork.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(artwork.errors.count, "error") %> prohibited this artwork from being saved:</h2>
+      <ul>
+      <% artwork.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
     </div>
-    <% if f.object.image.present? %>
-      <%= image_tag f.object.image.url(:thumb) %><br/>
+  <% end %>
+
+  <%= link_to "Remove", artwork, method: :delete, data: { confirm: "Are you sure?" } %>
+  <div class="field" col="3">
+    <%= f.label :category %><br>
+    <%= f.text_field :category %>
+  </div>
+  <% if artwork.image.present? %>
+    <%= image_tag artwork.image.url(:thumb) %><br/>
+    <%= f.hidden_field :image_cache %>
+    <%= f.check_box :remove_image %>Remove Image<br/>
+
+
+  
+  <% else %>
+  
+    <div class="field">
+      <%= f.file_field :image, label: false, accept: 'image/*', multiple: true, name: "artwork[image]"%>
       <%= f.hidden_field :image_cache %>
-      <%= f.check_box :remove_image %>Remove Image<br/>
-  
-  
-    
-    <% else %>
-    
-      <div class="field">
-        <%= f.file_field :image, label: false, accept: 'image/*', multiple: true, name: "artwork[image]"%>
-        <%= f.hidden_field :image_cache %>
-      </div>
-      <script id="template-upload" type="text/x-tmpl">
-        <div class="upload">
-          <div class="progress" style="width: 900px; height: 100px; border: 1px solid black;">
-            <div class="bar" style="width: 0%; background-color: green;" ></div>
-          </div>
-          {%=o.name%}
+    </div>
+    <script id="template-upload" type="text/x-tmpl">
+      <div class="upload">
+        <div class="progress" style="width: 900px; height: 100px; border: 1px solid black;">
+          <div class="bar" style="width: 0%; background-color: green;" ></div>
         </div>
-      </script>
-    <% end %>
-  
-    <div class="field">
-      <%= f.label :title %><br>
-      <%= f.text_area :title %>
-    </div>
-    <div class="field">
-      <%= f.text_field :size, as: :array %>
-      <button class="add-size-button">추가</button><br>
-    </div>
-    <div class="field">
-      <%= f.label :unit %><br>
-      <%= f.text_area :unit %>
-    </div>
-    <div class="field">
-      <%= f.label :material %><br>
-      <%= f.text_area :material %>
-    </div>
-    <div class="field">
-      <%= f.label :created_date %><br>
-      <%= f.date_select :created_date, start_year: 1800, end_year: Date.current.year, discard_month: true, discard_day: true, include_blank: true %>
-    </div>
-    <div class="actions">
-      <%= f.submit %>
-    </div>
-  </td>
-</tr>
-</div>
+        {%=o.name%}
+      </div>
+    </script>
+  <% end %>
 
+  <div class="field">
+    <%= f.label :title %><br>
+    <%= f.text_area :title %>
+  </div>
+  <div class="field">
+    <%= f.text_field :size, as: :array %>
+    <button class="add-size-button">추가</button><br>
+  </div>
+  <div class="field">
+    <%= f.label :unit %><br>
+    <%= f.text_area :unit %>
+  </div>
+  <div class="field">
+    <%= f.label :material %><br>
+    <%= f.text_area :material %>
+  </div>
+  <div class="field">
+    <%= f.label :created_date %><br>
+    <%= f.date_select :created_date, start_year: 1800, end_year: Date.current.year, discard_month: true, discard_day: true, include_blank: true %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+<script>
+  $('.add-size-button').click(function(ev){
+    ev.preventDefault()
+    $lastSizeField = $('input[name="artwork[size]"]:last-of-type').clone()
+    var lastSizeField = $('input[name="artwork[size]"]:last-of-type').clone()
+
+    console.log(lastSizeField);
+    $lastSizeField.val("")
+    $(".input.artwork_size").append($lastSizeField)
+  })
+</script>

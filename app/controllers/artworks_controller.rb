@@ -24,43 +24,12 @@ class ArtworksController < ApplicationController
 
   # GET /artworks/new
   def new
-    # # puts params[:catalogue_id].nil?
-    
-    # if @parent_object.present?
-    #   puts @parent_object.inspect
-    #   if @parent_object.artworks.present?
-    #     @artworks = @parent_object.artworks.all
-    #   end
-    # end
-    #   # @artwork = Artwork.new
-      
-    #   @artwork = @parent_object.artworks.build
 
-    
-    # # if @catalogue.nil? 
-    # #   @artwork = Artwork.new
-    # # else
-    # #   # @catalogue_artworks = Catalogue.find(params[:catalogue_id]).artworks
-    # #   @artworks = @catalogue.artworks.all
-    # #   puts @artworks.present?
-    # #   @artwork = @catalogue.artworks.new
-    # # end
-    # #   puts params.inspect
-    # # # @artwork = Artwork.new
   end
 
   # GET /artworks/1/edit
   def edit
-    # if @parent_object.present?
-    #   puts @parent_object.inspect
-    #   if @parent_object.artworks.present?
-    #     @artworks = @parent_object.artworks.all
-    #   end
-    # end
-    #   @artwork = @parent_object.artworks.build
-    # if @artwork.image.present?
-    #   @artwork.image.cache!
-    # end
+
   end
 
   # POST /artworks
@@ -96,15 +65,6 @@ class ArtworksController < ApplicationController
   # PATCH/PUT /artworks/1.json
   def update
     
-    
-    # if params[:image].present?
-    #   uploader = ArtworkImgUploader.new
-    #   uploader.store!(params[:image_upload])
-    #   # @artwork.image_url = uploader.url
-    #   # @artwork.thumbnail_url = uploader.thumb.url
-    # end
-    
-    
     respond_to do |format|
       if @artwork.update(artwork_params)
         format.html { redirect_to catalogue_artworks_path(@parent_object.id), notice: 'Artwork was successfully updated.' }
@@ -137,9 +97,7 @@ class ArtworksController < ApplicationController
         puts "params[:model_name] is set"
         parent_class = params[:model_name].constantize
         parent_foreign_key = params[:model_name].foreign_key
-        puts "%%%%%%"+params[parent_foreign_key]
         @parent_object = parent_class.find(params[parent_foreign_key])
-        puts "%%%%%%"+@parent_object.id.to_s
       else
         puts "params[:model_name] is nil"
         @catalogue = nil

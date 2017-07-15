@@ -4,6 +4,10 @@ Rails.application.routes.draw do
 
   get 'contacts/new'
 
+  # get 'catalogues/artwork_new'
+  # get 'catalog'
+  # post 'catalogues/artwork_create'
+  # post 'artworks/artwork_upload_catalogue'
   devise_for :admins
   devise_for :users, controllers: {
     sessions: 'users/sessions',
@@ -12,9 +16,10 @@ Rails.application.routes.draw do
   }
   
   
-  resources :catalogues do
+  resources :catalogues, model_name: 'Catalogue' do
     resources :players
     resources :pages
+    resources :artworks
   end
   resources :artworks  
   resources :artists do

@@ -1,15 +1,20 @@
 class ArtworksController < ApplicationController
   before_action :set_artwork, only: [:show, :edit, :update, :destroy]
-
+  before_action :set_parent_artwork, only: [:index, :create, :update]
   # GET /artworks
   # GET /artworks.json
   def index
     @artworks = Artwork.all
-    # @artworks.each do |artwork|
-    #   if artwork.image.present?
-    #     artwork.image.cache!
-    #   end
-    # end
+    if @parent_object.present?
+      puts @parent_object.inspect
+      if @parent_object.artworks.present?
+        @artworks = @parent_object.artworks.all
+      end
+    end
+      @artwork = @parent_object.artworks.new
+    if @artwork.image.present?
+      @artwork.image.cache!
+    end
   end
 
   # GET /artworks/1
@@ -19,22 +24,60 @@ class ArtworksController < ApplicationController
 
   # GET /artworks/new
   def new
-    @artwork = Artwork.new
-    # @artwork = Artwork.new
+    # # puts params[:catalogue_id].nil?
+    
+    # if @parent_object.present?
+    #   puts @parent_object.inspect
+    #   if @parent_object.artworks.present?
+    #     @artworks = @parent_object.artworks.all
+    #   end
+    # end
+    #   # @artwork = Artwork.new
+      
+    #   @artwork = @parent_object.artworks.build
+
+    
+    # # if @catalogue.nil? 
+    # #   @artwork = Artwork.new
+    # # else
+    # #   # @catalogue_artworks = Catalogue.find(params[:catalogue_id]).artworks
+    # #   @artworks = @catalogue.artworks.all
+    # #   puts @artworks.present?
+    # #   @artwork = @catalogue.artworks.new
+    # # end
+    # #   puts params.inspect
+    # # # @artwork = Artwork.new
   end
 
   # GET /artworks/1/edit
   def edit
-    if @artwork.image.present?
-      @artwork.image.cache!
-    end
+    # if @parent_object.present?
+    #   puts @parent_object.inspect
+    #   if @parent_object.artworks.present?
+    #     @artworks = @parent_object.artworks.all
+    #   end
+    # end
+    #   @artwork = @parent_object.artworks.build
+    # if @artwork.image.present?
+    #   @artwork.image.cache!
+    # end
   end
 
   # POST /artworks
   # POST /artworks.json
   def create
+  puts params.inspect
+  puts params[:model_name]
+   
+    if @parent_object.present?
+      puts "parent artwork successfully created"
+      @artwork = @parent_object.artworks.create(artwork_params)
+    else
+      puts "artist artwork successfully created"
+      @artwork = current_user.artist.artworks.create(artwork_params)
+    end
     
-    @artwork = current_user.artist.artworks.create(artwork_params)
+    # @artwork = Artwork.create(artwork_params)
 
     respond_to do |format|
       if @artwork.save
@@ -46,19 +89,25 @@ class ArtworksController < ApplicationController
       end
     end
   end
+  
+
 
   # PATCH/PUT /artworks/1
   # PATCH/PUT /artworks/1.json
   def update
-    if params[:image].present?
-      uploader = ArtworkImgUploader.new
-      uploader.store!(params[:image_upload])
-      # @artwork.image_url = uploader.url
-      # @artwork.thumbnail_url = uploader.thumb.url
-    end
+    
+    
+    # if params[:image].present?
+    #   uploader = ArtworkImgUploader.new
+    #   uploader.store!(params[:image_upload])
+    #   # @artwork.image_url = uploader.url
+    #   # @artwork.thumbnail_url = uploader.thumb.url
+    # end
+    
+    
     respond_to do |format|
       if @artwork.update(artwork_params)
-        format.html { redirect_to @artwork, notice: 'Artwork was successfully updated.' }
+        format.html { redirect_to catalogue_artworks_path(@parent_object.id), notice: 'Artwork was successfully updated.' }
         format.json { render :show, status: :ok, location: @artwork }
       else
         format.html { render :edit }
@@ -81,6 +130,34 @@ class ArtworksController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_artwork
       @artwork = Artwork.find(params[:id])
+    end
+    
+    def set_parent_artwork
+      if params[:model_name].present?
+        puts "params[:model_name] is set"
+        parent_class = params[:model_name].constantize
+        parent_foreign_key = params[:model_name].foreign_key
+        puts "%%%%%%"+params[parent_foreign_key]
+        @parent_object = parent_class.find(params[parent_foreign_key])
+        puts "%%%%%%"+@parent_object.id.to_s
+      else
+        puts "params[:model_name] is nil"
+        @catalogue = nil
+      end
+    end
+    
+    def set_catalogue
+      if params[:catalogue_id].to_i.nil?
+        puts "params[:catalogue_id] is nil"
+        @catalogue = nil
+
+      else
+        puts "params[:catalogue_id] is set"
+        @catalogue = Catalogue.find(params[:catalogue_id].to_i)
+        puts @catalogue.inspect
+        # params.fetch(@catalogue)
+      end
+
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

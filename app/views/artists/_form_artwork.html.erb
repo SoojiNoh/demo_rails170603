@@ -1,0 +1,45 @@
+  <%= form_for @artwork, url: url_for(:controller => 'artworks', :action => 'artwork_upload_catalogue', params: {catalogue_id: @catalogue.id}), :html => {:method => :post} do |f| %>
+    <%= f.label :image, "Upload artworks:" %>
+    <%= f.file_field :image, multiple: true, name: "artwork[image]" %>
+    <%= f.hidden_field :image_cache %>
+    <%= f.hidden_field :catalogue_id, :value => @catalogue.id%>
+  <% end %>
+  
+  <script id="template-upload" type="text/x-tmpl">
+    <div class="upload">
+      {%=o.name%}
+      <div class="progress" style="border: 1px solid black;">
+        <div class="bar" style="width: 0%; background-color: green; height: 20px;" ></div>
+      </div>
+    </div>
+  </script>
+  
+  
+              <div class="panel panel-success">
+              <div class="panel-heading">
+                <h5>4단계: 작품정보입력 :: Artwork</h5>
+              </div>
+              <div class="panel-body">
+                <div class="form_artworks">
+                <%= simple_form_for (setup_catalogue(@catalogue)) do |catalogue_builder| %>                    
+                    
+                    
+                  <% @artworks.each do |artwork| %>
+                    <%= render partial: "artwork", :locals => { artwork: artwork }%>
+                  <% end %>
+                   
+                </div>
+              </div>
+              
+              <div class="panel panel-success">
+              <div class="panel-heading">
+                <h5>Artwork</h5>
+              </div>
+              <div class="panel-body">
+                <div class="form_artworks">
+                  <% @artworks.each do |artwork| %>
+                    <%= render partial: "artwork", :locals => { artwork: artwork }%>
+                  <% end %>
+                   
+                </div>
+              </div>

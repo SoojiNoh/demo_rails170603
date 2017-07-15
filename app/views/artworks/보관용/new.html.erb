@@ -1,14 +1,18 @@
-<h1>Catalogue Artwork Index</h1>
+<h1>New Catalogue Artwork</h1>
 
-  <% @artworks.each do |artwork| %>
-    <div class="panel panel-info">
-      <%= render partial: "form_artwork", :locals => { artwork: artwork }%>
-    </div>
+
+  <% if @artworks.present? %>
+    <% @artworks.each do |artwork| %>
+      <div class="panel panel-success">
+        <%= render partial: "form_artwork", :locals => { artwork: artwork }%>
+      </div>
+    <% end %>
   <% end %>
-  
 
-<div class="panel panel-danger">
-  <%= form_for Artwork.new do |f| %>
+
+
+<div class= "panel panel-danger">
+  <%= form_for @artwork, url: catalogue_artworks_path(@parent_object)	do |f| %>
     <%= f.label :image, "Upload artworks:" %>
     <%= f.file_field :image, multiple: true, name: "artwork[image]" %>
     <%= f.hidden_field :image_cache %>
@@ -23,5 +27,4 @@
     </div>
   </div>
 </script>
- 
-<%= link_to "New artwork", new_artwork_path %>
+

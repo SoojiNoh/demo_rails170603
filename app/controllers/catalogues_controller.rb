@@ -1,6 +1,6 @@
 class CataloguesController < ApplicationController
   before_action :set_catalogue, only: [:show, :edit, :update, :destroy]
-  # before_filter :authenticate_user!
+  before_filter :authenticate_user!
 
 
   # input ArrayInput
@@ -36,9 +36,7 @@ class CataloguesController < ApplicationController
     @space.contacts.new(category: 'website')
 
 
-    # ARTWORK preset
-    @artworks = @artist.artworks.all
-    @artwork = @artist.artworks.new
+
     
     
     
@@ -73,12 +71,7 @@ class CataloguesController < ApplicationController
     else
       @catalogue = current_user.catalogues.new(catalogue_params)
     end
-    
-    # @artwork = Artwork.new(artwork_params)
-    # @artist = Artist.new(artist_params)
-    # @contact = Contact.new(contact_params)
-    # @history = History.new(history_params)
-    
+  
     
     respond_to do |format|
       if @catalogue.save
@@ -87,7 +80,8 @@ class CataloguesController < ApplicationController
         else
           current_user.create_artist(@artist_params)
         end
-        format.html { redirect_to edit_catalogue_path(@catalogue), notice: 'Catalogue was successfully created.' }
+        format.html { redirect_to catalogue_artworks_path(@catalogue), notice: 'Catalogue was successfully created.' }
+        # format.html { redirect_to edit_catalogue_path(@catalogue), notice: 'Catalogue was successfully created.' }
         format.json { render :show, status: :created, location: @catalogue }
       else
         format.html { render :new }
@@ -96,22 +90,29 @@ class CataloguesController < ApplicationController
     end
   end
   
-  def artwork_create
-    # POST /catalogues
-    # POST /catalogues.json
-    # @catalogue = Catalogue.new(catalogue_params)
-    @artwork = Artwork.new(artwork_params)
+  # def artwork_new
+  #   # ARTWORK preset
+  #   @artworks = @artist.artworks.all
+  #   @artwork = @artist.artworks.new
+  # end
 
-    respond_to do |format|
-      if @catalogue.save
-        format.html { redirect_to @catalogue, notice: 'Catalogue was successfully created.' }
-        format.json { render :show, status: :created, location: @catalogue }
-      else
-        format.html { render :new }
-        format.json { render json: @catalogue.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+  
+  # def artwork_create
+  #   # POST /catalogues
+  #   # POST /catalogues.json
+  #   # @catalogue = Catalogue.new(catalogue_params)
+  #   @artwork = Artwork.new(artwork_params)
+
+  #   respond_to do |format|
+  #     if @catalogue.save
+  #       format.html { redirect_to @catalogue, notice: 'Catalogue was successfully created.' }
+  #       format.json { render :show, status: :created, location: @catalogue }
+  #     else
+  #       format.html { render :new }
+  #       format.json { render json: @catalogue.errors, status: :unprocessable_entity }
+  #     end
+  #   end
+  # end
 
   # PATCH/PUT /catalogues/1
   # PATCH/PUT /catalogues/1.json
@@ -125,7 +126,7 @@ class CataloguesController < ApplicationController
           @artist=Artist.find_by_id(@artist_params["id"])
           current_user.artist=(@artist)
         end
-        format.html { redirect_to edit_catalogue_path(@catalogue), notice: 'Catalogue was successfully updated.' }
+        format.html { redirect_to edit_catalogue_artwork_path(@catalogue), notice: 'Catalogue was successfully updated.' }
         format.json { render :show, status: :ok, location: @catalogue }
       else
         format.html { render :edit }
@@ -165,8 +166,8 @@ class CataloguesController < ApplicationController
         ],
         exhibitions_attributes: [Exhibition.attribute_names.map(&:to_sym),
           spaces_attributes: [Space.attribute_names.map(&:to_sym), contacts_attributes: Contact.attribute_names.map(&:to_sym).push(:_destroy)]
-        ],
-        artworks_attributes: [Artwork.attribute_names(&:to_sym).push(:_destroy, :image_cache)],
+        ]
+        # artworks_attributes: [Artwork.attribute_names(&:to_sym).push(:_destroy, :image_cache)],
       )
     end
     
@@ -181,11 +182,4 @@ class CataloguesController < ApplicationController
     #     exhibitions_attributes: [Exhibition.attribute_names.map(&:to_sym).push(:_destroy), spaces_attributes: Space.attribute_names.map(&:to_sym)])
     # end
     
-    def contact_params
-      params.require(:contact).permit(:name, :role, :academic, :user_id)
-    end
-    
-    def history_params
-      params.require(:history).permit(:category, :title, :academic, :user_id)
-    end
 end

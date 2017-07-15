@@ -97,27 +97,11 @@
                           </tbody>
                         </table>
                                   <%= link_to_add_row('Add Contact', space_builder, :contacts, class: 'btn btn-primary', label: "field_contacts") %>
-          <% end %>
-        <% end %>
-
-    
               </div>
             </div>
             
-            <div class="panel panel-success">
-              <div class="panel-heading">
-                <h5>4단계: 작품정보입력 :: Artwork</h5>
-              </div>
-              <div class="panel-body">
-                <div class="form_artworks">
-                  <% @artworks.each do |artwork| %>
-                    <%= render partial: "artwork", :locals => { artwork: artwork }%>
-                  <% end %>
-                   
-                </div>
-              </div>
-
-            </div>
+                      <% end %>
+          <% end %>
 
 
 
@@ -131,20 +115,5 @@
     <br><br><%= catalogue_builder.button :submit, "save" %>
   </div>
 <% end %>
-
-                  <%= form_for @artwork, url: artworks_path, :html => {:method => :post} do |f| %>
-                    <%= f.label :image, "Upload artworks:" %>
-                    <%= f.file_field :image, multiple: true, name: "artwork[image]" %>
-                    <%= f.hidden_field :image_cache %>
-                  <% end %>
-                  
-                  <script id="template-upload" type="text/x-tmpl">
-                    <div class="upload">
-                      {%=o.name%}
-                      <div class="progress" style="border: 1px solid black;">
-                        <div class="bar" style="width: 0%; background-color: green; height: 20px;" ></div>
-                      </div>
-                    </div>
-                  </script>
 
 

@@ -1,5 +1,5 @@
 class ContactsController < ApplicationController
-  befor_filter :load_contactable
+  before_filter :load_contactable
   def index
     @contactable = Artist.find(params[:artist_id])
     @contacts = @contactable.contacts

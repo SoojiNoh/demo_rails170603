@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+  <title>| Dashboard</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+  
+  <!-- For example, <link href="<#%= asset_path "materialize.css" %>" type="text/css" rel="stylesheet" media="screen,projection"data-turbolinks-track="reload">-->
+
+  <link href="<%= asset_path "bootstrap.min.css" %>" type="text/css" rel="stylesheet" data-tubolinks-tracks="reload">
+  <link href="<%= asset_path "font-awesome/css/font-awesome.css" %>" type="text/css" rel="stylesheet" data-turbolinks-tracks="reload">
+  <link href="<%= asset_path "animate.css"%>" type="text/css" rel="stylesheet" data-turbolinks-tracks="reload" >
+  <link href="<%= asset_path "style.css"%>" type="text/css" rel="stylesheet" data-turbolinks-tracks="reload" >
+  <link href="<%= asset_path "custom.css"%>" type="text/css" rel="stylesheet" data-turbolinks-tracks="reload" >
+
+  <link href="<%= asset_path "animate.css"%>" type="text/css" rel="stylesheet" data-turbolinks-tracks="reload" >
+
+  <!-- Toastr style -->
+  <link href="<%= asset_path "plugins/toastr/toastr.min.css"%>" type="text/css" rel="stylesheet" data-turbolinks-tracks="reload" >
+    
+  <!-- Latest compiled and minified CSS -->
+  <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">-->
+  
+  <!-- Optional theme -->
+  <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">-->
+  
+  <!-- Latest compiled and minified JavaScript -->
+  <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>-->
+
+</head>
+<body>
+
+<ul class="nav nav-tabs nav-justified">
+  <li role="presentation" class="<%= 'active' if(params[:controller] != 'artists' && !(params[:controller].include? "users/"))%>"><a href="/dashboards/index">Dashboard</a></li>
+  <%if user_signed_in?%>
+    <li role="presentation" class="<%= 'active' if params[:controller] == 'artists' %>"><%=link_to "사용자 정보보기", artists_path%></li>
+    <%=link_to "로그아웃", destroy_user_session_path, method: :delete%>
+  <%else%>
+    <li role="presentation" class="<%= 'active' if params[:controller].include? "users/" %>"><%=link_to "로그인", new_user_session_path%></li>
+  <%end%>
+</ul>
+  <% flash.each do |name, msg| %>
+    <% if msg.class == Array %>
+      <% msg.each do |message| %>
+        <%= content_tag :div, message, :id => "flash_#{name}" %>
+      <% end %>
+    <% else %>
+  
+  
+      <%= content_tag :div, msg, :id => "flash_#{name}" %>
+  
+    <% end %>
+  <% end %>   
+
+<% if params[:controller] == 'artists' or params[:controller].include? "users/"%>
+  <div class="container">
+    
+    <%= yield %>
+  </div>
+<% else %>
+  <%= render partial: "layouts/dashboard_sidenav" %>
+<% end %>
+
+
+</body>
+</html>

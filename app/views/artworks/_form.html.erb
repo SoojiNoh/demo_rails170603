@@ -1,21 +1,24 @@
-<%= form_for @artwork, html: {class: "artwork_group_form", enctype: "multipart/form-data"} do |f| %>
-  <% if @artwork.errors.any? %>
+<%= form_for artwork, html: {class: "artwork_group_form", enctype: "multipart/form-data"} do |f| %>
+  <% if artwork.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@artwork.errors.count, "error") %> prohibited this artwork from being saved:</h2>
+      <h2><%= pluralize(artwork.errors.count, "error") %> prohibited this artwork from being saved:</h2>
       <ul>
-      <% @artwork.errors.full_messages.each do |message| %>
+      <% artwork.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
     </div>
   <% end %>
+  
+  <%= render 'layouts/error_messages', object: f.object %>
+
 
   <div class="field" col="3">
     <%= f.label :category %><br>
     <%= f.text_field :category %>
   </div>
-  <% if @artwork.image.present? %>
-    <%= image_tag @artwork.image.url(:thumb) %><br/>
+  <% if artwork.image.present? %>
+    <%= image_tag artwork.image.url(:thumb) %><br/>
     <%= f.check_box :remove_image %>Remove Image<br/>
 
   <% end %>

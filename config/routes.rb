@@ -15,7 +15,6 @@ Rails.application.routes.draw do
     passwords: 'users/passwords'
   }
   
-  
   resources :catalogues, model_name: 'Catalogue' do
     resources :players
     resources :pages

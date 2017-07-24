@@ -30,7 +30,6 @@ class ArtistsController < ApplicationController
   def edit
 
   end
-
   # POST /artists
   # POST /artists.json
   def create

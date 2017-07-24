@@ -2,26 +2,9 @@
 
   <% @artworks.each do |artwork| %>
     <div class="panel panel-info">
-      <%= render partial: "form_artwork", :locals => { artwork: artwork }%>
+      <%= image_tag artwork.image.url(:thumb) %>
+      <%#= render partial: "form_artwork", :locals => { artwork: artwork }%>
     </div>
   <% end %>
-  
-
-<div class="panel panel-danger">
-  <%= form_for Artwork.new do |f| %>
-    <%= f.label :image, "Upload artworks:" %>
-    <%= f.file_field :image, multiple: true, name: "artwork[image]" %>
-    <%= f.hidden_field :image_cache %>
-  <% end %>
-</div>
-
-<script id="template-upload" type="text/x-tmpl">
-  <div class="upload">
-    {%=o.name%}
-    <div class="progress" style="border: 1px solid black;">
-      <div class="bar" style="width: 0%; background-color: green; height: 20px;" ></div>
-    </div>
-  </div>
-</script>
  
 <%= link_to "New artwork", new_artwork_path %>

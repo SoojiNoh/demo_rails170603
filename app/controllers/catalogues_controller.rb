@@ -80,7 +80,7 @@ class CataloguesController < ApplicationController
         else
           current_user.create_artist(@artist_params)
         end
-        format.html { redirect_to catalogue_artworks_path(@catalogue), notice: 'Catalogue was successfully created.' }
+        format.html { redirect_to new_catalogue_artworks_path(@catalogue), notice: 'Catalogue was successfully created.' }
         # format.html { redirect_to edit_catalogue_path(@catalogue), notice: 'Catalogue was successfully created.' }
         format.json { render :show, status: :created, location: @catalogue }
       else

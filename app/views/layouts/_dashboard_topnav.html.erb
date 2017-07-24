@@ -1,0 +1,23 @@
+<nav class="navbar navbar-static-top white-bg" role="navigation" style="margin-bottom: 0">
+                <div class="navbar-header">
+                  <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+                </div>
+                <ul class="nav navbar-top-links navbar-right">
+                  <li>
+                      <a href="/">메인화면</a>
+                  </li>
+                  <%if user_signed_in?%>
+                    <li class="<%= 'active' if params[:controller] == 'artists' %>">
+                        <%=link_to "사용자 정보보기", artists_path%></li>
+                    </li>
+                    <li>
+                        <%=link_to "로그아웃", destroy_user_session_path, method: :delete, data: { confirm: "로그아웃 하시겠습니까?" }, class: "fa fa-sign-out"%>
+                    </li>
+                  <%else%>
+                    <li class="<%= 'active' if params[:controller].include? "users/" %>">
+                        <%=link_to "로그인", new_user_session_path, class: "fa fa-sign-in"%>
+                    </li>
+                  <%end%> 
+                </ul>
+
+</nav>

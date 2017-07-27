@@ -80,7 +80,7 @@ class CataloguesController < ApplicationController
         else
           current_user.create_artist(@artist_params)
         end
-        format.html { redirect_to new_catalogue_artworks_path(@catalogue), notice: 'Catalogue was successfully created.' }
+        format.html { redirect_to new_catalogue_artwork_path(@catalogue), notice: 'Catalogue was successfully created.' }
         # format.html { redirect_to edit_catalogue_path(@catalogue), notice: 'Catalogue was successfully created.' }
         format.json { render :show, status: :created, location: @catalogue }
       else
@@ -126,7 +126,7 @@ class CataloguesController < ApplicationController
           @artist=Artist.find_by_id(@artist_params["id"])
           current_user.artist=(@artist)
         end
-        format.html { redirect_to edit_catalogue_artwork_path(@catalogue), notice: 'Catalogue was successfully updated.' }
+        format.html { redirect_to edit_catalogue_artwork_path(@catalogue.id), notice: 'Catalogue was successfully updated.' }
         format.json { render :show, status: :ok, location: @catalogue }
       else
         format.html { render :edit }

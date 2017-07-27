@@ -15,13 +15,15 @@ Rails.application.routes.draw do
     passwords: 'users/passwords'
   }
   
+resources :artworks
+  
   resources :catalogues, model_name: 'Catalogue' do
     resources :players
     resources :pages
     resources :artworks
   end
-  resources :artworks  
-  resources :artists do
+   
+  resources :artists, model_name: 'Artist' do
     resources :contacts
     resources :histories
   end

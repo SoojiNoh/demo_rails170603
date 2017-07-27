@@ -1,6 +1,8 @@
 class ArtworksController < ApplicationController
   before_action :set_artwork, only: [:show, :edit, :update, :destroy]
   before_action :set_parent_artwork, only: [:new, :create, :update]
+  before_filter :authenticate_user!
+
   # GET /artworks
   # GET /artworks.json
   def index
@@ -25,11 +27,8 @@ class ArtworksController < ApplicationController
   # GET /artworks/new
   def new
     if @parent_object.present?
-      puts @parent_object.inspect
-      if @parent_object.artworks.present?
         @artworks = @parent_object.artworks.all
         @artwork = @parent_object.artworks.new
-      end
     else
       @artworks = current_user.artist.artworks.all
       @artwork = current_user.artist.artworks.new
@@ -80,8 +79,8 @@ class ArtworksController < ApplicationController
     
     respond_to do |format|
       if @artwork.update(artwork_params)
-        if @parent_object.class.name=="Catalogue"
-          format.html { redirect_to catalogue_artworks_path(@parent_object.id), notice: 'Artwork was successfully updated.' }
+        if @parent_object.class.name.present?
+          format.html { redirect_to :back, notice: 'Artwork was successfully updated.' }
           format.json { render :show, status: :ok, location: @artwork }
         else
           format.html { redirect_to :back, notice: 'Artwork was successfully updated.' }
@@ -96,7 +95,7 @@ class ArtworksController < ApplicationController
   def destroy
     @artwork.destroy
     respond_to do |format|
-      format.html { redirect_to artworks_url, notice: 'Artwork was successfully destroyed.' }
+      format.html { redirect_to :back, notice: 'Artwork was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -108,14 +107,13 @@ class ArtworksController < ApplicationController
     end
     
     def set_parent_artwork
-      if params[:model_name]=="Catalogue"
+      if params[:model_name].present?
         puts "params[:model_name] is set " + params[:model_name]
         parent_class = params[:model_name].constantize
         parent_foreign_key = params[:model_name].foreign_key
         @parent_object = parent_class.find(params[parent_foreign_key])
       else
         puts "params[:model_name] is nil"
-        @parent_object = current_user.artist
       end
     end
     

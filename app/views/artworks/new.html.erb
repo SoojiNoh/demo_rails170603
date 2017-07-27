@@ -1,31 +1,24 @@
-<h1>Catalogue Artwork Index</h1>
+<h1><%=@parent_object.class.name%> Artwork Index</h1>
 
+
+<div class="panel panel-info"> 
+  <% if @artworks.empty? %> <h2>Artwork 없음</h2> <%end%>
   <% @artworks.each do |artwork| %>
-    <div class="panel panel-info">
-      <%if @parent_object.class.name == "Catalogue "%>
-        <%= render partial: "form_artwork", :locals => { artwork: artwork }%>
-      <% else %>
-        <%= render partial: "form", :locals => {artwork: artwork } %>
-      <% end %>
-    </div>
-  <% end %>
-  
+      <%= render 'layouts/error_messages', object: artwork %>  
+      
+      <div class="panel panel-danger">
+        <%= link_to "Remove", artwork, method: :delete, data: { confirm: "이 Artwork를 삭제하시겠습니까?" } %>
 
-<div class="panel panel-danger">
-  <%= form_for Artwork.new do |f| %>
-    <%= f.label :image, "Upload artworks:" %>
-    <%= f.file_field :image, multiple: true, name: "artwork[image]" %>
-    <%= f.hidden_field :image_cache %>
+        <%= render partial: "form", :locals => { artwork: artwork }%>
+      </div>
   <% end %>
 </div>
+  
+      <%if @parent_object.present?%>
+        <%= render partial: "form_artwork_Catalogue"%>
+      <% else %>
+        <%= render partial: "form_artwork"%>
+      <% end %>
 
-<script id="template-upload" type="text/x-tmpl">
-  <div class="upload">
-    {%=o.name%}
-    <div class="progress" style="border: 1px solid black;">
-      <div class="bar" style="width: 0%; background-color: green; height: 20px;" ></div>
-    </div>
-  </div>
-</script>
  
-<%= link_to "New artwork", new_artwork_path %>
+<%#= link_to "New artwork", new_@parent_object.class.name.to_s.downcase_artworks_path(@parent_object.id)%>

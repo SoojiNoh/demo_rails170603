@@ -1,0 +1,35 @@
+<h1><%=@parent_object.class.name%> Artwork Index</h1>
+  <% if @artworks.present?%>
+    <% @artworks.each do |artwork| %>
+      <div class="panel panel-info form_artworks">
+        <%if !@parent_object.nil?%>
+          <%= render partial: "form_artwork_#{@parent_object.class.name}", :locals => { f: artwork }%>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+  
+  <% if !@parent_object.nil? %>
+    <%= form_for @parent_object do |f| %>
+      <%= link_to_add_form_parent('Add Artwork Parent', f, :artworks, class: 'btn btn-primary', label: "form_artworks") %>
+    <% end %>
+  <% end %>
+  
+<div class="panel panel-danger">
+  <%= form_for @artworks.new do |f| %>
+    <%= f.label :image, "Upload artworks:" %>
+    <%= f.file_field :image, multiple: true, name: "artwork[image]" %>
+    <%= f.hidden_field :image_cache %>
+  <% end %>
+</div>
+
+<script id="template-upload" type="text/x-tmpl">
+  <div class="upload">
+    {%=o.name%}
+    <div class="progress" style="border: 1px solid black;">
+      <div class="bar" style="width: 0%; background-color: green; height: 20px;" ></div>
+    </div>
+  </div>
+</script>
+ 
+<%= link_to "New artwork", new_artwork_path %>

@@ -15,13 +15,13 @@
                     </div>
                 </li>
                 <li class="<%= 'active' if current_page?(new_catalogue_path) %>">
-                    <a href="/catalogues/new"><i class="fa fa-book"></i> <span class="nav-label">웹 도록 만들기</span></a>
+                    <a href="/catalogues/new" data-turbolinks="false"><i class="fa fa-book"></i> <span class="nav-label">웹 도록 만들기</span></a>
                 </li>
                 <li class="<%= 'active' if current_page?(catalogues_path) %>">
-                    <a href="/catalogues"><i class="fa fa-archive"></i> <span class="nav-label">웹 도록 목록</span> </a>
+                    <a href="/catalogues" data-turbolinks="false"><i class="fa fa-archive"></i> <span class="nav-label">웹 도록 목록</span> </a>
                 </li>
                 <li class="<%= 'active' if current_page?(artworks_path)%>">
-                    <a href="/artworks"><i class="fa fa-th"></i> <span class="nav-label">작품 간추려 보기</span> </a>
+                    <a href="/artworks" data-turbolinks="false"><i class="fa fa-th"></i> <span class="nav-label">작품 간추려 보기</span> </a>
                 </li>
                 <li>
                     <a href="/dashboards/help"><i class="fa fa-wrench"></i> <span class="nav-label">문의 하기</span> </a>

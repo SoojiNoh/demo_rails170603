@@ -7,7 +7,7 @@
         <h2>여러 이미지를 드래그하여 드롭해주세요</h2>
     
     <%= f.label :image, "Upload artworks:" %>
-    <%= f.file_field :image, multiple: true, name: "artwork[image]" %>
+    <%= f.file_field :image, multiple: true, name: "artwork[image]", id: 'image' %>
     <%= f.hidden_field :image_cache %>
   <% end %>
 </div>

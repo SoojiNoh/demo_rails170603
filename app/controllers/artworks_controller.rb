@@ -2,11 +2,15 @@ class ArtworksController < ApplicationController
   before_action :set_artwork, only: [:show, :edit, :update, :destroy]
   before_action :set_parent_artwork, only: [:new, :create, :update]
   before_filter :authenticate_user!
+  before_action :authenticate_artist
 
   # GET /artworks
   # GET /artworks.json
   def index
-    @artworks = current_user.artist.artworks.all
+    current_user.catalogues.each do |catalogue|
+      @artworks_catalogue=catalogue.artworks.all.map {|artwork|artwork}
+    end
+    @artworks_artist = current_user.artist.artworks.all
     # if @parent_object.present?
     #   puts @parent_object.inspect
     #   if @parent_object.artworks.present?
@@ -27,10 +31,10 @@ class ArtworksController < ApplicationController
   # GET /artworks/new
   def new
     if @parent_object.present?
-        @artworks = @parent_object.artworks.all
+        @artworks = @parent_object.artworks.all.reverse
         @artwork = @parent_object.artworks.new
     else
-      @artworks = current_user.artist.artworks.all
+      @artworks = current_user.artist.artworks.all.reverse
       @artwork = current_user.artist.artworks.new
     end
     
@@ -41,7 +45,13 @@ class ArtworksController < ApplicationController
 
   # GET /artworks/1/edit
   def edit
-
+    if @parent_object.present?
+        @artworks_parent = @parent_object.artworks.all
+        @artwork_parent = @parent_object.artworks.new
+    else
+      @artworks = current_user.artist.artworks.all
+      @artwork = current_user.artist.artworks.new
+    end
   end
 
   # POST /artworks
@@ -101,6 +111,16 @@ class ArtworksController < ApplicationController
   end
 
   private
+  
+    def authenticate_artist
+      if current_user.artist.nil?
+      respond_to do |format|
+        format.html { redirect_to "/artists", notice: '본 기능을 위해서는 Artist 등록이 필요합니다'}
+        format.json { head :no_content }
+      end
+      end
+    end
+  
     # Use callbacks to share common setup or constraints between actions.
     def set_artwork
       @artwork = Artwork.find(params[:id])

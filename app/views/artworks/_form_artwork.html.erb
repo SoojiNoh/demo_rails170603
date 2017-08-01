@@ -1,22 +1,68 @@
+<%= form_for artwork, html: {class: "artwork_group_form", enctype: "multipart/form-data"} do |f| %>
 
-<div class="panel panel-danger">
-  <%= form_for @artwork do |f| %>
+  <div class="panel panel-danger">
   
     <%= render 'layouts/error_messages', object: f.object %>
   
-    <h2>여러 이미지를 드래그하여 드롭해주세요</h2>
-    
-    <%= f.label :image, "Upload artworks:" %>
-    <%= f.file_field :image, multiple: true, name: "artwork[image]" %>
-    <%= f.hidden_field :image_cache %>
-  <% end %>
-</div>
-
-<script id="template-upload" type="text/x-tmpl">
-  <div class="upload">
-    {%=o.name%}
-    <div class="progress" style="border: 1px solid black;">
-      <div class="bar" style="width: 0%; background-color: green; height: 20px;" ></div>
+  
+    <div class="field" col="3">
+      <%= f.label :category %><br>
+      <%= f.text_field :category %>
     </div>
+    <% if artwork.image.present? %>
+      <div id="image-preview">
+        <%= image_tag artwork.image.url(:thumb) %><br/>
+      </div>
+      <%= link_to '작품이미지 삭제/복구', '#', class: 'toggle_remove_image'%>
+      <%= f.hidden_field :remove_image, value: false%>
+  
+    <% end %>
+    
+    <div class="field">
+      <%= f.hidden_field :image_cache %>
+      <%= f.file_field :image, label: false, accept: 'image/*', name: "artwork[image]", class: 'image_edit'%>
+  
+      <div class="image-edit-preview">
+        <style>
+    		.image-edit-preview img{
+    			width: 100px;
+    		}
+    	  </style>
+      </div>
+    </div>
+  
+    <script id="edit-upload" type="text/x-tmpl">
+      <div class="upload">
+        <div class="progress" style="width: 400px; height: 30px; border: 1px solid black;">
+          <div class="bar" style="width: 0%; height: 25px; background-color: green;" ></div>
+        </div>
+        {%=o.name%}
+      </div>
+    </script>
+  
+    <div class="field">
+      <%= f.label :title %><br>
+      <%= f.text_area :title %>
+    </div>
+    <div class="field">
+      <%= f.text_field :size, as: :array %>
+      <button class="add-size-button">추가</button><br>
+    </div>
+    <div class="field">
+      <%= f.label :unit %><br>
+      <%= f.text_area :unit %>
+    </div>
+    <div class="field">
+      <%= f.label :material %><br>
+      <%= f.text_area :material %>
+    </div>
+    <div class="field">
+      <%= f.label :created_date %><br>
+      <%= f.date_select :created_date, start_year: 1800, end_year: Date.current.year, discard_month: true, discard_day: true, include_blank: true %>
+    </div>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+    
   </div>
-</script>
+<% end %>

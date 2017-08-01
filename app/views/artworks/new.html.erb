@@ -2,21 +2,33 @@
 
   
   <%if @parent_object.present?%>
-    <%= render partial: "form_artwork_Catalogue"%>
+    <%= render partial: "form_upload_Catalogue"%>
   <% else %>
-    <%= render partial: "form_artwork"%>
+    <%= render partial: "form_upload"%>
   <% end %>
 
 	<div class="panel panel-info"> 
 	  <% if @artworks.empty? %> <h2>Artwork 없음</h2> <%end%>
-	  <% @artworks.each do |artwork| %>
-	      <%= render 'layouts/error_messages', object: artwork %>  
-	      
-	      <div class="panel panel-danger">
-	        <%= link_to "Remove", artwork, method: :delete, data: { confirm: "이 Artwork를 삭제하시겠습니까?" } %>
+	  
+
+	<%if @parent_object.present? %>
+		<%= link_to_add_form_parent('Add Artwork', @parent_object, @artwork, class: 'btn btn-primary', label: "form_artworks") %>
+ 	<% else %>
+		<%= link_to_add_form('Add Artwork', @artwork, class: 'btn btn-primary', label: "form_artworks") %>
+	<% end %>
 	
-	        <%= render partial: "form", :locals => { artwork: artwork }%>
-	      </div>
-	  <% end %>
-	</div>
+  	<div class="form_artworks">
+  	</div>
+
+		 <% @artworks.each do |artwork|%>
+		      <%= render 'layouts/error_messages', object: artwork %>  
+		      
+		      <div class="panel panel-danger">
+		        <%= link_to "Remove", artwork, method: :delete, data: { confirm: "이 Artwork를 삭제하시겠습니까?" } %>
+					
+			      <%= render partial: "form", :locals => { artwork: artwork }%>
+		      </div>
+		  <% end %>
+	  </div>
+
 <%#= link_to "New artwork", new_@parent_object.class.name.to_s.downcase_artworks_path(@parent_object.id)%>

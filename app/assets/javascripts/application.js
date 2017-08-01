@@ -47,15 +47,25 @@ $(document).on('turbolinks:load', function() {
    $('form').on('click', '.add_fields', function(event) {
        console.log('clicked1');
        var regexp, time, label;
-              console.log('clicked1');
        label = $(this).data('label'); //내가 추가한 것
-              console.log('clicked2');
        time = new Date().getTime();
-              console.log('clicked3');
        regexp = new RegExp($(this).data('id'), 'g');
-              console.log('clicked4');
+             console.log($(label));
        $('.'+label).append($(this).data('fields').replace(regexp, time)); //내가 수정한 것
-              console.log('clicked5');
+       return event.preventDefault();
+   });
+   
+   
+    $('body').on('click', '.add_forms', function(event) {
+       console.log('clicked1');
+       var regexp, time, label;
+       label = $(this).data('label');
+       time = new Date().getTime();
+      console.log(time);
+       regexp = new RegExp($(this).data('id'), 'g');
+      console.log(regexp);
+       $('.'+label).append($(this).data('forms').replace(regexp, time)); //내가 수정한 것
+      console.log($(label));
        return event.preventDefault();
    });
    

@@ -1,0 +1,22 @@
+
+<div class="panel panel-danger">
+  <%= form_for @artwork do |f| %>
+  
+    <%= render 'layouts/error_messages', object: f.object %>
+  
+    <h2>여러 이미지를 드래그하여 드롭해주세요</h2>
+    
+    <%= f.label :image, "Upload artworks:" %>
+    <%= f.file_field :image, multiple: true, name: "artwork[image]" %>
+    <%= f.hidden_field :image_cache %>
+  <% end %>
+</div>
+
+<script id="template-upload" type="text/x-tmpl">
+  <div class="upload">
+    {%=o.name%}
+    <div class="progress" style="border: 1px solid black;">
+      <div class="bar" style="width: 0%; background-color: green; height: 20px;" ></div>
+    </div>
+  </div>
+</script>

@@ -73,10 +73,10 @@ class ArtworksController < ApplicationController
     respond_to do |format|
       if @artwork.save
         format.html { redirect_to :back, notice: 'Artwork was successfully created.' }
-        format.json { render :show, status: :created, location: @artwork }
+        # format.json { render :show, status: :created, location: @artwork }
       else
         format.html { render :new }
-        format.json { render json: @artwork.errors, status: :unprocessable_entity }
+        # format.json { render json: @artwork.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -91,10 +91,10 @@ class ArtworksController < ApplicationController
       if @artwork.update(artwork_params)
         if @parent_object.class.name.present?
           format.html { redirect_to :back, notice: 'Artwork was successfully updated.' }
-          format.json { render :show, status: :ok, location: @artwork }
+          # format.json { render :show, status: :ok, location: @artwork }
         else
           format.html { redirect_to :back, notice: 'Artwork was successfully updated.' }
-          format.json { render json: @artwork.errors, status: :unprocessable_entity }
+          # format.json { render json: @artwork.errors, status: :unprocessable_entity }
         end
       end
     end
@@ -106,7 +106,7 @@ class ArtworksController < ApplicationController
     @artwork.destroy
     respond_to do |format|
       format.html { redirect_to :back, notice: 'Artwork was successfully destroyed.' }
-      format.json { head :no_content }
+      # format.json { head :no_content }
     end
   end
 
@@ -116,7 +116,7 @@ class ArtworksController < ApplicationController
       if current_user.artist.nil?
       respond_to do |format|
         format.html { redirect_to "/artists", notice: '본 기능을 위해서는 Artist 등록이 필요합니다'}
-        format.json { head :no_content }
+        # format.json { head :no_content }
       end
       end
     end

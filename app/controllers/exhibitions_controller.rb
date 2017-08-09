@@ -31,10 +31,10 @@ class ExhibitionsController < ApplicationController
     respond_to do |format|
       if @exhibition.save
         format.html { redirect_to :back, notice: 'Exhibition was successfully created.' }
-        format.json { render :show, status: :created, location: @exhibition }
+        # format.json { render :show, status: :created, location: @exhibition }
       else
         format.html { render :new }
-        format.json { render json: @exhibition.errors, status: :unprocessable_entity }
+        # format.json { render json: @exhibition.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -46,10 +46,10 @@ class ExhibitionsController < ApplicationController
     respond_to do |format|
       if @exhibition.save
         format.html { redirect_to '/', notice: 'Exhibition was successfully created.' }
-        format.json { render :show, status: :created, location: @exhibition }
+        # format.json { render :show, status: :created, location: @exhibition }
       else
         format.html { render :new }
-        format.json { render json: @exhibition.errors, status: :unprocessable_entity }
+        # format.json { render json: @exhibition.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -60,10 +60,10 @@ class ExhibitionsController < ApplicationController
     respond_to do |format|
       if @exhibition.update(exhibition_params)
         format.html { redirect_to @exhibition, notice: 'Exhibition was successfully updated.' }
-        format.json { render :show, status: :ok, location: @exhibition }
+        # format.json { render :show, status: :ok, location: @exhibition }
       else
         format.html { render :edit }
-        format.json { render json: @exhibition.errors, status: :unprocessable_entity }
+        # format.json { render json: @exhibition.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -74,7 +74,7 @@ class ExhibitionsController < ApplicationController
     @exhibition.destroy
     respond_to do |format|
       format.html { redirect_to exhibitions_url, notice: 'Exhibition was successfully destroyed.' }
-      format.json { head :no_content }
+      # format.json { head :no_content }
     end
   end
 

@@ -31,10 +31,10 @@ class HistoriesController < ApplicationController
     respond_to do |format|
       if @history.save
         format.html { redirect_to :back, notice: 'Exhibition was successfully created.' }
-        format.json { render :show, status: :created, location: @history }
+        # format.json { render :show, status: :created, location: @history }
       else
         format.html { render :new }
-        format.json { render json: @history.errors, status: :unprocessable_entity }
+        # format.json { render json: @history.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -46,10 +46,10 @@ class HistoriesController < ApplicationController
     respond_to do |format|
       if @history.save
         format.html { redirect_to '/', notice: 'Exhibition was successfully created.' }
-        format.json { render :show, status: :created, location: @history }
+        # format.json { render :show, status: :created, location: @history }
       else
         format.html { render :new }
-        format.json { render json: @history.errors, status: :unprocessable_entity }
+        # format.json { render json: @history.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -60,10 +60,10 @@ class HistoriesController < ApplicationController
     respond_to do |format|
       if @history.update(history_params)
         format.html { redirect_to @history, notice: 'Exhibition was successfully updated.' }
-        format.json { render :show, status: :ok, location: @history }
+        # format.json { render :show, status: :ok, location: @history }
       else
         format.html { render :edit }
-        format.json { render json: @history.errors, status: :unprocessable_entity }
+        # format.json { render json: @history.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -74,7 +74,7 @@ class HistoriesController < ApplicationController
     @history.destroy
     respond_to do |format|
       format.html { redirect_to histories_url, notice: 'Exhibition was successfully destroyed.' }
-      format.json { head :no_content }
+      # format.json { head :no_content }
     end
   end
 

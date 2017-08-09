@@ -1,7 +1,7 @@
 class Artist < ActiveRecord::Base
     # validates_presence_of :name
 
-    #User : Artist = 1 : 1
+    #User : Artist = 1 : 0
     belongs_to :user
     
     #Artist : History = 1 : N

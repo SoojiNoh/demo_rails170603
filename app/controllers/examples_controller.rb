@@ -29,10 +29,10 @@ class ExamplesController < ApplicationController
     respond_to do |format|
       if @example.save
         format.html { redirect_to @example, notice: 'Example was successfully created.' }
-        format.json { render :show, status: :created, location: @example }
+        # format.json { render :show, status: :created, location: @example }
       else
         format.html { render :new }
-        format.json { render json: @example.errors, status: :unprocessable_entity }
+        # format.json { render json: @example.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -43,10 +43,10 @@ class ExamplesController < ApplicationController
     respond_to do |format|
       if @example.update(example_params)
         format.html { redirect_to @example, notice: 'Example was successfully updated.' }
-        format.json { render :show, status: :ok, location: @example }
+        # format.json { render :show, status: :ok, location: @example }
       else
         format.html { render :edit }
-        format.json { render json: @example.errors, status: :unprocessable_entity }
+        # format.json { render json: @example.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -57,7 +57,7 @@ class ExamplesController < ApplicationController
     @example.destroy
     respond_to do |format|
       format.html { redirect_to examples_url, notice: 'Example was successfully destroyed.' }
-      format.json { head :no_content }
+      # format.json { head :no_content }
     end
   end
 

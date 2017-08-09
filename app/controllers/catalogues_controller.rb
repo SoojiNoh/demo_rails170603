@@ -82,10 +82,10 @@ class CataloguesController < ApplicationController
         end
         format.html { redirect_to new_catalogue_artwork_path(@catalogue), notice: 'Catalogue was successfully created.' }
         # format.html { redirect_to edit_catalogue_path(@catalogue), notice: 'Catalogue was successfully created.' }
-        format.json { render :show, status: :created, location: @catalogue }
+        # format.json { render :show, status: :created, location: @catalogue }
       else
         format.html { render :new }
-        format.json { render json: @catalogue.errors, status: :unprocessable_entity }
+        # format.json { render json: @catalogue.errors, status: :unprocessable_entity }
       end
     end
   end

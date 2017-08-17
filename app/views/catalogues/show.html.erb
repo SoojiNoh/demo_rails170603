@@ -1,4 +1,31 @@
 <p id="notice"><%= notice %></p>
-<%=@catalogue.artist.name%>
+
+<p>
+    <strong>Artsit:</strong>
+    <%=@catalogue.artist.inspect%>
+</p>
+
+<p>
+    <strong>Exhibition:</strong>
+    <%=@catalogue.exhibitions.inspect%>
+</p>
+
+
+<p>
+    <strong>Artworks: </strong>
+    <%=h(@catalogue.artworks.inspect.to_s).gsub(" #","<br>").html_safe%>
+</p>
+
+
+
+<p>
+  <strong>Title:</strong>
+  <%= @catalogue.title %>
+</p>
+
+<p>
+  <strong>Description::</strong>
+  <%= @catalogue.description %>
+</p>
 <%= link_to 'Edit', edit_catalogue_path(@catalogue) %> |
 <%= link_to 'Back', catalogues_path %>

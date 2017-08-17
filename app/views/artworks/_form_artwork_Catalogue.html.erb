@@ -62,15 +62,3 @@
     <%= f.submit %>
   </div>
 <% end %>
-
-<script>
-  $('.add-size-button').click(function(ev){
-    ev.preventDefault()
-    $lastSizeField = $('input[name="artwork[size]"]:last-of-type').clone()
-    var lastSizeField = $('input[name="artwork[size]"]:last-of-type').clone()
-
-    console.log(lastSizeField);
-    $lastSizeField.val("")
-    $(".input.artwork_size").append($lastSizeField)
-  })
-</script>

@@ -7,9 +7,9 @@ class ArtworksController < ApplicationController
   # GET /artworks
   # GET /artworks.json
   def index
-    current_user.catalogues.each do |catalogue|
-      @artworks_catalogue=catalogue.artworks.all.map {|artwork|artwork}
-    end
+    # current_user.catalogues.each do |catalogue|
+    #   @artworks_catalogue=catalogue.artworks.all.map {|artwork|artwork}
+    # end
     @artworks_artist = current_user.artist.artworks.all
     # if @parent_object.present?
     #   puts @parent_object.inspect
@@ -63,6 +63,7 @@ class ArtworksController < ApplicationController
     if @parent_object.present?
       puts "parent artwork successfully created"
       @artwork = @parent_object.artworks.create(artwork_params)
+      @artwork = current_user.artist.artworks.create(artwork_params)
     else
       puts "artist artwork successfully created"
       @artwork = current_user.artist.artworks.create(artwork_params)

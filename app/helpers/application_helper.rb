@@ -55,7 +55,5 @@ module ApplicationHelper
         link_to(name, '#', class: "add_forms " + args[:class], data: {id: id, forms: forms.gsub("\n",""), label: args[:label]}) 
     end
     
-    
-    
 
 end

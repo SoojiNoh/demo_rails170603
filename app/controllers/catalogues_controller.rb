@@ -1,14 +1,12 @@
 class CataloguesController < ApplicationController
   before_action :set_catalogue, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user!
-
-
   # input ArrayInput
 
   # GET /catalogues
   # GET /catalogues.json
   def index
-    @catalogues = Catalogue.all
+    @catalogues = current_user.catalogues.all
   end
 
   # GET /catalogues/1

@@ -45,4 +45,5 @@ class Catalogue < ActiveRecord::Base
           break api_key unless self.api_key
         end
       end
+      
 end

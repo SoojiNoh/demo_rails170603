@@ -64,8 +64,9 @@ $(document).on('turbolinks:load', function() {
       console.log(time);
        regexp = new RegExp($(this).data('id'), 'g');
       console.log(regexp);
+            console.log($(label));
        $('.'+label).append($(this).data('forms').replace(regexp, time)); //내가 수정한 것
-      console.log($(label));
+
        return event.preventDefault();
    });
    
@@ -206,6 +207,8 @@ jQuery(
 			
 			var event_object = e.target;
 			var files = e.target.files;
+			
+						console.log("뿌잉뿌잉");
 
 			$.each(files, function(i, file){
 
@@ -225,6 +228,7 @@ jQuery(
 			});
 
 		});
+		
       
     }
 );

@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
 
 
-namespace :api do
-  devise_for :users
-  resources :catalogues, :only=>[:index, :show]
-end
+# namespace :api do
+#   devise_for :users
+#   resources :catalogues, :only=>[:index, :show]
+# end
 
   namespace :api do
     namespace :v1 do

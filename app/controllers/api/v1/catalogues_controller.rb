@@ -4,7 +4,6 @@ before_filter :restrict_access
 
     def show
         catalogue = Catalogue.find(params[:id])
-    
         render(json: Api::V1::CatalogueSerializer.new(catalogue).to_json)
     end
     

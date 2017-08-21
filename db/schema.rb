@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170814142115) do
+ActiveRecord::Schema.define(version: 20170808051531) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -37,7 +37,6 @@ ActiveRecord::Schema.define(version: 20170814142115) do
     t.string   "accessible_type"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
-    t.integer  "access_hit"
   end
 
   create_table "artist_artworks", force: :cascade do |t|
@@ -158,9 +157,10 @@ ActiveRecord::Schema.define(version: 20170814142115) do
 
   create_table "pages", force: :cascade do |t|
     t.string   "category"
-    t.string   "content"
-    t.string   "route"
     t.string   "title"
+    t.string   "content"
+    t.string   "producer"
+    t.string   "route"
     t.integer  "page_num"
     t.integer  "catalogue_id", null: false
     t.datetime "created_at",   null: false

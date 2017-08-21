@@ -1,11 +1,15 @@
-<h1>New Artist</h1>
 
-<div class="panel panel-success">
-  <div class="panel-heading">
-    작가등록
-  </div>
-  <div class="panel-body">
-    <%= render partial: 'form' %>
+<div class="wrapper wrapper-content animated fadeInRight">
+  <h2>작가 등록</h2>
+  <div class="wrapper wrapper-content">
+    <%= render partial: 'form', class: 'form-horizontal'%>
   </div>
 </div>
-<%= link_to 'Back', artists_path %>
+
+<%= link_to 'Back', catalogues_path %>
+
+
+    // <script>
+    // var foo = localStorage.getItem("bar");
+    // localStorage.setItem("bar", foo);
+    // </script>

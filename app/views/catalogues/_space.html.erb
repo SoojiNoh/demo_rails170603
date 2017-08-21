@@ -1,0 +1,46 @@
+<div class="row m-b">
+  <%= space_builder.label :name, "장소명", class: "m-l-lg col-lg-2 col-md-2 control-label"%><br>
+  <div class="col-lg-8 col-md-8">
+    <%= space_builder.text_field :name, placeholder: "장소명", class: "form-control"%>
+  </div>
+</div>
+<div class="row m-b">
+  <%= space_builder.label :location, "주소", class: "m-l-lg col-lg-2 col-md-2 control-label"%><br>
+  <div class="col-lg-8 col-md-8">
+    <%= space_builder.text_field :location, placeholder: "주소", class: "form-control"%>
+  </div>
+</div>
+<%= space_builder.simple_fields_for :contacts do |contact_builder| %>
+  <% if contact_builder.object.category == "phone" or contact_builder.object.category == "website" %>
+      <div class="row m-b">
+        <%= contact_builder.label :category, contact_builder.object.category, class: "m-l-lg col-lg-2 col-md-2 control-label"%><br>
+        <%= contact_builder.hidden_field :category, value: contact_builder.object.category %>
+        <div class="col-lg-8 col-md-8">
+          <%= contact_builder.text_field :content, label: false, placeholder: contact_builder.object.category, class: 'form-control' %>
+        </div>
+      </div>
+  <% end %>
+<% end %>
+
+<div class="hr-line-dashed"></div>
+
+<table class='row'>
+  <div class="row p-w-md">
+    <h3>SNS</h3>
+  </div>  
+  <tbody class="field_contacts_exhibition">
+        <%= space_builder.simple_fields_for :contacts do |contact_builder| %>
+          <% if contact_builder.object.category != "phone" and contact_builder.object.category != "website"%>
+            <%= render 'contact_space', f: contact_builder %>
+          <% end %>
+        <% end %>
+  </tbody>
+</table>
+
+<div class="row">
+  <div class="col-lg-12 col-md-12">
+    <p class="text-center">   
+      <%= link_to_add_row_category('+ 입력란 추가하기', space_builder, :contacts, class: '', label: "field_contacts_exhibition", category: 'space') %>
+    </p>
+  </div>
+</div> 

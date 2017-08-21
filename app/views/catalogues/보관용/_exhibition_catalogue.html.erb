@@ -20,11 +20,11 @@
   </div>
   <div class="field">
     <%= f.label :start_date, "전시 시작" %><br>
-    <%= select_date Date.today, prefix: :start_date %>
+    <%= f.select_date Date.today, prefix: :start_date, input_html: { class: 'form-control' } %>
   </div>
   <div class="field">
     <%= f.label :end_date, "전시 종료" %><br>
-    <%= select_date Date.today, prefix: :end_date %>
+    <%= f.select_date Date.today, prefix: :end_date, input_html: { class: 'form-control' } %>
   </div>
   <div class="actions">
     <%= f.submit %>

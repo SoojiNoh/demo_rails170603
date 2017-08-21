@@ -14,7 +14,7 @@ class DashboardsController < ApplicationController
     end
     
     @artist = current_user.artist
-    @artworks = @artist? @artist.artworks : nil
+    @artworks = @artist? @artist.artworks.all : nil
 
   end
 

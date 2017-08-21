@@ -1,0 +1,11 @@
+    <tr>
+        <td><%= f.input :title, label: false %></td>
+        <td><%= f.select(:category, options_for_select([['단체전', 'group'], ['개인전', 'single']], f.object.category), {prompt: '선택해주세요' }) %></td>
+        <td>
+            <%= f.input :start_date, label: false, as: :date, include_blank: true, :end_year => 1910, :start_year => Time.now.year + 10%>~
+        <td>
+            <%= f.input :end_date, label: false, as: :date, include_blank: true, :end_year => 1910, :start_year => Time.now.year + 10 %>
+        </td>
+    </tr>
+
+

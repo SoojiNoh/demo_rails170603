@@ -11,12 +11,25 @@ module ArtistsHelper
     end
     # artist.contacts ||= Contact.new
     # artist.histories ||= History.new
-    1.times {
-        artist.contacts.build(:contactable => artist);
-        artist.histories.build(:category => 'academic');
-        artist.histories.build(:category => 'award');
-        artist.exhibitions.build;
-    }
+    
+    if !artist.histories.find_by_category('academic').present?
+      artist.histories.build(category: 'academic');
+    end
+    
+    if !artist.histories.find_by_category('award').present?
+      artist.histories.build(category: 'award');
+    end
+    
+    if !artist.exhibitions.present?
+      artist.exhibitions.build
+    end
+    
+    # 1.times {
+    #     artist.contacts.build(contactable: artist);
+    #     # artist.histories.build(category: 'academic');
+    #     # artist.histories.build(category: 'award');
+    #     artist.exhibitions.build;
+    # }
     artist
   end
 end

@@ -1,0 +1,41 @@
+<%#= simple_form_for(setup_exhibition(exhibition)) do |f| %>
+    <tr class="row">
+        <%#= f.input_field :category, as: :hidden, value: 'academic'%>
+        <td>
+            <%= f.input_field :_destroy, as: :hidden %>
+            <%= link_to '#', class: "remove_record" do %>
+                <%= content_tag(:span, "", class: "glyphicon glyphicon-remove") %>
+            <% end %>
+        </td>
+        <td class="m-l-md col-lg-2 col-md-2">
+            <%= f.select(:category, options_for_select([['개인전', 'single'], ['그룹전', 'group']], f.object.category), {prompt: '구분' }, {class: 'form-control'}) %>
+        </td>
+
+        <td class="col-lg-4 col-md-4">
+            <%= f.text_field :title, label: false, placeholder: "전시명", class:"form-control" %>
+        </td>
+        <!--<td><%#= f.input :space, label: false %></td>-->
+        <td class="col-lg-3 col-md-3">
+            <%= f.simple_fields_for :spaces do |s| %>
+                <%=s.text_field :name, label: false, placeholder: "전시장소", class:"form-control" %>
+            <% end %>
+        </td>
+        <td class="m-l-ld col-lg-2 col-md-2">
+            <%= f.input :start_date, label: false, as: :date, order: [:year], discard_day: true, end_year: 1910, start_year: Time.now.year + 10, prompt: '시작연도', input_html: { class: 'form-control' }%>
+    
+            <%#= link_to 'toggle_detail_date', '#', class: 'toggle_date_fields'%>
+    
+            <% if f.object.end_date? %>
+                <div id="hidden_field"%>
+                    ~<%= f.input :end_date, label: false, as: :date, order: [:year], discard_day: true, end_year: 1910, start_year: Time.now.year + 10, prompt: '종료년도', input_html: { class: 'form-control' } %>
+                </div>
+            <% else %>
+                <div id="hidden_field" class="hidden"%>
+                    ~<%= f.input :end_date, label: false, as: :date, order: [:year], discard_day: true, end_year: 1910, start_year: Time.now.year + 10, prompt: '종료년도', input_html: { class: 'form-control' } %>
+                </div>
+            <% end %>
+            <%= link_to '종료년도?', '#', class: 'toggle_hidden_fields'%>
+            
+        </td>
+    </tr>
+<%#end%>

@@ -1,6 +1,7 @@
 class CataloguesController < ApplicationController
   before_action :set_catalogue, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user!
+  
   # input ArrayInput
 
   # GET /catalogues
@@ -164,7 +165,8 @@ class CataloguesController < ApplicationController
         ],
         exhibitions_attributes: [Exhibition.attribute_names.map(&:to_sym),
           spaces_attributes: [Space.attribute_names.map(&:to_sym), contacts_attributes: Contact.attribute_names.map(&:to_sym).push(:_destroy)]
-        ]
+        ],
+        pages_attributes: Page.attribute_names.map(&:to_sym)
         # artworks_attributes: [Artwork.attribute_names(&:to_sym).push(:_destroy, :image_cache)],
       )
     end

@@ -24,6 +24,14 @@ module Workspace
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
     
+    # config.assets.paths << "#{Rails}/app/assets/fonts"
+    # config.assets.paths << Rails.root.join("app", "assets", "fonts")
+    # config.assets.precompile << Proc.new { |path|
+    #   if path =~ /\.(eot|svg|ttf|woff)\z/
+    #     true
+    #   end
+    # }
+    
     config.middleware.insert_before 0, "Rack::Cors" do
       allow do
         origins '*'

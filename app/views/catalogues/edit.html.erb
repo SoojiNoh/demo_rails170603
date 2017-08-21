@@ -1,6 +1,17 @@
-<h1>Editing Catalogue</h1>
 
-<%= render 'form' %>
+<div class="wrapper wrapper-content animated fadeInRight">
+  <h2>도록 수정</h2>
+  <div class="wrapper wrapper-content">
+    <%= render partial: 'form', class: 'form-horizontal'%>
+  </div>
+</div>
 
+<%= link_to 'Back', catalogues_path %>
+
+
+    // <script>
+    // var foo = localStorage.getItem("bar");
+    // localStorage.setItem("bar", foo);
+    // </script>
 <%= link_to 'Show', @catalogue %> |
 <%= link_to 'Back', catalogues_path %>

@@ -1,0 +1,28 @@
+
+          <div class="row m-b">
+            <%= f.label :category, "서문 분류", class: "m-l-lg col-lg-2 col-md-2 control-label"%><br>
+            <div class="col-lg-8 col-md-8">
+               <%= f.select(:category, options_for_select([['일반서문', 'introduction']], f.object.category), {}, { class: 'form-control'}) %>
+            </div>
+          </div>
+
+          <div class="row m-b">
+            <%= f.label :title, "서문 제목", class: "m-l-lg col-lg-2 col-md-2 control-label"%><br>
+            <div class="col-lg-8 col-md-8">
+              <%= f.text_field :title, placeholder: "서문 제목", class: "form-control"%>
+            </div>
+          </div>
+          
+          <div class="row m-b">
+            <%= f.label :producer, "작성자", class: "m-l-lg col-lg-2 col-md-2 control-label"%><br>
+            <div class="col-lg-8 col-md-8">
+              <%= f.text_field :producer, placeholder: "글쓴이 이름", class: "form-control"%>
+            </div>
+          </div>          
+          
+          <div class="row m-b">
+            <%= f.label :content, "서문 본문", class: "m-l-lg col-lg-2 col-md-2 control-label"%><br>
+            <div class="col-lg-8 col-md-8">
+              <%= f.text_area :content, placeholder: "본문내용", class: "form-control"%>
+            </div>
+          </div>

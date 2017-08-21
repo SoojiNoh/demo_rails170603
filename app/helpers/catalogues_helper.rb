@@ -9,6 +9,10 @@ module CataloguesHelper
     if !catalogue.artist.present?
       catalogue.build_artist
     end
+    
+    if !catalogue.pages.present?
+      catalogue.pages.build
+    end
     # catalogue.exhibitions ||= catalogue.exhibitions.build
     # catalogue.histories ||= History.new
     # 1.times {

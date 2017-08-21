@@ -1,0 +1,25 @@
+<tr>
+    <td>
+        <%= f.input_field :_destroy, as: :hidden %>
+        <%= link_to 'Delete', '#', class: 'remove_record'%>
+    </td>
+    <td>
+        <%= f.input :start_date, label: false, as: :date, include_blank: true, order: [:year], discard_day: true, :end_year => 1910, :start_year => Time.now.year + 10%>~
+        <%= link_to 'toggle_detail_date', '#', class: 'toggle_date_fields'%>
+
+        <% if f.object.end_date? %>
+            <div id="hidden_field"%>
+                <%= f.input :end_date, label: false, as: :date, include_blank: true, order: [:year] %>
+            </div>
+        <% else %>
+            <div id="hidden_field" class="hidden"%>
+                <%= f.input :end_date, label: false, as: :date, include_blank: true, order: [:year] %>
+            </div>
+        <% end %>
+        <%= link_to 'toggle_end_date', '#', class: 'toggle_hidden_fields'%>
+        
+    </td>
+    <td><%= f.input :detail, label: false %></td>
+    <td><%= f.input :title, label: false %></td>
+</tr>
+<%= f.input_field :category, as: :hidden, value: 'award'%>

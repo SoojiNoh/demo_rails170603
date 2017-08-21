@@ -1,6 +1,17 @@
-<h1>Editing Artist</h1>
 
-<%= render 'form' %>
+<div class="wrapper wrapper-content animated fadeInRight">
+  <h2>작가 수정</h2>
+  <div class="wrapper wrapper-content">
+    <%= render partial: 'form'%>
+  </div>
+</div>
 
+<%= link_to 'Back', catalogues_path %>
+
+
+    // <script>
+    // var foo = localStorage.getItem("bar");
+    // localStorage.setItem("bar", foo);
+    // </script>
 <%= link_to 'Show', @artist %> |
 <%= link_to 'Back', artists_path %>

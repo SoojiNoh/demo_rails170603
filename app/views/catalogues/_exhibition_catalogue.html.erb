@@ -1,11 +1,30 @@
-    <tr>
-        <td><%= f.input :title, label: false %></td>
-        <td><%= f.select(:category, options_for_select([['단체전', 'group'], ['개인전', 'single']], f.object.category), {prompt: '선택해주세요' }) %></td>
-        <td>
-            <%= f.input :start_date, label: false, as: :date, include_blank: true, :end_year => 1910, :start_year => Time.now.year + 10%>~
-        <td>
-            <%= f.input :end_date, label: false, as: :date, include_blank: true, :end_year => 1910, :start_year => Time.now.year + 10 %>
-        </td>
-    </tr>
+          <div class="row m-b">
+            <%= f.label :category, "전시 분류", class: "m-l-lg col-lg-2 col-md-2 control-label"%><br>
+            <div class="col-lg-8 col-md-8">
+               <%= f.select(:category, options_for_select([['단체전', 'group'], ['개인전', 'single']], f.object.category), {prompt: '선택해주세요' }, {class: 'form-control m-b'}) %>
+            </div>
+          </div> 
 
+
+          <div class="row m-b">
+            <%= f.label :title, "전시 제목", class: "m-l-lg col-lg-2 col-md-2 control-label"%><br>
+            <div class="col-lg-8 col-md-8">
+              <%= f.text_field :title, placeholder: "전시 제목", class: "form-control"%>
+            </div>
+          </div>
+
+          <div class="row m-b">
+            <label class="m-l-lg col-lg-2 col-md-2 control-label">전시 기간</label>
+            <div class="col-lg-4 col-md-4">
+              <%= f.label :start_date, "시작", class: "m-l-lg col-lg-2 col-md-2 control-label"%><br>
+              <%= f.input :start_date, label: false, class: "form-control"%>
+            </div>
+            <div class="col-lg-4 col-md-4">
+              <%= f.label :end_date, "종료", class: "m-l-lg col-lg-2 col-md-2 control-label"%><br>
+              <%= f.input :end_date, label: false, class: "form-control"%>
+            </div>
+          </div>
+
+          
+         
 

@@ -1,108 +1,41 @@
-<%= simple_form_for(setup_artist(@artist)) do |f| %>
+<%= simple_form_for (setup_artist(@artist)), html: { class: "form-horizontal"} do |artist_builder| %>
 <%#=javascript_tag do %>
   <!--alert("<%#=setup_artist(@artist).class%>");-->
 <%# end %>
 
-<%= f %>
-
-  <%= render 'layouts/error_messages', object: f.object %>  
-
-  <h3>기본 정보</h3>
-  <div class="field" col="3">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %><br>
-  </div>
-  <div class="field">
-    <%= f.label :role %><br>
-    <%= f.text_area :role %><br>
-  </div>
-  <%= f.simple_fields_for :contacts do |builder| %>
-    <% if builder.object.category == "email" or builder.object.category == "phone" %>
-      <div class="field">
-        <%= builder.object.category %>
-        <%= builder.hidden_field :category, value: builder.object.category %>
-        <%= builder.input :content, label: false %>
-      </div>
-    <% end %>
-  <% end %>
-    <table class='table'>
-      <thead>
-        <tr>
-          <th>SNS ::Contact</th>
-          <th>종류 :category</th>
-          <th>내용 :content</th>
-        </tr>
-      </thead>
-      <tbody class="field_contacts">
-      <%= f.simple_fields_for :contacts do |builder| %>
-        <% if builder.object.category != "email" and builder.object.category != "phone"%>
-          <%= render 'contact', f: builder %>
-        <% end %> 
-      <% end %>
-      </tbody>
-    </table>
-    <%= link_to_add_row('Add Contact', f, :contacts, class: 'btn btn-primary', label: "field_contacts") %>
-  
-  <table class='table'>
-    <thead>
-      <tr>
-        <th>학력 :: History</th>
-        <th>연도 :start_date</th>
-        <th>교육기관명 :title</th>
-        <th>학부/학과 :detail</th>
-        <th>학적 :status</th>
-      </tr>
-    </thead>
-    <tbody class="field_history_academics">
-      <%= f.simple_fields_for :histories, f.object.histories.where("category = 'academic'") do |builder| %>
-        <%= render 'history_academic', f: builder %>
-      <% end %>
-    </tbody>
-  </table>
-  <%= link_to_add_row_category('Add History', f, :histories, class: 'btn btn-primary', label: 'field_history_academics', category: 'academic') %>
+  <%= render 'layouts/error_messages', object: artist_builder.object %>  
 
 
-  <table class='table'>
-    <thead>
-      <tr>
-        <th>전시경력 ::Exhibition</th>
-        <th>구분 :category</th>
-        <th>전시명 :title</th>
-        <th>전시장소 ::Space :name</th>
-        <th>Exhibition :start_date</th>
-        <th>Exhibition :end_date</th>
+  <div class="row">  
+    <div class="col-lg-12 col-md-12">
+      <div class="ibox">
+        <div class="ibox-title">
+          <h5><span class="bg-primary p-w-xs b-r-sm m-r-xs"><span class="glyphicon glyphicon-chevron-right"></span></span>작가 정보 입력</h5>
+            <div class="ibox-tools">
+              <a class="collapse-link">
+                <i class="fa fa-chevron-up"></i>
+              </a>
+            </div>
+        </div>
+        <div class="ibox-content">
+          <h2>작가 정보 입력하기</h2>
+          <div class="row">
+            <p class="col-lg-offset-1 col-lg-10 col-md-12 text-warning p-sm b-r-md">
+              베타 버전에서는 사용자 본인의 도록만 제작 가능합니다.<br>
+              작가 정보를 입력하면, 해당 내용이  사용자 정보에 저장되어 다음 웹 도록 제작시 손쉽게 불러올 수 있습니다.
+            </p>
+          </div>
+            <%= render 'artist', artist_builder: artist_builder %>
+          </div>
+        </div>
+        </div>
+        <div class="ibox-footer">
+          전시 제목과 전시 기간, 전시 관련 글을 입력합니다.
+          <div class="form-actions text-center">
+            <br><br><%= artist_builder.button :submit, "저장", class: "btn btn-primary" %>
+          </div>
+        </div>
 
-      </tr>
-    </thead>
-    <tbody class="field_exhibitions">
-      <%= f.simple_fields_for :exhibitions do |builder| %>
-          <%= render 'exhibition', f: builder_exhibition(builder) %>
-      <% end %>
-    </tbody>
-  </table>
-  <%= link_to_add_row_nested('Add Exhibition', f, :exhibitions, buildhelper: "builder_exhibition", class: 'btn btn-primary', label: 'field_exhibitions') %>
-
-  <table class='table'>
-    <thead>
-      <tr>
-        <th>수상&레지던시 :: History</th>
-        <th>연도 :start_date</th>
-        <th>내용 :detail</th>
-        <th>기관명 :title</th>
-      </tr>
-    </thead>
-    <tbody class="field_history_awards">
-      <%= f.simple_fields_for :histories, f.object.histories.where("category = 'award'") do |builder| %>
-        <%= render 'history_award', f: builder %>
-      <% end %>
-    </tbody>
-  </table>
-  <%= link_to_add_row_category('Add History', f, :histories, class: 'btn btn-primary', label: 'field_history_awards', category: 'award') %>
-
-
-  <div class="form-actions">
-    <br><br><%= f.button :submit, "save" %>
-  </div>
 <% end %>
 
 

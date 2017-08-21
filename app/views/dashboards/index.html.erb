@@ -84,24 +84,28 @@
                   <h5>웹 도록 목록 <span class="badge badge-info"><%=@catalogues.size%></span></h5>
                 </div>
                 <div class="ibox-content clearfix">
-                  <% @catalogues.last(3).each do |catalogue| %>
-                    <div class="col-md-12 p-h-xs border-bottom catalog">
-                      <div class="catalog-cover">
-                        <figure>
-                          <img src="http://placehold.it/80x100" alt=""/>
-                          <figcaption class="hidden">&lt;<%=catalogue.title%>&gt;</figcaption>
-                        </figure>
+                  <% if @catalogues.present? %>
+                    <% @catalogues.last(3).each do |catalogue| %>
+                      <div class="col-md-12 p-h-xs border-bottom catalog">
+                        <div class="catalog-cover">
+                          <figure>
+                            <img src="http://placehold.it/80x100" alt=""/>
+                            <figcaption class="hidden">&lt;<%=catalogue.title%>&gt;</figcaption>
+                          </figure>
+                        </div>
+                        <div class="catalog-text">
+                          <strong class="text-primary">&lt;<%=catalogue.title%>&gt;</strong><br>
+                          <%=catalogue.exhibitions.first.start_date.strftime("%y.%m.%d")%> - <%=catalogue.exhibitions.first.end_date.strftime("%y.%m.%d")%><br>
+                          <%=catalogue.exhibitions.first.spaces.first.name%><br>
+                          총 <%=catalogue.artworks.size%>작품<br>
+                          <%= link_to "Show", catalogue %> |
+                          <%= link_to "Edit", edit_catalogue_path(catalogue) %> |
+                          <%= link_to "Remove", catalogue, method: :delete, data: { confirm: "Are you sure?" } %>
+                        </div>
                       </div>
-                      <div class="catalog-text">
-                        <strong class="text-primary">&lt;<%=catalogue.title%>&gt;</strong><br>
-                        <%=catalogue.exhibitions.first.start_date.strftime("%y.%m.%d")%> - <%=catalogue.exhibitions.first.end_date.strftime("%y.%m.%d")%><br>
-                        <%=catalogue.exhibitions.first.spaces.first.name%><br>
-                        총 <%=catalogue.artworks.size%>작품<br>
-                        <%= link_to "Show", catalogue %> |
-                        <%= link_to "Edit", edit_catalogue_path(catalogue) %> |
-                        <%= link_to "Remove", catalogue, method: :delete, data: { confirm: "Are you sure?" } %>
-                      </div>
-                    </div>
+                    <% end %>
+                  <% else %>
+                    <p class="text-center">현재 웹 도록이 없습니다.</p>
                   <% end %>
                   <div class="col-md-12">
                     <div class="pull-right p-h-xs">
@@ -114,17 +118,21 @@
             <div class="col-lg-4">
               <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                  <h5>작품 목록 <span class="badge badge-warning"><%=@artworks.size%></span></h5>
+                  <h5>작품 목록 <span class="badge badge-warning"><%= @artworks? @artworks.size : '0'%></span></h5>
                 </div>
                 <div class="ibox-content">
                   <ul class="list-unstyled list-inline clearfix">
-                    <% @artworks.last(6).each do |artwork| %>
-                      <li class="m-t col-md-6" style="height: 130px;">
-                        <figure class="text-center">
-                          <img src="<%=artwork.image.url(:thumb)%>" alt="" />
-                          <figcaption><%=artwork.title%></figcaption>
-                        </figure>
-                      </li>
+                    <% if @artworks.present? %> 
+                      <% @artworks.last(6).each do |artwork| %>
+                        <li class="m-t col-md-6" style="height: 130px;">
+                          <figure class="text-center">
+                            <img src="<%=artwork.image.url(:thumb)%>" alt="" />
+                            <figcaption><%=artwork.title%></figcaption>
+                          </figure>
+                        </li>
+                      <% end %>
+                    <% else %>
+                      <p class="text-center">현재 작품이 없습니다.</p>
                     <% end %>
                     <div class="col-md-12">
                       <div class="pull-right p-h-xs">
@@ -138,13 +146,35 @@
             <div class="col-lg-4">
               <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                  <h5>Artist</h5>
+                  <h5>작가 정보</h5>
                 </div>
                 <div class="ibox-content">
+                  <div>
+                    <h3 class="m-b">전시 경력</h3>
+                    <p><strong>개인전</strong></p>
+                    <ul>
+                      <li><p>0000 길고 긴 전시 제목이 들어가는 경우를 테스트하기 위해 길고 긴 전시명을 넣었습니다, 장소</p></li>
+                      <li><p>0000 제목, 장소</p></li>
+                      <li><p>0000 제목, 장소</p></li>
+                    </ul>
+                    <p><strong>그룹전</strong></p>
+                    <ul>
+                      <li><p>0000 제목, 장소</p></li>
+                      <li><p>0000 제목, 장소</p></li>
+                      <li><p>0000 제목, 장소</p></li>
+                    </ul>
+                    <hr>
+                  </div>
+                  <div>
+                    <h3 class="m-b">학력</h3>
+                    <ul>
+                      <li><p>0000 00대학교 0000 졸업</p></li>
+                      <li><p>0000 00대학교 0000 졸업</p></li>
+                    </ul>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
         </div>
       </div>
     </div>

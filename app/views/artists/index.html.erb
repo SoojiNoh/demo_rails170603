@@ -1,25 +1,77 @@
-<table>
-  <tr>
-    <th>name</th>
-    <th>role</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
- 
 
-  <tr>
-    <% if @artist.present?%>
-      <td><%= @artist.name %></td>
-      <td><%= @artist.role %></td>
+<div class="col-lg-4">
+  <div class="ibox float-e-margins">
+    <div class="ibox-title">
+      <h5>작가 정보</h5>
+    </div>
+    <div class="ibox-content">
+      <div>
+        <h3 class="m-b">기본 정보</h3>
+
+        <hr>
+      </div>
+      <div>
+        <h3 class="m-b">전시 경력</h3>
+        <p><strong>개인전</strong></p>
+        <ul>
+          <li><p>0000 길고 긴 전시 제목이 들어가는 경우를 테스트하기 위해 길고 긴 전시명을 넣었습니다, 장소</p></li>
+          <li><p>0000 제목, 장소</p></li>
+          <li><p>0000 제목, 장소</p></li>
+        </ul>
+        <p><strong>그룹전</strong></p>
+        <ul>
+          <li><p>0000 제목, 장소</p></li>
+          <li><p>0000 제목, 장소</p></li>
+          <li><p>0000 제목, 장소</p></li>
+        </ul>
+        <hr>
+      </div>
+      <div>
+        <h3 class="m-b">학력</h3>
+        <ul>
+          <li><p>0000 00대학교 0000 졸업</p></li>
+          <li><p>0000 00대학교 0000 졸업</p></li>
+        </ul>
+      </div>
       <td><%= link_to "Show", @artist %></td>
       <td><%= link_to "Edit", edit_artist_path(@artist) %></td>
-      <td><%= link_to "Remove", @artist, method: :delete, data: { confirm: "Are you sure?" } %></td>
-    <%end%>
-  </tr>
-
-</table>
- 
+      <td><%= link_to "Remove", @artist, method: :delete, data: { confirm: "삭제하시겠습니까? 삭제시, 복구하실 수 없습니다." } %></td>
+    </div>
+  </div>
+</div>
+            
+<div class="col-lg-4">
+  <div class="ibox float-e-margins">
+    <div class="ibox-title">
+      <h5>회원 정보</h5>
+    </div>
+    <div class="ibox-content">
+      <div>
+        <h3 class="m-b">전시 경력</h3>
+        <p><strong>개인전</strong></p>
+        <ul>
+          <li><p>0000 길고 긴 전시 제목이 들어가는 경우를 테스트하기 위해 길고 긴 전시명을 넣었습니다, 장소</p></li>
+          <li><p>0000 제목, 장소</p></li>
+          <li><p>0000 제목, 장소</p></li>
+        </ul>
+        <p><strong>그룹전</strong></p>
+        <ul>
+          <li><p>0000 제목, 장소</p></li>
+          <li><p>0000 제목, 장소</p></li>
+          <li><p>0000 제목, 장소</p></li>
+        </ul>
+        <hr>
+      </div>
+      <div>
+        <h3 class="m-b">학력</h3>
+        <ul>
+          <li><p>0000 00대학교 0000 졸업</p></li>
+          <li><p>0000 00대학교 0000 졸업</p></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div> 
 <br>
  
 <%= link_to "New artist", new_artist_path %>

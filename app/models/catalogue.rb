@@ -7,6 +7,7 @@ class Catalogue < ActiveRecord::Base
    
     #Catalogue : Page = 1 : N
     has_many :pages
+    accepts_nested_attributes_for :pages
     
     #Catalogue : Player = 1 : 0
     has_one :player

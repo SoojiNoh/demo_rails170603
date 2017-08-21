@@ -1,0 +1,15 @@
+<tr class="row">
+    <td>
+        <%= f.input_field :_destroy, as: :hidden %>
+        <%= link_to '#', class: "remove_record" do %>
+            <%= content_tag(:span, "", class: "glyphicon glyphicon-remove") %>
+        <% end %>
+    </td>
+    <td class="m-l-md col-lg-3 col-md-3">
+        <%= f.select(:category, options_for_select([['페이스북', 'facebook'], ['인스타그램', 'instagram'], ['블로그','blog']], f.object.category), {prompt: 'SNS'}, {class: 'form-control'}) %>
+    </td>
+    <td class="col-lg-10 col-md-10">
+        <%= f.text_field :content, label: false, placeholder: 'URL', class: 'form-control' %>
+    </td>
+
+</tr>

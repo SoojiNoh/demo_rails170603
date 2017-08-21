@@ -1,29 +1,31 @@
-<tr>
+<tr class="row">
     <td>
         <%= f.input_field :_destroy, as: :hidden %>
-        <%= link_to 'Delete', '#', class: 'remove_record'%>
+        <%= link_to '#', class: "remove_record" do %>
+            <%= content_tag(:span, "", class: "glyphicon glyphicon-remove") %>
+        <% end %>
     </td>
-    <td>
-        <%= f.input :start_date, label: false, as: :date, include_blank: true, order: [:year], discard_day: true, :end_year => 1910, :start_year => Time.now.year + 10%>~
+    <td class="m-l-ld col-lg-2 col-md-2">
+        <%= f.input :start_date, label: false, as: :date, order: [:year], discard_day: true, end_year: 1910, start_year: Time.now.year + 10, prompt: '시작연도', input_html: { class: 'form-control' }%>
 
-        <%= link_to 'toggle_detail_date', '#', class: 'toggle_date_fields'%>
+        <%#= link_to 'toggle_detail_date', '#', class: 'toggle_date_fields'%>
 
         <% if f.object.end_date? %>
             <div id="hidden_field"%>
-                <%= f.input :end_date, label: false, as: :date, include_blank: true, order: [:year] %>
+                ~<%= f.input :end_date, label: false, as: :date, order: [:year], discard_day: true, end_year: 1910, start_year: Time.now.year + 10, prompt: '종료년도', input_html: { class: 'form-control' } %>
             </div>
         <% else %>
             <div id="hidden_field" class="hidden"%>
-                <%= f.input :end_date, label: false, as: :date, include_blank: true, order: [:year] %>
+                ~<%= f.input :end_date, label: false, as: :date, order: [:year], discard_day: true, end_year: 1910, start_year: Time.now.year + 10, prompt: '종료년도', input_html: { class: 'form-control' } %>
             </div>
         <% end %>
-        <%= link_to 'toggle_end_date', '#', class: 'toggle_hidden_fields'%>
+        <%= link_to '종료년도?', '#', class: 'toggle_hidden_fields'%>
         
     </td>
-    <td><%= f.input :title, label: false %></td>
-    <td><%= f.input :detail, label: false %></td>
-    <td>
-        <%= f.select(:status, options_for_select([['졸업', 'graduated'], ['재학', 'undergraduate'], ['자퇴','quit']], f.object.status), {prompt: '선택해주세요' }) %>
+    <td class="col-lg-4 col-md-4"><%= f.text_field :title, label: false, class: 'form-control', placeholder: '기관명' %></td>
+    <td class="col-lg-4 col-md-4"><%= f.text_field :detail, label: false, class: 'form-control', placeholder: '학부/학과' %></td>
+    <td class="m-l-lg col-lg-3 col-md-3">
+        <%= f.select(:status, options_for_select([['졸업', 'graduated'], ['수료', 'accomplished'], ['재학', 'undergraduate'], ['휴학', 'break'], ['자퇴','quit']], f.object.status), {prompt: '상태' }, {class: 'form-control'}) %>
     </td>
     
 </tr>

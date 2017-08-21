@@ -8,7 +8,7 @@ class Artwork < ActiveRecord::Base
     # mount_uploader :thumbnail_url, ArtworkImgUploader
 
     #Catalogue : Artwork = M : N
-    has_many :catalogues, through: :artwork_catalogues
+    has_many :catalogues, through: :artwork_catalogues, dependent: :destroy
     has_many :artwork_catalogues
 
 

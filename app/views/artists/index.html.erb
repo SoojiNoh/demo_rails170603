@@ -5,37 +5,50 @@
       <h5>작가 정보</h5>
     </div>
     <div class="ibox-content">
-      <div>
-        <h3 class="m-b">기본 정보</h3>
-
-        <hr>
-      </div>
-      <div>
-        <h3 class="m-b">전시 경력</h3>
-        <p><strong>개인전</strong></p>
-        <ul>
-          <li><p>0000 길고 긴 전시 제목이 들어가는 경우를 테스트하기 위해 길고 긴 전시명을 넣었습니다, 장소</p></li>
-          <li><p>0000 제목, 장소</p></li>
-          <li><p>0000 제목, 장소</p></li>
-        </ul>
-        <p><strong>그룹전</strong></p>
-        <ul>
-          <li><p>0000 제목, 장소</p></li>
-          <li><p>0000 제목, 장소</p></li>
-          <li><p>0000 제목, 장소</p></li>
-        </ul>
-        <hr>
-      </div>
-      <div>
-        <h3 class="m-b">학력</h3>
-        <ul>
-          <li><p>0000 00대학교 0000 졸업</p></li>
-          <li><p>0000 00대학교 0000 졸업</p></li>
-        </ul>
-      </div>
-      <td><%= link_to "Show", @artist %></td>
-      <td><%= link_to "Edit", edit_artist_path(@artist) %></td>
-      <td><%= link_to "Remove", @artist, method: :delete, data: { confirm: "삭제하시겠습니까? 삭제시, 복구하실 수 없습니다." } %></td>
+      <%if @artist.present?%>
+        <div>
+          <h3 class="m-b">기본 정보</h3>
+          <p> <%=@artist.name %></p>
+          <hr>
+        </div>
+        <div>
+          <h3 class="m-b">전시 경력</h3>
+          <p><strong>개인전</strong></p>
+          
+          <ul>
+            <li><p>0000 길고 긴 전시 제목이 들어가는 경우를 테스트하기 위해 길고 긴 전시명을 넣었습니다, 장소</p></li>
+            <li><p>0000 제목, 장소</p></li>
+            <li><p>0000 제목, 장소</p></li>
+          </ul>
+          <p><strong>그룹전</strong></p>
+          <ul>
+            <li><p>0000 제목, 장소</p></li>
+            <li><p>0000 제목, 장소</p></li>
+            <li><p>0000 제목, 장소</p></li>
+          </ul>
+          <hr>
+        </div>
+        <div>
+          <h3 class="m-b">학력</h3>
+          <ul>
+            <li><p>0000 00대학교 0000 졸업</p></li>
+            <li><p>0000 00대학교 0000 졸업</p></li>
+          </ul>
+        </div>
+        <td><%= link_to "Show", @artist %></td>
+        <td><%= link_to "Edit", edit_artist_path(@artist) %></td>
+        <td><%= link_to "Remove", @artist, method: :delete, data: { confirm: "삭제하시겠습니까? 삭제시, 복구하실 수 없습니다." } %></td>
+      <% else%>
+        <div class="row">
+          <div class="col-lg-12 col-md-12">
+            <p class="text-center">  
+              현재 등록한 아티스트계정이 없습니다.
+            </p>
+            <hr>
+            <p class="text-right"><%= link_to "+ 아티스트 등록하기", new_artist_path %></p>
+          </div>
+        </div>
+      <% end%>
     </div>
   </div>
 </div>
@@ -47,8 +60,10 @@
     </div>
     <div class="ibox-content">
       <div>
-        <h3 class="m-b">전시 경력</h3>
-        <p><strong>개인전</strong></p>
+        <h3 class="m-b">기본정보</h3>
+        <p><strong><%=current_user.email%></strong></p>
+        <hr>
+        <p class="text-right"><%=link_to "사용자 정보수정", edit_user_registration_path %></p>
         <ul>
           <li><p>0000 길고 긴 전시 제목이 들어가는 경우를 테스트하기 위해 길고 긴 전시명을 넣었습니다, 장소</p></li>
           <li><p>0000 제목, 장소</p></li>
@@ -73,5 +88,3 @@
   </div>
 </div> 
 <br>
- 
-<%= link_to "New artist", new_artist_path %>

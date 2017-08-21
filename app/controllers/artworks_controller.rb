@@ -63,7 +63,7 @@ class ArtworksController < ApplicationController
     if @parent_object.present?
       puts "parent artwork successfully created"
       @artwork = @parent_object.artworks.create(artwork_params)
-      @artwork = current_user.artist.artworks.create(artwork_params)
+      # @artwork = current_user.artist.artworks.create(artwork_params)
     else
       puts "artist artwork successfully created"
       @artwork = current_user.artist.artworks.create(artwork_params)

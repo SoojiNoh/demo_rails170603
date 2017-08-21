@@ -1,36 +1,3 @@
-<div class="wrapper wrapper-content animated fadeInRight">
-  <h2>작품 간추려 보기</h2>
-<div class="row">
-  <div class="col-md-12 p-md">
-    <p class="text-info">총 <%=@artworks_artist.size%>개의 작품이 있습니다.</p>
-
-    <div class="row p-h-md">
-      <% @artworks_artist.each do |artwork| %>
-        <div class="col-md-4 col-lg-3 m-b-lg">
-          <div class="white-bg p-h-xs catalog border-top clearfix">
-            <div class="col-md-5 catalog-cover m-t-xs">
-              <figure class="text-center">
-                <%= image_tag artwork.image.url(:thumb), size: '120', alt: ''%>
-                <figcaption class="hidden"><%=artwork.title%></figcaption>
-              </figure>
-            </div>
-            <div class="col-md-7 catalog-text p-xs">
-              <p class="text-primary"><%=artwork.title%></p>
-              <span class="text-muted"><%=artwork.material%></span><br>
-              <span class="text-muted"><%=artwork.size%>㎝, <%=artwork.created_date%></span>
-              <td><%= link_to "Edit", edit_artwork_path(artwork) %></td>
-
-            </div>
-          </div>
-        </div>
-      <% end %>
-    </div>
-  </div>
-</div>
-</div>
-
-
-
 
 <h1>Catalogue Artwork Index</h1>
 

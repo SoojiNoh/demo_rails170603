@@ -9,6 +9,13 @@ class ArtistsController < ApplicationController
   # GET /artists.json
   def index
     @artist = current_user.artist
+    if @artist.present?
+      @contact_artist = @artist.contacts.all
+      @exhibitions_single_artist =  @artist.exhibitions.find_by_category("single")
+      @exhibitions_group_artist =  @artist.exhibitions.find_by_category("group")
+      @histories_academic_artist = @artist.histories.find_by_category("academic")
+      @histories_award_artist = @artist.histories.find_by_category("award")
+    end
   end
 
   # GET /artists/1

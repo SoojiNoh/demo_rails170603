@@ -1,5 +1,5 @@
 
-<div class="panel panel-danger">
+
   <%= form_for([@parent_object, @artwork], :html => {:multipart => true}) do |f| %>
   
     <%= render 'layouts/error_messages', object: f.object %>
@@ -10,7 +10,6 @@
     <%= f.file_field :image, multiple: true, name: "artwork[image]", id: 'image' %>
     <%= f.hidden_field :image_cache %>
   <% end %>
-</div>
 
 <script id="template-upload" type="text/x-tmpl">
   <div class="upload">

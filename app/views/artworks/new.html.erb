@@ -1,13 +1,12 @@
 <h1><%=@parent_object.class.name%> Artwork Index</h1>
 
-<div data-no-turbolink="true">
-  <%if @parent_object.present?%>
-    <%= render partial: "form_upload_Catalogue"%>
-  <% else %>
-    <%= render partial: "form_upload"%>
-  <% end %>
-
+<div>
 	<div class="panel panel-info"> 
+		<%if @parent_object.present?%>
+	    <%= render partial: "form_upload_Catalogue"%>
+	  <% else %>
+	    <%= render partial: "form_upload"%>
+	  <% end %>
 	  <% if @artworks.empty? %> <h2>Artwork 없음</h2> <%end%>
 	  
 

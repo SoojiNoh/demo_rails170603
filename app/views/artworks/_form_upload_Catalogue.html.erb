@@ -3,19 +3,28 @@
   <%= form_for([@parent_object, @artwork], :html => {:multipart => true},  :remote => true) do |f| %>
   
     <%= render 'layouts/error_messages', object: f.object %>
-    
-        <h2>여러 이미지를 드래그하여 드롭해주세요</h2>
-    
-    <%= f.label :image, "Upload artworks:" %>
-    <%= f.file_field :image, multiple: true, name: "artwork[image]", id: 'image' %>
-    <%= f.hidden_field :image_cache %>
+    <div class="row">
+    	<div class="zone" style="display: block; border: solid 3px #a7b1c2; border-radius: 5%; border-style: dashed;">
+          <%= f.file_field :image, multiple: true, name: "artwork[image]", id: 'image' %>
+          <%= f.hidden_field :image_cache %>
+          <i class="fa fa-cloud-upload"></i>
+
+        <h2 class="upload-label">
+          <span class="glyphicon glyphicon-folder-open"></span>  여러 이미지 업로드는 드래그와 드롭도 가능합니다
+        </h2>
+      </div>
+
+    </div>
+
+
+
   <% end %>
 
 <script id="template-upload" type="text/x-tmpl">
   <div class="upload">
     {%=o.name%}
-    <div class="progress" style="border: 1px solid black;">
-      <div class="bar" style="width: 0%; background-color: green; height: 20px;" ></div>
+    <div class="progress">
+      <div class="bar"></div>
     </div>
   </div>
 </script>

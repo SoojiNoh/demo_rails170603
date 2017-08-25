@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      devise_for :users
+      # devise_for :users
       resources :catalogues, only: [:index, :create, :show, :update, :destroy]
     end
   end
@@ -28,11 +28,13 @@ Rails.application.routes.draw do
   }
   
 resources :artworks
+get 'artworks/add_form', to: 'artworks#add_form', as: 'add_form_artwork'
   
   resources :catalogues, model_name: 'Catalogue' do
     resources :players
     resources :pages
     resources :artworks
+    get 'catalogues/1/artworks/add_form', to: 'artworks#add_form', as: 'add_form_artwork'
   end
    
   resources :artists, model_name: 'Artist' do

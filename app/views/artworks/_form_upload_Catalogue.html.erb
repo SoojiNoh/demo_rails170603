@@ -1,6 +1,6 @@
 
 
-  <%= form_for([@parent_object, @artwork], :html => {:multipart => true}) do |f| %>
+  <%= form_for([@parent_object, @artwork], :html => {:multipart => true},  :remote => true) do |f| %>
   
     <%= render 'layouts/error_messages', object: f.object %>
     

@@ -3,18 +3,22 @@
 <div>
 	<div class="panel panel-info"> 
 		<%if @parent_object.present?%>
-	    <%= render partial: "form_upload_Catalogue"%>
-	  <% else %>
-	    <%= render partial: "form_upload"%>
-	  <% end %>
-	  <% if @artworks.empty? %> <h2>Artwork 없음</h2> <%end%>
+		    <%= render partial: "form_upload_Catalogue"%>
+		<% else %>
+		    <%= render partial: "form_upload"%>
+		<% end %>
+	<% if @artworks.empty? %> <h2>Artwork 없음</h2> <%end%>
 	  
 
-	<%if @parent_object.present? %>
-		<%= link_to_add_form_parent('Add Artwork', @parent_object, @artwork, class: 'btn btn-primary', label: "form_artworks") %>
- 	<% else %>
-		<%= link_to_add_form('Add Artwork', @artwork, class: 'btn btn-primary', label: "form_artworks") %>
-	<% end %>
+	<%#if @parent_object.present? %>
+		<%#= link_to_add_form_parent('Add Artwork', @parent_object, @artwork, class: 'btn btn-primary', label: "form_artworks") %>
+ 	<%# else %>
+		<%#= link_to_add_form('Add Artwork', @artwork, class: 'btn btn-primary', label: "form_artworks") %>
+	<%# end %>
+	<%=link_to '추가', {action: :add_form}, remote: true, 'data-no-turbolink': 'true'%>
+
+	<div id="add_form"></div>
+
 	
   	<div class="form_artworks">
   	</div>

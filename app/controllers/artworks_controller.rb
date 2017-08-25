@@ -1,6 +1,6 @@
 class ArtworksController < ApplicationController
   before_action :set_artwork, only: [:show, :edit, :update, :destroy]
-  before_action :set_parent_artwork, only: [:new, :create, :update]
+  before_action :set_parent_artwork, only: [:new, :add_form, :create, :update]
   before_filter :authenticate_user!
   before_action :authenticate_artist
 
@@ -53,6 +53,14 @@ class ArtworksController < ApplicationController
       @artwork = current_user.artist.artworks.new
     end
   end
+  
+  def add_form
+    if @parent_object.present?
+      @artwork = @parent_object.artworks.new
+    else
+      @artwork = current_user.artist.artworks.new
+    end
+  end
 
   # POST /artworks
   # POST /artworks.json
@@ -62,8 +70,10 @@ class ArtworksController < ApplicationController
    
     if @parent_object.present?
       puts "parent artwork successfully created"
+      @artwork = Artwork.new(artwork_params)
+
       @artwork = @parent_object.artworks.create(artwork_params)
-      # @artwork = current_user.artist.artworks.create(artwork_params)
+      ArtistArtwork.create(artist: current_user.artist, artwork: @artwork)# @artwork = current_user.artist.artworks.create(artwork_params)
     else
       puts "artist artwork successfully created"
       @artwork = current_user.artist.artworks.create(artwork_params)
@@ -158,6 +168,6 @@ class ArtworksController < ApplicationController
     # end
     
     def artwork_params
-      params.require(:artwork).permit(:category, :title, :unit, :material, :created_date, :image, :remove_image, :image_cache, size: [])
+      params.require(:artwork).permit(:category, :title, :unit, :material, :created_date, :image, :remove_image, :image_cache, :size)
     end
 end

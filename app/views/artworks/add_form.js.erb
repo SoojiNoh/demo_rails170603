@@ -1,0 +1,9 @@
+$('#add_form').prepend(
+    "<%=escape_javascript(
+        if @parent_object.present?
+            render partial: "form_artwork_#{@parent_object.class.name}", :locals => { artwork: @artwork, parent_object: @parent_object}
+        else
+            render partial: "form_artwork", :locals => { artwork: @artwork }
+        end
+    )%>"
+);

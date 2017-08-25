@@ -3,5 +3,8 @@
   alert("Failed to upload artwork: <%= j @artwork.errors.full_messages.join(', ').html_safe %>");
 <% else %>
   console.log("create.js.erb(2)");
-  $("#artworks").append("<%= j render partial: "artwork_view", locals: {artwork: @artwork) %>");
+  $("#add_form").append("
+  <%#= j render partial: "artwork_view", locals: {artwork: @artwork) %>
+  <p>Test</p>
+  ");
 <% end %>

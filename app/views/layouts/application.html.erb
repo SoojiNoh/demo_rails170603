@@ -38,7 +38,8 @@
 
 </head>
 <body>
-  
+
+<div id="preloader"></div>  
 <div id="wrapper">
   <%= render partial: "layouts/dashboard_sidenav" %>
 
@@ -79,8 +80,8 @@
               }
             <%end%>
           <%#= content_tag :div, msg, :id => "flash_#{name}" %>
+          <% end %>
         <% end %>
-  <% end %>
         <%=yield %>
     </div>
   

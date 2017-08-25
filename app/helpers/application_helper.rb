@@ -46,23 +46,23 @@ module ApplicationHelper
         link_to(name, '#', class: "add_fields " + args[:class], data: {id: id, fields: fields.gsub("\n",""), label: args[:label]}) 
     end
     
-    def link_to_add_form(name, new_object, **args)
-        puts params.inspect
-        id = new_object.object_id
-        forms = form_for(new_object, child_index: id) do |builder|
-            render("form_#{new_object.class.name.downcase}", f: builder, artwork: new_object)
-        end
-        link_to(name, '#', class: "add_forms " + args[:class], data: {id: id, forms: forms.gsub("\n",""), label: args[:label]}) 
-    end
+    # def link_to_add_form(name, new_object, **args)
+    #     puts params.inspect
+    #     id = new_object.object_id
+    #     forms = form_for(new_object, child_index: id) do |builder|
+    #         render("form_#{new_object.class.name.downcase}", f: builder, artwork: new_object)
+    #     end
+    #     link_to(name, '#', class: "add_forms " + args[:class], data: {id: id, forms: forms.gsub("\n",""), label: args[:label]}) 
+    # end
     
-    def link_to_add_form_parent(name, parent_object, new_object, **args)
-        puts params.inspect
-        id = new_object.object_id
-        forms = form_for([parent_object, new_object], child_index: id) do |builder|
-            render("form_#{new_object.class.name.downcase}_#{parent_object.class.name}", f: builder, artwork: new_object)
-        end
-        link_to(name, '#', class: "add_forms " + args[:class], data: {id: id, forms: forms.gsub("\n",""), label: args[:label]}) 
-    end
+    # def link_to_add_form_parent(name, parent_object, new_object, **args)
+    #     puts params.inspect
+    #     id = new_object.object_id
+    #     forms = form_for([parent_object, new_object], child_index: id) do |builder|
+    #         render("form_#{new_object.class.name.downcase}_#{parent_object.class.name}", f: builder, artwork: new_object)
+    #     end
+    #     link_to(name, '#', class: "add_forms " + args[:class], data: {id: id, forms: forms.gsub("\n",""), label: args[:label]}) 
+    # end
     
 
 end

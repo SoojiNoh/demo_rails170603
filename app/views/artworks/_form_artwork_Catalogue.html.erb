@@ -1,4 +1,4 @@
-<%= form_for [@parent_object, @artwork], html: {class: "artwork_group_form", enctype: "multipart/form-data"} do |f| %>
+<%= form_for [parent_object, artwork], html: {class: "artwork_group_form", enctype: "multipart/form-data"} do |f| %>
   
   <%= render 'layouts/error_messages', object: f.object %>
 
@@ -29,14 +29,14 @@
     </div>
   </div>
 
-  <script id="edit-upload" type="text/x-tmpl">
-    <div class="upload">
-      <div class="progress" style="width: 400px; height: 30px; border: 1px solid black;">
-        <div class="bar" style="width: 0%; height: 25px; background-color: green;" ></div>
+    <script id="edit-upload" type="text/x-tmpl">
+      <div class="upload">
+        <div class="progress">
+          <div class="bar"></div>
+        </div>
+        {%=o.name%}
       </div>
-      {%=o.name%}
-    </div>
-  </script>
+    </script>
 
   <div class="field">
     <%= f.label :title %><br>

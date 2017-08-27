@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
 
+  resources :notices
 # namespace :api do
 #   devise_for :users
 #   resources :catalogues, :only=>[:index, :show]

@@ -74,7 +74,11 @@
           </div>          
           <tbody class="field_exhibitions">
             <%= artist_builder.simple_fields_for :exhibitions do |builder| %>
+              <% if builder.object.catalogues.present? %>
+                <%= render 'exhibition_artist_catalogue', f: builder.object%>
+              <% else %>
                 <%= render 'exhibition_artist', f: builder_exhibition(builder) %>
+              <% end %>
             <% end %>
           </tbody>
         </table>

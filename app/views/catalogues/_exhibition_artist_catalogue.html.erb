@@ -1,0 +1,33 @@
+    <tr class="row">
+        <%#= f.input_field :category, as: :hidden, value: 'academic'%>
+        <td>
+            <%= link_to edit_catalogue_path(f), target: "_blank" do %>
+                <%= content_tag(:span, "", class: "glyphicon glyphicon-edit") %>
+            <% end %>            
+        </td>
+        <td class="m-l-md col-lg-2 col-md-2">
+
+            <%= f.category%>    
+        </td>
+
+        <td class="col-lg-4 col-md-4">
+            <%= f.title%>
+        </td>
+        <!--<td><%#= f.input :space, label: false %></td>-->
+        <td class="col-lg-3 col-md-3">
+            <% f.spaces.each do |s| %>
+                <%= s.name %>.
+            <% end %>
+        </td>
+        <td class="m-l-ld col-lg-2 col-md-2">
+            <%= f.start_date%>
+    
+            <%#= link_to 'toggle_detail_date', '#', class: 'toggle_date_fields'%>
+    
+            <% if f.end_date? %>
+                    ~<%= f.end_date%>
+            <% end %>
+
+        </td>
+    </tr>
+<%#end%>

@@ -1,23 +1,23 @@
 <h1><%=@parent_object.class.name%> Artwork Index</h1>
 
 
-<div class="panel panel-info"> 
-  <% if @artworks.empty? %> <h2>Artwork 없음</h2> <%end%>
-  <% @artworks.each do |artwork| %>
-      <%= render 'layouts/error_messages', object: artwork %>  
+<!--<div class="panel panel-info"> -->
+<!--  <#% if @artworks.empty? %> <h2>Artwork 없음</h2> <#%end%>-->
+<!--  <#% @artworks.each do |artwork| %>-->
+<!--      <#%= render 'layouts/error_messages', object: artwork %>  -->
       
-      <div class="panel panel-danger">
-        <%= link_to "Remove", artwork, method: :delete, data: { confirm: "이 Artwork를 삭제하시겠습니까?" } %>
+<!--      <div class="panel panel-danger">-->
+<!--        <#%= link_to "Remove", artwork, method: :delete, data: { confirm: "이 Artwork를 삭제하시겠습니까?" } %>-->
 
-        <%= render partial: "form", :locals => { artwork: artwork }%>
-      </div>
-  <% end %>
-</div>
+<!--        <#%= render partial: "form", locals: { artwork: artwork }%>-->
+<!--      </div>-->
+<!--  <#% end %>-->
+<!--</div>-->
   
       <%if @parent_object.present?%>
         <%= render partial: "form_artwork_Catalogue"%>
       <% else %>
-        <%= render partial: "form_artwork"%>
+        <%= render partial: "form", locals: { artwork: @artwork }%>
       <% end %>
 
  

@@ -21,10 +21,10 @@
             <div class="ibox-title">
               <h5>전시중인 웹 전시 정보</h5>
             </div>
-            <% if !@exhibitions_current.empty? %>
+            <% if !@exhibitions_current.nil? && !@exhibitions_current.empty? %>
               <div class="ibox-content">
                 <small>현재 진행중인 전시의 웹 전시 정보입니다.</small>
-                <% @exhibitions_current.last(3).each do |exhibition| %>
+                <% @exhibitions_current.last(2).each do |exhibition| %>
                   <ul class="list-group clear-list m-t">
                     <li class="list-group-item">
                       <span class="col-md-offset-1">현재 도록 열람 수</span>
@@ -128,7 +128,7 @@
                       <% @artworks.last(6).each do |artwork| %>
                         <li class="m-t col-md-6" style="height: 130px;">
                           <figure class="text-center">
-                            <img src="<%=artwork.image.url(:thumb)%>" alt="" />
+                            <img src="<%=artwork.image.url(:thumb)%>" alt="" size=90x120 />
                             <figcaption><%=artwork.title%></figcaption>
                           </figure>
                         </li>

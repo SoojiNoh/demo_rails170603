@@ -48,7 +48,12 @@
 					<% end %>						
 				</div>
 			</div>
+			<div class="form-actions text-center">
+				<br><br><%=link_to "이전 도록 입력사항 보기", edit_catalogue_path(@parent_object), class: 'btn btn-primary' %>
+			</div>
 		</div>
 	</div>
-</div>  
+</div>
+
+
 <%#= link_to "New artwork", new_@parent_object.class.name.to_s.downcase_artworks_path(@parent_object.id)%>

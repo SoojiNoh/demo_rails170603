@@ -101,10 +101,10 @@ class ArtworksController < ApplicationController
     respond_to do |format|
       if @artwork.update(artwork_params)
         if @parent_object.class.name.present?
-          format.html { redirect_to :back, notice: 'Artwork was successfully updated.' }
+          format.html { redirect_to :back, notice: '작품이 성공적으로 등록되었습니다.' }
           # format.json { render :show, status: :ok, location: @artwork }
         else
-          format.html { redirect_to :back, notice: 'Artwork was successfully updated.' }
+          format.html { redirect_to :back, notice: 'A작품이 성공적으로 등록되었습니다.' }
           format.json { render json: @artwork.errors, status: :unprocessable_entity }
         end
       end

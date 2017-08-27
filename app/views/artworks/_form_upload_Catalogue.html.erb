@@ -4,27 +4,27 @@
   
     <%= render 'layouts/error_messages', object: f.object %>
     <div class="row">
-    	<div class="zone" style="display: block; border: solid 3px #a7b1c2; border-radius: 5%; border-style: dashed;">
+    	<div class="upload-zone" style="display: block; border: solid 3px #a7b1c2; border-radius: 5%; border-style: dashed;">
           <%= f.file_field :image, multiple: true, name: "artwork[image]", id: 'image' %>
           <%= f.hidden_field :image_cache %>
           <i class="fa fa-cloud-upload"></i>
 
-        <h2 class="upload-label">
-          <span class="glyphicon glyphicon-folder-open"></span>  여러 이미지 업로드는 드래그와 드롭도 가능합니다
-        </h2>
+        <p class="upload-label">
+            여러 파일을 <b>클릭</b> <span class="glyphicon glyphicon-hand-up"></span> 혹은 <b>드래그와 드롭</b><span class="glyphicon glyphicon-folder-open"></span>
+        </p>
       </div>
 
+      <script id="template-upload" type="text/x-tmpl">
+        <div class="upload">
+          {%=o.name%}
+          <div class="progress">
+            <div class="bar"></div>
+          </div>
+        </div>
+      </script>
     </div>
 
 
 
   <% end %>
 
-<script id="template-upload" type="text/x-tmpl">
-  <div class="upload">
-    {%=o.name%}
-    <div class="progress">
-      <div class="bar"></div>
-    </div>
-  </div>
-</script>

@@ -155,49 +155,15 @@ jQuery(function() {
     progress: function(e, data) {
       var progress;
       if (data.context) {
-        $('#preloader').append("<div class='loader'></div>");
         progress = parseInt(data.loaded / data.total * 100, 10);
-        // if (progress == 100)
+        if (progress == 100)
+            $('#preloader').append("<div class='loader'></div>");
         return data.context.find('.bar').css('width', progress + '%');
       }
     }
   });
   
 });
-
-
-// jQuery(
-//     function() {
-//       return $('.image-edit-upload').on('click', function(){
-//       $('.image-edit-upload').append("<div class='loader'></div>");
-//       $(this).prev('.image_edit').fileupload({
-
-//         dataType: "script",
-//         add: function(e, data) {
-//           var file, types;
-//           types = /(\.|\/)(gif|jpe?g|png)$/i;
-//           file = data.files[0];
-//           if (types.test(file.type) || types.test(file.name)) {
-//             data.context = $(tmpl("edit-upload", file));
-//             $('.image-edit-upload').append(data.context);  //왜안돼지 우선 보류...
-//             return data.submit();
-//           } else {
-//             return alert(file.name + " is not a gif, jpeg, or png image file");
-//           }
-//         },
-//         progress: function(e, data) {
-//           var progress;
-//           if (data.context) {
-//             progress = parseInt(data.loaded / data.total * 100, 10);
-//             if (progress == 100)
-//                 console.log("업로딩이 거의 끝나갑니다. 기다려주세요");
-//             return data.context.find('.bar').css('width', progress + '%');
-//           }
-//         }
-//       })});
-      
-//     }
-// );
 
 $(document).on('click','.image-edit-upload', {}, function(e){
       $('#preloader').append("<div class='loader'></div>");
@@ -283,10 +249,11 @@ $(document).on('change','.image_edit', {}, function(e){
 			reader.readAsDataURL(file);
 			reader.onload = function(e){
 				var img_preview =
-				  '<h4>수정 이미지</h4>'+
-					'<img src="'+e.target.result+'"> '+
-					' <button class="btn btn-sm btn-info image-edit-upload">업로드</button>';
-				$(event_object).next('.image-edit-preview').append(img_preview);
+				  '<h4>이미지 미리보기</h4>'+
+					'<img src="'+e.target.result+'"> '
+				//+ ' <button class="btn btn-sm btn-info image-edit-upload">업로드</button>'
+				;
+				$(event_object).next('.image-edit-preview').html(img_preview);
 			};
 
 		});

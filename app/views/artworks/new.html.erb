@@ -1,14 +1,10 @@
-
-
-<h2>도록의 작품 관리</h2>
-
 <div class="wrapper wrapper-content animated fadeInRight">
-	<div class="wrapper wrapper-content">
+	<h2>도록의 작품 관리</h2>
 		<div class="row">  
-    		<div class="col-lg-12 col-md-12">
+    		<div class="col-lg-12 p-md">
       			<div class="ibox">
 			        <div class="ibox-title">
-			          <h5><span class="bg-primary p-w-xs b-r-sm m-r-xs">1</span>작품 정보 입력</h5>
+			          <h5><span class="bg-primary p-w-xs b-r-sm m-r-xs"><span class="glyphicon glyphicon-chevron-right"></span></span>작품 업로드</h5>
 			            <div class="ibox-tools">
 			              <a class="collapse-link">
 			                <i class="fa fa-chevron-up"></i>
@@ -16,32 +12,40 @@
 			            </div>
 			        </div>
 			        <div class="ibox-content">
-			        	<h2>작품 정보 입력하기</h2>
 						<%if @parent_object.present?%>
 						    <%= render partial: "form_upload_Catalogue"%>
 						<% else %>
 						    <%= render partial: "form_upload"%>
 						<% end %>
 						
-						<% if @artworks.empty? %> <h2>Artwork 없음</h2> <%end%>
-					  
-				
-						<%=link_to '추가', {action: :add_form}, remote: true, 'data-no-turbolink': 'true'%>
-				
-						<div id="add_form"></div>
-				
-				  		<div class="form_artworks"></div>
-				
-						<% @artworks.each do |artwork|%>
+						<div class="hr-line-dashed"></div>	
+						
+						<div id="add_form">
+							<%=link_to content_tag(:i, content_tag(:h4, "입력형식 추가"), class: ["glyphicon", "glyphicon-plus", "icon-large", "form-zone"]), {action: :add_form}, remote: true, 'data-no-turbolink': 'true'%>
+						</div>
+
+					</div>
+					<div class="ibox-footer">
+			          전시할 도록에 들어갈 작품을 업로드합니다.
+			        </div>					
+				</div>
+				<div class="row p-h-md">
+			  		<div class="form_artworks"></div>
+			  		<% if @artworks.empty?%>
+			  			<div class="white-bg p-h-xs catalog border-top clearfix">
+			  				<h2 class="text-center">아직 도록을 위한 작품이 없습니다 <span class="glyphicon glyphicon-exclamation-sign"></span></h2>
+			  			</div>
+			  		<%end%>
+					<% @artworks.each do |artwork|%>
+						<div class="col-md-4 col-lg-3 m-b-lg">
+
 						      <%= render 'layouts/error_messages', object: artwork %>  
-						      
-						      <div class="panel panel-danger">
-						        <%= link_to "Remove", artwork, method: :delete, data: { confirm: "이 Artwork를 삭제하시겠습니까?" } %>
-									
+
+						      <div class="ibox" style="height: 800px;">
 							      <%= render partial: "form", :locals => { artwork: artwork }%>
 						      </div>
-						<% end %>
-					</div>
+						</div>
+					<% end %>						
 				</div>
 			</div>
 		</div>

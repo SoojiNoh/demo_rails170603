@@ -100,13 +100,13 @@ ActiveRecord::Schema.define(version: 20170808051531) do
   add_index "catalogue_exhibitions", ["exhibition_id"], name: "index_catalogue_exhibitions_on_exhibition_id"
 
   create_table "catalogues", force: :cascade do |t|
-    t.integer  "user_id",     null: false
+    t.integer  "user_id",                          null: false
     t.integer  "artist_id"
     t.integer  "space_id"
-    t.string   "title",       null: false
+    t.string   "title",       default: "Untitled"
     t.string   "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
   end
 
   add_index "catalogues", ["artist_id"], name: "index_catalogues_on_artist_id"

@@ -96,10 +96,10 @@
                         <div class="catalog-text">
                           <strong class="text-primary">&lt;<%=catalogue.title%>&gt;</strong><br>
                           <%=catalogue.exhibitions.first.start_date.strftime("%y.%m.%d")%> - <%=catalogue.exhibitions.first.end_date.strftime("%y.%m.%d")%><br>
-                          <%=catalogue.exhibitions.first.spaces.first.name%><br>
+                          <%=catalogue.exhibitions.first.spaces.present? ? catalogue.exhibitions.first.spaces.first.name : ""%><br>
                           총 <%=catalogue.artworks.size%>작품<br>
-                          <%= link_to "Show", catalogue %> |
-                          <%= link_to "Edit", edit_catalogue_path(catalogue) %> |
+                          <%= link_to content_tag(:span, "", class: "fa fa-folder-o")+"보기", catalogue, class: "btn btn-xs btn-outline btn-primary" %>
+                          <%= link_to content_tag(:span, "", class: "fa fa-pencil-square-o")+"수정", edit_catalogue_path(catalogue), class: "btn btn-xs btn-outline btn-primary" %>
                           <%= link_to "Remove", catalogue, method: :delete, data: { confirm: "Are you sure?" } %>
                         </div>
                       </div>

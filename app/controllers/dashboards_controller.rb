@@ -6,10 +6,10 @@ class DashboardsController < ApplicationController
     @exhibitions = current_user.artist ? current_user.artist.exhibitions : ""
     
     if @exhibitions.present?
-      @exhibition_current = []
+      @exhibitions_current = []
       @exhibitions.each do |exhibition|
         if exhibition.start_date && exhibition.start_date < Date.today && exhibition.end_date && Date.today < exhibition.end_date
-          @exhibition_current << exhibition
+          @exhibitions_current.push(exhibition)
         end
       end
     end

@@ -1,13 +1,4 @@
-<%= @exhibitions.inspect%>
-<%    if @exhibitions.present?%>
-      <% @exhibition_current = []%>
-      <% @exhibitions.each do |exhibition| %>
-        <% if exhibition.start_date && exhibition.start_date < Date.today && exhibition.end_date && Date.today < exhibition.end_date %>
-          <% @exhibition_current << exhibition %>
-          yes
-        <% end %>
-      <% end %>
-    <% end %>
+<%=@exhibitions_current%>
 
 <div class="wrapper wrapper-content animated fadeInRight">
   <div class="row">
@@ -28,26 +19,27 @@
         <div class="col-lg-5">
           <div class="ibox float-e-margins">
             <div class="ibox-title">
-              <h5>전시중인 웹 도록 정보</h5>
+              <h5>전시중인 웹 전시 정보</h5>
             </div>
-            
-            <% if @exhibition_current.present? %>
+            <% if !@exhibitions_current.empty? %>
               <div class="ibox-content">
-                <small>현재 진행중인 전시의 웹 도록 정보입니다.</small>
-                <ul class="list-group clear-list m-t">
-                  <li class="list-group-item">
-                    <span class="col-md-offset-1">현재 열람 수</span>
-                    <span class="col-md-offset-4">
-                      120회
-                    </span>
-                  </li>
-                  <li class="list-group-item">
-                    <span class="col-md-offset-1">남은 전시 기간</span>
-                    <span class="col-md-offset-4">
-                      <%= @exhibition_current.end_date.strftime('%d/%m/%y').to_i - Date.today.strftime('%d/%m/%y').to_i %>일
-                    </span>
-                  </li>
-                </ul>
+                <small>현재 진행중인 전시의 웹 전시 정보입니다.</small>
+                <% @exhibitions_current.last(3).each do |exhibition| %>
+                  <ul class="list-group clear-list m-t">
+                    <li class="list-group-item">
+                      <span class="col-md-offset-1">현재 도록 열람 수</span>
+                      <span class="col-md-offset-4">
+                        120회
+                      </span>
+                    </li>
+                    <li class="list-group-item">
+                      <span class="col-md-offset-1">남은 전시 기간</span>
+                      <span class="col-md-offset-4">
+                        <%= exhibition.end_date.strftime('%d/%m/%y').to_i - Date.today.strftime('%d/%m/%y').to_i %>일
+                      </span>
+                    </li>
+                  </ul>
+                <% end %>
               </div>
             <% else %>
               <div class="ibox-content">

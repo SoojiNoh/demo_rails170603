@@ -56,7 +56,7 @@ class ArtistsController < ApplicationController
         # format.json { render :show, status: :created, location: @artist }
       else
         format.html { render :new }
-        # format.json { render json: @artist.errors, status: :unprocessable_entity }
+        format.json { render json: @artist.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -72,8 +72,10 @@ class ArtistsController < ApplicationController
         format.html { redirect_to edit_artist_path(@artist), notice: '아티스트가 성공적으로 등록되었습니다.' }
         # format.json { render :show, status: :ok, location: @artist }
       else
+        puts "########couldn't save artist" + @artist.errors.inspect
+
         format.html { render :edit }
-        # format.json { render json: @artist.errors, status: :unprocessable_entity }
+        format.json { render json: @artist.errors, status: :unprocessable_entity }
       end
     end
   end

@@ -1,5 +1,5 @@
 class Artist < ActiveRecord::Base
-    # validates_presence_of :name
+    validates_presence_of :name
 
     #User : Artist = 1 : 0
     belongs_to :user

@@ -1,7 +1,8 @@
 class CataloguesController < ApplicationController
   before_action :set_catalogue, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user!
-  before_action :authenticate_artist, 
+  before_action :authenticate_artist
+  before_action :error_messages_expose, only: :all
   
   # input ArrayInput
 
@@ -25,8 +26,6 @@ class CataloguesController < ApplicationController
     
     # ARTIST preset
 
-    @artist = current_user.artist
-    
     # EXHIBITION.SPACE preset
     @space = @exhibition.spaces.new
     @space.contacts.new(category: 'phone')
@@ -44,47 +43,37 @@ class CataloguesController < ApplicationController
 
   # GET /catalogues/1/edit
   def edit
-    if @catalogue.artist.present?
-      @artist = @catalogue.artist
-    else
-      @artist = current_user.build_artist
-    end
     
-    # ARTWORK preset
-    @artworks = @artist.artworks.all
-    @artwork = @artist.artworks.new
- 
   end
 
   # POST /catalogues
   # POST /catalogues.json
   def create
-    puts "#####creating catalogue"
     @artist_params = catalogue_params.extract!(:artist_attributes)["artist_attributes"]
     @exhibition_params = catalogue_params.extract!(:exhibition_attributes)["exhibition_attributes"]
 
-    # ARTIST sanitizing before CATALOGUE
-      @catalogue = current_user.catalogues.new(catalogue_params.except(:artist_attributes))
-      @catalogue.artist = current_user.artist
+    # ARTIST sanitizing before CATALOGUE create
+    @catalogue = current_user.catalogues.new(catalogue_params.except(:artist_attributes))
+
+
     
     respond_to do |format|
       if @catalogue.save
         # ARTIST updating, not creating
         current_user.artist.update(@artist_params)
-        
-      # ARTIST : EXHIBITION = m : n, through ArtistExhibition
-      @catalogue.exhibitions.each do |exhibition|
-        ArtistExhibition.create(artist: current_user.artist, exhibition: exhibition)
-      end
-
+        @catalogue.artist = current_user.artist
+          
+        # ARTIST : EXHIBITION = m : n, through ArtistExhibition
+        @catalogue.exhibitions.each do |exhibition|
+          ArtistExhibition.create(artist: current_user.artist, exhibition: exhibition)
+        end
         
         format.html { redirect_to new_catalogue_artwork_path(@catalogue), notice: '도록이 성공적으로 등록되었습니다.' }
-        # format.html { redirect_to edit_catalogue_path(@catalogue), notice: 'Catalogue was successfully created.' }
         # format.json { render :show, status: :created, location: @catalogue }
       else
-        puts "########couldn't save catalogue"
+        puts "########couldn't save catalogue" + @catalogue.errors.inspect
         format.html { render :new }
-        # format.json { render json: @catalogue.errors, status: :unprocessable_entity }
+        format.json { render json: @catalogue.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -117,15 +106,17 @@ class CataloguesController < ApplicationController
   # PATCH/PUT /catalogues/1.json
   def update
     # @artist_params = catalogue_params.extract!(:artist_attributes)["artist_attributes"]
+    @artist_params = catalogue_params.extract!(:artist_attributes)["artist_attributes"]
+    @exhibition_params = catalogue_params.extract!(:exhibition_attributes)["exhibition_attributes"]
 
     respond_to do |format|
-      if @catalogue.update(catalogue_params)
-        if !current_user.artist.present? #in case of user deleted artist after the catalogue created
-          @artist_params = catalogue_params.extract!(:artist_attributes)["artist_attributes"]
-          current_user.artist.update(@artist_params)
-        end
+      if @catalogue.update(catalogue_params.except(:artist_attributes))
+        # ARTIST updating, not creating
+        current_user.artist.update(@artist_params)
+        @catalogue.artist = current_user.artist
+
         format.html { redirect_to new_catalogue_artwork_path(@catalogue.id), notice: 'Catalogue was successfully updated.' }
-        format.json { render :show, status: :ok, location: @catalogue }
+        # format.json { render :show, status: :ok, location: @catalogue }
       else
         format.html { render :edit }
         format.json { render json: @catalogue.errors, status: :unprocessable_entity }
@@ -181,4 +172,8 @@ class CataloguesController < ApplicationController
     #     exhibitions_attributes: [Exhibition.attribute_names.map(&:to_sym).push(:_destroy), spaces_attributes: Space.attribute_names.map(&:to_sym)])
     # end
     
+
+    def error_messages_expose
+      flash[:notice] = flash[:notice].to_a.concat resource.errors.full_messages
+    end
 end

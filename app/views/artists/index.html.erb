@@ -37,7 +37,6 @@
         </div>
         <td><%= link_to "Show", @artist %></td>
         <td><%= link_to "Edit", edit_artist_path(@artist) %></td>
-        <td><%= link_to "Remove", @artist, method: :delete, data: { confirm: "삭제하시겠습니까? 삭제시, 복구하실 수 없습니다." } %></td>
       <% else%>
         <div class="row">
           <div class="col-lg-12 col-md-12">

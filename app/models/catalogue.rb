@@ -1,5 +1,5 @@
 class Catalogue < ActiveRecord::Base
-    
+
     #User, Artist : Catalogue = 1 : N
     belongs_to :user
     belongs_to :artist

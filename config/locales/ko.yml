@@ -110,7 +110,7 @@ ko:
     format: "%{message}"
     messages:
       accepted: "%{attribute}을(를) 반드시 확인해야 합니다"
-      blank: "%{attribute}에 내용을 입력해 주세요"
+      blank: "%{model}의 %{attribute}에 내용을 입력해 주세요"
       confirmation: "%{attribute}은(는) 서로 일치해야 합니다"
       empty: "%{attribute}에 내용을 입력해 주세요"
       equal_to: "%{attribute}은(는) %{count}과 같아야 합니다"

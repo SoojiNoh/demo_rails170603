@@ -87,7 +87,7 @@ class ArtworksController < ApplicationController
         # format.json { render :show, status: :created, location: @artwork }
       else
         format.html { render :new }
-        # format.json { render json: @artwork.errors, status: :unprocessable_entity }
+        format.json { render json: @artwork.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -105,7 +105,7 @@ class ArtworksController < ApplicationController
           # format.json { render :show, status: :ok, location: @artwork }
         else
           format.html { redirect_to :back, notice: 'Artwork was successfully updated.' }
-          # format.json { render json: @artwork.errors, status: :unprocessable_entity }
+          format.json { render json: @artwork.errors, status: :unprocessable_entity }
         end
       end
     end

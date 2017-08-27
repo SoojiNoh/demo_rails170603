@@ -123,14 +123,14 @@ class ArtworksController < ApplicationController
 
   private
   
-    def authenticate_artist
-      if current_user.artist.nil?
-      respond_to do |format|
-        format.html { redirect_to "/artists", notice: '본 기능을 위해서는 Artist 등록이 필요합니다'}
-        # format.json { head :no_content }
-      end
-      end
-    end
+    # def authenticate_artist
+    #   if current_user.artist.nil?
+    #   respond_to do |format|
+    #     format.html { redirect_to "/artists", notice: '본 기능을 위해서는 Artist 등록이 필요합니다'}
+    #     # format.json { head :no_content }
+    #   end
+    #   end
+    # end
   
     # Use callbacks to share common setup or constraints between actions.
     def set_artwork

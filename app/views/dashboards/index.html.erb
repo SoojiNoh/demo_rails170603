@@ -1,3 +1,13 @@
+<%= @exhibitions.inspect%>
+<%    if @exhibitions.present?%>
+      <% @exhibition_current = []%>
+      <% @exhibitions.each do |exhibition| %>
+        <% if exhibition.start_date && exhibition.start_date < Date.today && exhibition.end_date && Date.today < exhibition.end_date %>
+          <% @exhibition_current << exhibition %>
+          yes
+        <% end %>
+      <% end %>
+    <% end %>
 
 <div class="wrapper wrapper-content animated fadeInRight">
   <div class="row">
@@ -21,7 +31,7 @@
               <h5>전시중인 웹 도록 정보</h5>
             </div>
             
-            <% if @catalogue_current.present? %>
+            <% if @exhibition_current.present? %>
               <div class="ibox-content">
                 <small>현재 진행중인 전시의 웹 도록 정보입니다.</small>
                 <ul class="list-group clear-list m-t">

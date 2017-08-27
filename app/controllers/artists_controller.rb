@@ -52,7 +52,7 @@ class ArtistsController < ApplicationController
           
         # @email = @artist.contacts.create(category: "email", content: params[:artist_email])
         # @phone = @artist.contacts.create(category: "phone", content: params[:artist_phone])
-        format.html { redirect_to edit_artist_path(@artist), notice: 'Artist was successfully created.' }
+        format.html { redirect_to edit_artist_path(@artist), notice: '아티스트가 성공적으로 생성되었습니다.' }
         # format.json { render :show, status: :created, location: @artist }
       else
         format.html { render :new }
@@ -69,7 +69,7 @@ class ArtistsController < ApplicationController
     
     respond_to do |format|
       if @artist.update(artist_params)
-        format.html { redirect_to edit_artist_path(@artist), notice: 'Artist was successfully updated.' }
+        format.html { redirect_to edit_artist_path(@artist), notice: '아티스트가 성공적으로 등록되었습니다.' }
         # format.json { render :show, status: :ok, location: @artist }
       else
         format.html { render :edit }
@@ -80,13 +80,13 @@ class ArtistsController < ApplicationController
 
   # DELETE /artists/1
   # DELETE /artists/1.json
-  def destroy
-    @artist.destroy
-    respond_to do |format|
-      format.html { redirect_to artists_url, notice: 'Artist was successfully destroyed.' }
-      # format.json { head :no_content }
-    end
-  end
+  # def destroy
+  #   @artist.destroy
+  #   respond_to do |format|
+  #     format.html { redirect_to artists_url, notice: 'Artist was successfully destroyed.' }
+  #     # format.json { head :no_content }
+  #   end
+  # end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -102,7 +102,7 @@ class ArtistsController < ApplicationController
     def reject_create
       if current_user.artist.present?
         respond_to do |format|
-          format.html { redirect_to artists_url, notice: 'Your artist account already exists.' }
+          format.html { redirect_to artists_url, notice: '이미 등록된 아티스트 계정이 있습니다.' }
         end
       end
     end

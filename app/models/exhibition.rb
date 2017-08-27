@@ -1,4 +1,5 @@
 class Exhibition < ActiveRecord::Base
+    validates_presence_of :title
     
     #Artist : Exhibition = M : N
     has_many :artists, through: :artist_exhibitions

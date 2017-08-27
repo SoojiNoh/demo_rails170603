@@ -1,6 +1,7 @@
 class CataloguesController < ApplicationController
   before_action :set_catalogue, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user!
+  before_action :authenticate_artist, 
   
   # input ArrayInput
 
@@ -23,11 +24,8 @@ class CataloguesController < ApplicationController
     @exhibition = @catalogue.exhibitions.new
     
     # ARTIST preset
-    if current_user.artist.present?
-      @artist = current_user.artist
-    else
-      @artist = current_user.build_artist
-    end
+
+    @artist = current_user.artist
     
     # EXHIBITION.SPACE preset
     @space = @exhibition.spaces.new
@@ -61,28 +59,30 @@ class CataloguesController < ApplicationController
   # POST /catalogues
   # POST /catalogues.json
   def create
+    puts "#####creating catalogue"
     @artist_params = catalogue_params.extract!(:artist_attributes)["artist_attributes"]
+    @exhibition_params = catalogue_params.extract!(:exhibition_attributes)["exhibition_attributes"]
 
-    # ARTIST process
-    if current_user.artist.present?
+    # ARTIST sanitizing before CATALOGUE
       @catalogue = current_user.catalogues.new(catalogue_params.except(:artist_attributes))
-      @catalogue.artist_id = @artist_params["id"]
-    else
-      @catalogue = current_user.catalogues.new(catalogue_params)
-    end
-  
+      @catalogue.artist = current_user.artist
     
     respond_to do |format|
       if @catalogue.save
-        if current_user.artist.present?
-          Artist.find_by_id(@catalogue.artist_id).update(@artist_params)
-        else
-          current_user.create_artist(@artist_params)
-        end
-        format.html { redirect_to new_catalogue_artwork_path(@catalogue), notice: 'Catalogue was successfully created.' }
+        # ARTIST updating, not creating
+        current_user.artist.update(@artist_params)
+        
+      # ARTIST : EXHIBITION = m : n, through ArtistExhibition
+      @catalogue.exhibitions.each do |exhibition|
+        ArtistExhibition.create(artist: current_user.artist, exhibition: exhibition)
+      end
+
+        
+        format.html { redirect_to new_catalogue_artwork_path(@catalogue), notice: '도록이 성공적으로 등록되었습니다.' }
         # format.html { redirect_to edit_catalogue_path(@catalogue), notice: 'Catalogue was successfully created.' }
         # format.json { render :show, status: :created, location: @catalogue }
       else
+        puts "########couldn't save catalogue"
         format.html { render :new }
         # format.json { render json: @catalogue.errors, status: :unprocessable_entity }
       end
@@ -120,10 +120,9 @@ class CataloguesController < ApplicationController
 
     respond_to do |format|
       if @catalogue.update(catalogue_params)
-        if !current_user.artist.present? #in case of user deleted artist after catalogue created
+        if !current_user.artist.present? #in case of user deleted artist after the catalogue created
           @artist_params = catalogue_params.extract!(:artist_attributes)["artist_attributes"]
-          @artist=Artist.find_by_id(@artist_params["id"])
-          current_user.artist=(@artist)
+          current_user.artist.update(@artist_params)
         end
         format.html { redirect_to new_catalogue_artwork_path(@catalogue.id), notice: 'Catalogue was successfully updated.' }
         format.json { render :show, status: :ok, location: @catalogue }

@@ -3,6 +3,8 @@
 
 Devise.setup do |config|
   
+  config.secret_key = ENV["SECRET_KEY"]
+
   config.http_authenticatable_on_xhr = false
   config.navigational_formats = ["*/*", :html, :json]
 

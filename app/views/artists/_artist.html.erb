@@ -52,7 +52,7 @@
                 <h3>학력</h3>
               </div>
               <tbody class="field_history_academics">
-                <%= artist_builder.simple_fields_for :histories, artist_builder.object.histories.where("category == 'academic'") do |builder| %>
+                <%= artist_builder.simple_fields_for :histories, artist_builder.object.histories.where("histories.category = ?", " academic") do |builder| %>
                   <%= render 'history_academic', f: builder %>
                 <% end %>
               </tbody>
@@ -97,7 +97,7 @@
             <h3>수상/레지던시</h3>
           </div>
           <tbody class="field_history_awards">
-            <%= artist_builder.simple_fields_for :histories, artist_builder.object.histories.where("category = 'award'") do |builder| %>
+            <%= artist_builder.simple_fields_for :histories, artist_builder.object.histories.where("histories.category = ?","award") do |builder| %>
               <%= render 'history_award', f: builder %>
             <% end %>
           </tbody>

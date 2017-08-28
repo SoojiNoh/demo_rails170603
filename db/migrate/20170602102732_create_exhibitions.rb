@@ -4,7 +4,7 @@ class CreateExhibitions < ActiveRecord::Migration
       t.string :category, null: true
       t.string :title, null: false
       t.date :start_date, null: true
-      t.date :end_date, default: :start_date
+      t.date :end_date
       t.timestamps null: false
     end
   end

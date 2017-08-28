@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'seed_dump'
-
+gem 'mysql2'
 gem 'active_model_serializers'
 gem 'rack-cors', :require => 'rack/cors'
 gem 'jquery-fileupload-rails'

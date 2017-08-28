@@ -101,7 +101,7 @@
                       <div class="col-md-12 p-h-xs border-bottom catalog">
                         <div class="catalog-cover">
                           <figure>
-                            <img src="http://placehold.it/80x100" alt=""/>
+                            <%=image_tag catalogue.artworks.present? ? catalogue.artworks.first.image.url(:thumb) : "http://placehold.it/90x120", size: '80x100'%>
                             <figcaption class="hidden">&lt;<%=catalogue.title%>&gt;</figcaption>
                           </figure>
                         </div>

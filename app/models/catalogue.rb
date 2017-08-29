@@ -5,7 +5,7 @@ class Catalogue < ActiveRecord::Base
     accepts_nested_attributes_for :artist
    
     #Artist : Catalogue = M : N
-    has_many :artist, through: :artist_catalogues
+    has_many :artists, through: :artist_catalogues
     has_many :artist_catalogues, dependent: :destroy
 
     

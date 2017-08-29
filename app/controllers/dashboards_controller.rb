@@ -8,7 +8,7 @@ class DashboardsController < ApplicationController
     if @exhibitions.present?
       @exhibitions_current = []
       @exhibitions.each do |exhibition|
-        if exhibition.start_date && exhibition.start_date < Date.today && exhibition.end_date && Date.today < exhibition.end_date
+        if exhibition.start_date && exhibition.start_date <= Date.today && exhibition.end_date && Date.today <= exhibition.end_date
           @exhibitions_current.push(exhibition)
         end
       end

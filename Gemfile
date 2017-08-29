@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
-
-gem 'seed_dump'
+gem 'cancan'
+gem 'rolify' # 권한부여
+gem 'seed_dump' # 등급, 역할을 부여
 gem 'mysql2'
 gem 'active_model_serializers'
 gem 'rack-cors', :require => 'rack/cors'
@@ -10,7 +11,6 @@ gem 'fog-aws'
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'simple_form'
-gem 'will_paginate'
 gem 'devise'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5'

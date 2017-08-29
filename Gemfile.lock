@@ -47,6 +47,7 @@ GEM
       debug_inspector (>= 0.0.1)
     builder (3.2.3)
     byebug (9.0.6)
+    cancan (1.6.10)
     carrierwave (1.1.0)
       activemodel (>= 4.0.0)
       activesupport (>= 4.0.0)
@@ -106,7 +107,7 @@ GEM
       thor (>= 0.14, < 2.0)
     json (1.8.6)
     jsonapi-renderer (0.1.3)
-    libv8 (3.16.14.19-x86_64-linux)
+    libv8 (3.16.14.19)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     mail (2.6.4)
@@ -156,6 +157,7 @@ GEM
     responders (2.4.0)
       actionpack (>= 4.2.0, < 5.3)
       railties (>= 4.2.0, < 5.3)
+    rolify (5.1.0)
     sass (3.4.23)
     sass-rails (5.0.6)
       railties (>= 4.0.0, < 6)
@@ -202,7 +204,6 @@ GEM
       binding_of_caller (>= 0.7.2)
       railties (>= 4.0)
       sprockets-rails (>= 2.0, < 4.0)
-    will_paginate (3.1.5)
 
 PLATFORMS
   ruby
@@ -210,6 +211,7 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers
   byebug
+  cancan
   carrierwave
   coffee-rails (~> 4.1.0)
   devise
@@ -222,6 +224,7 @@ DEPENDENCIES
   mysql2
   rack-cors
   rails (= 4.2.5)
+  rolify
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   seed_dump
@@ -232,7 +235,6 @@ DEPENDENCIES
   turbolinks
   uglifier (>= 1.3.0)
   web-console (~> 2.0)
-  will_paginate
 
 BUNDLED WITH
    1.15.4

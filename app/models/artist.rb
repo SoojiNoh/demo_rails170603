@@ -12,8 +12,9 @@ class Artist < ActiveRecord::Base
     has_many :contacts, as: :contactable, dependent: :destroy
     accepts_nested_attributes_for :contacts, allow_destroy: true,  reject_if: proc { |attributes| attributes['category'].blank? or (attributes['category']!="email" and attributes['category']!="phone" and attributes['content'].blank?) }
     
-    #Artist : Catalogue = 1 : N
-    has_many :catalogues
+    #Artist : Catalogue = M : N
+    has_many :catalogues, through: :artist_catalogues
+    has_many :artist_catalogues, dependent: :destroy
     
     #Artist : Artwork = M : N
     has_many :artworks, through: :artist_artworks

@@ -61,7 +61,7 @@ class CataloguesController < ApplicationController
       if @catalogue.save
         # ARTIST updating, not creating
         current_user.artist.update(@artist_params)
-        @catalogue.artist = current_user.artist
+        @catalogue.artist_id = current_user.artist_id
           
         # ARTIST : EXHIBITION = m : n, through ArtistExhibition
         @catalogue.exhibitions.each do |exhibition|

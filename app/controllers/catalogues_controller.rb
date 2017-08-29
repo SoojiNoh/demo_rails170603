@@ -106,16 +106,14 @@ class CataloguesController < ApplicationController
   # PATCH/PUT /catalogues/1.json
   def update
     
-    # ARTIST sanitizing before CATALOGUE create
+    # ARTIST, EXHIBITION sanitizing before CATALOGUE update
     @artist_params = catalogue_params.extract!(:artists_attributes).extract!(0)
-    @catalogue = current_user.catalogues.new(catalogue_params.except(:artists_attributes))
 
     respond_to do |format|
       if @catalogue.update(catalogue_params.except(:artists_attributes))
         
         # ARTIST updating, not creating
         current_user.artist.update(@artist_params)
-        @catalogue.artist = current_user.artist
 
         format.html { redirect_to new_catalogue_artwork_path(@catalogue.id), notice: 'Catalogue was successfully updated.' }
         # format.json { render :show, status: :ok, location: @catalogue }

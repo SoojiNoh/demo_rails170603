@@ -6,9 +6,9 @@ module CataloguesHelper
       catalogue.exhibitions.build
     end
     
-    if !catalogue.artist.present?
-      catalogue.build_artist
-    end
+    # if !catalogue.artists.present?
+    #   catalogue.build_artist
+    # end
     
     if !catalogue.pages.present?
       catalogue.pages.build

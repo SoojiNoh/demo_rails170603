@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170827194049) do
+ActiveRecord::Schema.define(version: 20170829060713) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -48,6 +48,16 @@ ActiveRecord::Schema.define(version: 20170827194049) do
 
   add_index "artist_artworks", ["artist_id"], name: "index_artist_artworks_on_artist_id"
   add_index "artist_artworks", ["artwork_id"], name: "index_artist_artworks_on_artwork_id"
+
+  create_table "artist_catalogues", force: :cascade do |t|
+    t.integer  "artist_id"
+    t.integer  "catalogue_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "artist_catalogues", ["artist_id"], name: "index_artist_catalogues_on_artist_id"
+  add_index "artist_catalogues", ["catalogue_id"], name: "index_artist_catalogues_on_catalogue_id"
 
   create_table "artist_exhibitions", force: :cascade do |t|
     t.integer  "artist_id",     null: false
@@ -157,7 +167,7 @@ ActiveRecord::Schema.define(version: 20170827194049) do
 
   create_table "notices", force: :cascade do |t|
     t.string   "title"
-    t.string   "content"
+    t.text     "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -165,7 +175,7 @@ ActiveRecord::Schema.define(version: 20170827194049) do
   create_table "pages", force: :cascade do |t|
     t.string   "category"
     t.string   "title"
-    t.string   "content"
+    t.text     "content"
     t.string   "producer"
     t.string   "route"
     t.integer  "page_num"
@@ -188,7 +198,7 @@ ActiveRecord::Schema.define(version: 20170827194049) do
 
   create_table "posts", force: :cascade do |t|
     t.string   "title"
-    t.string   "content"
+    t.text     "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

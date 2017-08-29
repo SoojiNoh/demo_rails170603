@@ -49,16 +49,16 @@ class CataloguesController < ApplicationController
   # POST /catalogues
   # POST /catalogues.json
   def create
-    @artist_params = catalogue_params.extract!(:artist_attributes)["artist_attributes"]
-    @exhibition_params = catalogue_params.extract!(:exhibition_attributes)["exhibition_attributes"]
-
+    
     # ARTIST sanitizing before CATALOGUE create
-    @catalogue = current_user.catalogues.new(catalogue_params.except(:artist_attributes))
+    @artist_params = catalogue_params.extract!(:artists_attributes).extract!(0)
+    @catalogue = current_user.catalogues.new(catalogue_params.except(:artists_attributes))
 
 
     
     respond_to do |format|
       if @catalogue.save
+        
         # ARTIST updating, not creating
         current_user.artist.update(@artist_params)
         ArtistCatalogue.create(artist: current_user.artist, catalogue: @catalogue)
@@ -105,12 +105,14 @@ class CataloguesController < ApplicationController
   # PATCH/PUT /catalogues/1
   # PATCH/PUT /catalogues/1.json
   def update
-    # @artist_params = catalogue_params.extract!(:artist_attributes)["artist_attributes"]
-    @artist_params = catalogue_params.extract!(:artist_attributes)["artist_attributes"]
-    @exhibition_params = catalogue_params.extract!(:exhibition_attributes)["exhibition_attributes"]
+    
+    # ARTIST sanitizing before CATALOGUE create
+    @artist_params = catalogue_params.extract!(:artists_attributes).extract!(0)
+    @catalogue = current_user.catalogues.new(catalogue_params.except(:artists_attributes))
 
     respond_to do |format|
-      if @catalogue.update(catalogue_params.except(:artist_attributes))
+      if @catalogue.update(catalogue_params.except(:artists_attributes))
+        
         # ARTIST updating, not creating
         current_user.artist.update(@artist_params)
         @catalogue.artist = current_user.artist
@@ -141,13 +143,13 @@ class CataloguesController < ApplicationController
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    def catalogue_params
-      params.require(:catalogue).permit(:title, :description)
-    end
+    # def catalogue_params
+    #   params.require(:catalogue).permit(:title, :description)
+    # end
     def catalogue_params
       params.require(:catalogue).permit(:title, :description,
         # exhibitions_attributes: [Exhibition.attribute_names.map(&:to_sym), spaces_attributes: Space.attribute_names.map(&:to_sym)],
-        artist_attributes: [Artist.attribute_names.map(&:to_sym),         contacts_attributes: Contact.attribute_names.map(&:to_sym).push(:_destroy),
+        artists_attributes: [Artist.attribute_names.map(&:to_sym),         contacts_attributes: Contact.attribute_names.map(&:to_sym).push(:_destroy),
           histories_attributes: History.attribute_names.map(&:to_sym).push(:_destroy),
           exhibitions_attributes: [Exhibition.attribute_names.map(&:to_sym).push(:_destroy),
             spaces_attributes: Space.attribute_names.map(&:to_sym)
@@ -161,9 +163,9 @@ class CataloguesController < ApplicationController
       )
     end
     
-    def artwork_params
-      params.require(:artwork).permit(:artwork, :type, :photo, :title, {size: []}, :unit, :material, :created_date)
-    end
+    # def artwork_params
+    #   params.require(:artwork).permit(:artwork, :type, :photo, :title, {size: []}, :unit, :material, :created_date)
+    # end
     
     # def artist_params
     #   params.require(:artist).permit(:name, :role,

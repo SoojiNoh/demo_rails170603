@@ -1,13 +1,12 @@
 class Catalogue < ActiveRecord::Base
 
-    #User, Artist : Catalogue = 1 : N
+    #User : Catalogue = 1 : N
     belongs_to :user
-    accepts_nested_attributes_for :artist
    
     #Artist : Catalogue = M : N
     has_many :artists, through: :artist_catalogues
     has_many :artist_catalogues, dependent: :destroy
-
+    accepts_nested_attributes_for :artists
     
     
     #Catalogue : Page = 1 : N

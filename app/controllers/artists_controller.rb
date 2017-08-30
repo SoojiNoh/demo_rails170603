@@ -3,7 +3,6 @@ class ArtistsController < ApplicationController
   before_action :artist_exceed, except: [:index, :show, :edit, :update, :destroy]
   before_action :permission_artist, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user!
-  # helper FormHelper
   
   
   # GET /artists

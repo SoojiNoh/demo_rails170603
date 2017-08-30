@@ -10,7 +10,16 @@ class ApplicationController < ActionController::Base
         # format.json { head :no_content }
       end
     end
-  end  
+  end
+  
+  def permission_catalogue_artwork
+    if current_user != Catalogue.find(params[:catalogue_id]).user
+      respond_to do |format|
+        format.html { redirect_to "/", notice: '올바른 접근이 아닙니다.'}
+        # format.json { head :no_content }
+      end
+    end
+  end    
 
   def permission_artist
     if current_user != Artist.find(params[:id]).user

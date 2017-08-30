@@ -4,6 +4,7 @@ class ArtworksController < ApplicationController
   before_filter :authenticate_user!
   before_action :authenticate_artist
   before_action :permission_artwork, only: [:show, :edit, :update, :destroy]
+  before_action :permission_catalogue_artwork, only: [:new]
 
   # GET /artworks
   # GET /artworks.json

@@ -1,6 +1,7 @@
 class ArtistsController < ApplicationController
   before_action :set_artist, only: [:show, :edit, :update, :destroy]
-  before_action :reject_create, except: [:index, :show, :edit, :update, :destroy]
+  before_action :artist_exceed, except: [:index, :show, :edit, :update, :destroy]
+  before_action :permission_artist, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user!
   # helper FormHelper
   
@@ -20,8 +21,8 @@ class ArtistsController < ApplicationController
 
   # GET /artists/1
   # GET /artists/1.json
-  def show
-  end
+  # def show
+  # end
 
   # GET /artists/new
   def new
@@ -37,6 +38,7 @@ class ArtistsController < ApplicationController
   def edit
 
   end
+  
   # POST /artists
   # POST /artists.json
   def create
@@ -101,7 +103,7 @@ class ArtistsController < ApplicationController
     #   params.require(:artist).permit(:title, :description)
     # end
     
-    def reject_create
+    def artist_exceed
       if current_user.artist.present?
         respond_to do |format|
           format.html { redirect_to artists_url, notice: '이미 등록된 아티스트 계정이 있습니다.' }

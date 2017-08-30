@@ -3,6 +3,33 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   
+  def permission_catalogue
+    if current_user != Catalogue.find(params[:id]).user
+      respond_to do |format|
+        format.html { redirect_to "/", notice: '올바른 접근이 아닙니다.'}
+        # format.json { head :no_content }
+      end
+    end
+  end  
+
+  def permission_artist
+    if current_user != Artist.find(params[:id]).user
+      respond_to do |format|
+        format.html { redirect_to "/", notice: '올바른 접근이 아닙니다.'}
+        # format.json { head :no_content }
+      end
+    end
+  end  
+  
+  def permission_artwork
+    if Artwork.find(params[:id]).artists.find_by_id(current_user.artist.id).nil?
+      respond_to do |format|
+        format.html { redirect_to "/", notice: '올바른 접근이 아닙니다.'}
+        # format.json { head :no_content }
+      end
+    end
+  end  
+  
 
   
     def authenticate_artist

@@ -1,7 +1,11 @@
 class CataloguesController < ApplicationController
-  before_action :set_catalogue, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user!
   before_action :authenticate_artist
+  before_action :set_catalogue, only: [:show, :edit, :update, :destroy]
+  before_action :permission_catalogue, only: [:show, :edit, :update, :destroy]
+  # before_action only: [:show, :edit, :update, :destroy] do
+  #   require_permission(@post)
+  # end
   before_action :error_messages_expose, only: :all
   
   # input ArrayInput

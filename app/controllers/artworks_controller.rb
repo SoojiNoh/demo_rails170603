@@ -3,6 +3,7 @@ class ArtworksController < ApplicationController
   before_action :set_parent_artwork, only: [:new, :add_form, :create, :update]
   before_filter :authenticate_user!
   before_action :authenticate_artist
+  before_action :permission_artwork, only: [:show, :edit, :update, :destroy]
 
   # GET /artworks
   # GET /artworks.json

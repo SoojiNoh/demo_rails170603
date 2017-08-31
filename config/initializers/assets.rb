@@ -11,7 +11,7 @@ Rails.application.config.assets.version = '1.0'
 # Rails.application.config.assets.precompile += %w( search.js )
 
 Rails.application.config.assets.precompile << /\.(?:svg|eot|woff|woff2|ttf)\z/
-Rails.application.config.assets.precompile += %w( bootstrap/css/bootstrap.min.css )
+Rails.application.config.assets.precompile += %w( bootstrap/css/bootstrap.css )
 Rails.application.config.assets.precompile += %w( font-awesome/css/font-awesome.css )
 Rails.application.config.assets.precompile += %w( animate.css )
 Rails.application.config.assets.precompile += %w( style.css )

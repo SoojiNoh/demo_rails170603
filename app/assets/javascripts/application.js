@@ -61,9 +61,9 @@ $(document).on('turbolinks:load', function() {
        var regexp, time, label;
        label = $(this).data('label');
        time = new Date().getTime();
-      console.log(time);
+    //   console.log(time);
        regexp = new RegExp($(this).data('id'), 'g');
-      console.log(regexp);
+    //   console.log(regexp);
             console.log($(label));
        $('.'+label).append($(this).data('forms').replace(regexp, time)); //내가 수정한 것
 
@@ -78,15 +78,8 @@ $(document).on('turbolinks:load', function() {
         console.log(object);
         if (object.hasClass("hidden")){
             object.removeClass('hidden');
-            // object.removeClass('hidden');
-            // object.find('input').removeClass('hidden');
-            // object.find('input').attr( "type", "text" );
         } else {
             object.addClass('hidden');
-            // object = $(this).prev('.input');
-            // object.addClass('hidden');
-            // object.find('input').addClass('hidden');
-            // object.find('input').attr( "type", "hidden" );
         }
        return event.preventDefault();
    });
@@ -99,37 +92,49 @@ $(document).on('turbolinks:load', function() {
         console.log(object);
         if (object.hasClass("hidden")){
             object.removeClass('hidden');
-            
-            
-            // object.removeClass('hidden');
-            // object.find('input').removeClass('hidden');
-            // object.find('input').attr( "type", "text" );
         } else {
             object.addClass('hidden');
-            
-            
-            // object = $(this).prev('.input');
-            // object.addClass('hidden');
-            // object.find('input').addClass('hidden');
-            // object.find('input').attr( "type", "hidden" );
         }
        return event.preventDefault();
    });   
 
     $('form').on('click', '.toggle_remove_image', function(event) {
-       console.log(this);
-        // var object = $(this).prev('.hidden');
-        var object = $(this).prev('#image-preview');
+        var button = $(this);
+
+        var object = $(this).siblings('.image-edit-preview');
         console.log(object);
         if (object.hasClass("hidden")){
-            $(this).next('input[type=hidden]').val('0');
+            $(this).siblings('input[type=hidden]').val('0');
             object.removeClass('hidden');
+            button.html("이미지만 제거");
         } else {
-            $(this).next('input[type=hidden]').val('1');
+            $(this).siblings('input[type=hidden]').val('1');
             object.addClass('hidden');
+            button.html("이미지만 복구");
         }
        return event.preventDefault();
    });
+   
+//********dashboards시작**********//
+    $( "#toggle_more_notice" ).click(function() {
+        $( ".toggle_hidden_notice" ).toggle( "slow" );
+    });   
+
+    //modal       
+    $( "#notice_table li").click(function() {
+        var link  = $(this).data("href")
+        $.ajax({
+            url: link,
+            type: "GET"
+            }).done(function(){
+            $('#Modal').modal('show');
+            $('#Modal').on('shown', function() {
+                $("#txtname").focus();
+            });      
+        });
+    });    
+
+//********dashboards끝**********//
 
 });
 
@@ -253,13 +258,14 @@ $(document).on('change','.image_edit', {}, function(e){
 					'<img src="'+e.target.result+'"> '
 				//+ ' <button class="btn btn-sm btn-info image-edit-upload">업로드</button>'
 				;
-				$(event_object).next('.image-edit-preview').html(img_preview);
+				$(event_object).siblings('.image-edit-preview').html(img_preview);
 			};
 
 		});
 
     // alert("new link clicked");
 });
+
 
 
 

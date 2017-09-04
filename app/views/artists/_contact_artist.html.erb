@@ -6,7 +6,7 @@
         <% end %>
     </td>
     <td class="m-l-md col-lg-3 col-md-3">
-        <%= f.select(:category, options_for_select([['페이스북', 'facebook'], ['인스타그램', 'instagram'], ['블로그','blog']], f.object.category), {prompt: 'SNS'}, {class: 'form-control'}) %>
+        <%= f.select(:category, options_for_select([['페이스북', 'facebook'], ['인스타그램', 'instagram'], ['트위터', 'twitter'], ['블로그','blog'], ['기타', 'etc']], f.object.category), {prompt: 'SNS'}, {class: 'form-control'}) %>
     </td>
     <td class="col-lg-10 col-md-10">
         <%= f.text_field :content, label: false, placeholder: 'URL', class: 'form-control' %>

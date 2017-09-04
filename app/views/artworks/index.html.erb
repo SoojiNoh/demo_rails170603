@@ -17,8 +17,8 @@
             <div class="col-md-7 catalog-text p-xs">
               <p class="text-primary"><%=artwork.title%></p>
               <span class="text-muted"><%=artwork.material%></span><br>
-              <span class="text-muted"><%=artwork.size%>㎝, <%=artwork.created_date%></span>
-              <td><%= link_to "Edit", edit_artwork_path(artwork) %></td>
+              <span class="text-muted"><%=artwork.size%><%=artwork.unit%> <%=artwork.created_date%></span>
+              <td><br><%= link_to content_tag(:span, "", class: "fa fa-pencil-square-o")+"수정", edit_artwork_path(artwork), class: "btn btn-xs btn-outline btn-primary" %></td>
 
             </div>
           </div>

@@ -16,21 +16,21 @@ Rails.application.routes.draw do
   get 'contacts/index'
 
   get 'contacts/new'
-
-  # get 'catalogues/artwork_new'
-  # get 'catalog'
-  # post 'catalogues/artwork_create'
-  # post 'artworks/artwork_upload_catalogue'
-  devise_for :admins
+  
+  devise_for :admins, controllers: {     
+    sessions: 'users/sessions',
+    registrations: 'users/registrations',
+    passwords: 'users/passwords' }
+    
   devise_for :users, controllers: {
     sessions: 'users/sessions',
     registrations: 'users/registrations',
     passwords: 'users/passwords'
   }
   
-resources :artworks
-get 'artworks/add_form', to: 'artworks#add_form', as: 'add_form_artwork'
-  
+  resources :artworks
+  get 'artworks/add_form', to: 'artworks#add_form', as: 'add_form_artwork'
+    
   resources :catalogues, model_name: 'Catalogue' do
     resources :players
     resources :pages
@@ -52,6 +52,7 @@ get 'artworks/add_form', to: 'artworks#add_form', as: 'add_form_artwork'
   
   get 'dashboards/index'
   get 'dashboards/help'
+  get 'dashboards/notices/:id' => 'dashboards#notices'
   get 'home/index'
 
   

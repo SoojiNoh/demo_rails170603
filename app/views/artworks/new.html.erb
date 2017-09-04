@@ -1,4 +1,7 @@
 <div class="wrapper wrapper-content animated fadeInRight">
+	<div class="form-actions">
+		<br><br><%=link_to "이전 도록 입력사항 보기", edit_catalogue_path(@parent_object), class: 'btn btn-primary' %>
+	</div>
 	<h2>도록의 작품 관리</h2>
 		<div class="row">  
     		<div class="col-lg-12 p-md">
@@ -11,7 +14,7 @@
 			              </a>
 			            </div>
 			        </div>
-			        <div class="ibox-content">
+			        <div class="ibox-content text-center">
 						<%if @parent_object.present?%>
 						    <%= render partial: "form_upload_Catalogue"%>
 						<% else %>
@@ -41,15 +44,12 @@
 
 						      <%= render 'layouts/error_messages', object: artwork %>  
 
-						      <div class="ibox" style="height: 800px;">
+						      <div class="ibox" style="height: 800px; margin: auto;">
 							      <%= render partial: "form", :locals => { artwork: artwork }%>
 						      </div>
 						</div>
 					<% end %>						
 				</div>
-			</div>
-			<div class="form-actions text-center">
-				<br><br><%=link_to "이전 도록 입력사항 보기", edit_catalogue_path(@parent_object), class: 'btn btn-primary' %>
 			</div>
 		</div>
 	</div>

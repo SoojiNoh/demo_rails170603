@@ -1,7 +1,7 @@
     <tr class="row">
         <%#= f.input_field :category, as: :hidden, value: 'academic'%>
         <td>
-            <%= link_to edit_catalogue_path(f), target: "_blank" do %>
+            <%= link_to edit_catalogue_path(f.catalogues.first.id), target: "_blank" do %>
                 <%= content_tag(:span, "", class: "glyphicon glyphicon-edit") %>
             <% end %>            
         </td>

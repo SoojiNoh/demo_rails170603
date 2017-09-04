@@ -1,24 +1,31 @@
-<h1><%=@parent_object.class.name%> Artwork Index</h1>
-
-
-<!--<div class="panel panel-info"> -->
-<!--  <#% if @artworks.empty? %> <h2>Artwork 없음</h2> <#%end%>-->
-<!--  <#% @artworks.each do |artwork| %>-->
-<!--      <#%= render 'layouts/error_messages', object: artwork %>  -->
-      
-<!--      <div class="panel panel-danger">-->
-<!--        <#%= link_to "Remove", artwork, method: :delete, data: { confirm: "이 Artwork를 삭제하시겠습니까?" } %>-->
-
-<!--        <#%= render partial: "form", locals: { artwork: artwork }%>-->
-<!--      </div>-->
-<!--  <#% end %>-->
-<!--</div>-->
-  
-      <%if @parent_object.present?%>
-        <%= render partial: "form_artwork_Catalogue"%>
-      <% else %>
-        <%= render partial: "form", locals: { artwork: @artwork }%>
-      <% end %>
+<div class="wrapper wrapper-content animated fadeInRight">
+  <%= link_to 'Back', artworks_path, class: 'btn btn-primary' %>
+	<h2>작품 관리</h2>
+	<div class="row">
+		<div class="col-lg-12 p-md">
+			<div class="ibox">
+        <div class="ibox-title">
+          <h5><span class="bg-primary p-w-xs b-r-sm m-r-xs"><span class="glyphicon glyphicon-chevron-right"></span></span>작품 업로드</h5>
+            <div class="ibox-tools">
+              <a class="collapse-link">
+                <i class="fa fa-chevron-up"></i>
+              </a>
+            </div>
+        </div>
+        <div class="ibox-content text-center">
+          <%if @parent_object.present?%>
+            <%= render partial: "form_artwork_Catalogue", locals: { artwork: @artwork, parent_object: @artworks_parent }%>
+          <% else %>
+            <%= render partial: "form_artwork", locals: { artwork: @artwork }%>
+          <% end %>
+				</div>
+				<div class="ibox-footer">
+		          전시할 도록에 들어갈 작품을 업로드합니다.
+		    </div>
+      </div>
+    </div>
+  </div>
+</div>
 
  
 <%#= link_to "New artwork", new_@parent_object.class.name.to_s.downcase_artworks_path(@parent_object.id)%>

@@ -1,15 +1,8 @@
 
 <div class="wrapper wrapper-content animated fadeInRight">
+  <%= link_to 'Back', :back, class: 'btn btn-primary' %> 
   <h2>작가 등록</h2>
   <div class="wrapper wrapper-content">
     <%= render partial: 'form', class: 'form-horizontal'%>
   </div>
 </div>
-
-<%= link_to 'Back', catalogues_path %>
-
-
-    // <script>
-    // var foo = localStorage.getItem("bar");
-    // localStorage.setItem("bar", foo);
-    // </script>

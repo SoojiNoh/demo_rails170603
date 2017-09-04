@@ -1,5 +1,5 @@
 
-<div class="col-lg-4">
+<div class="col-lg-6">
   <div class="ibox float-e-margins">
     <div class="ibox-title">
       <h5>작가 정보</h5>
@@ -42,7 +42,8 @@
             <% end %>
           </ul>
         </div>
-        <div class="pull-right">
+        <hr>
+        <div class="text-right">
           <%= link_to content_tag(:span, "", class: "fa fa-pencil-square-o")+"수정", edit_artist_path(@artist), class: "btn btn-xs btn-outline btn-primary" %>
         </div>      
       <% else%>
@@ -52,7 +53,7 @@
               현재 등록된 아티스트가 없습니다.
             </p>
             <hr>
-          <div class="pull-right">
+          <div class="text-right">
             <%= link_to content_tag(:span, "", class: "fa fa-pencil-square-o")+"추가", new_artist_path, class: "btn btn-xs btn-outline btn-primary" %>
           </div>             
           </div>
@@ -62,7 +63,7 @@
   </div>
 </div>
             
-<div class="col-lg-4">
+<div class="col-lg-6">
   <div class="ibox float-e-margins">
     <div class="ibox-title">
       <h5>회원 정보</h5>
@@ -72,28 +73,10 @@
         <h3 class="m-b">기본정보</h3>
         <p><strong><%=current_user.email%></strong></p>
         <hr>
-        <p class="text-right"><%=link_to "사용자 정보수정", edit_user_registration_path %></p>
-        <ul>
-          <li><p>0000 길고 긴 전시 제목이 들어가는 경우를 테스트하기 위해 길고 긴 전시명을 넣었습니다, 장소</p></li>
-          <li><p>0000 제목, 장소</p></li>
-          <li><p>0000 제목, 장소</p></li>
-        </ul>
-        <p><strong>그룹전</strong></p>
-        <ul>
-          <li><p>0000 제목, 장소</p></li>
-          <li><p>0000 제목, 장소</p></li>
-          <li><p>0000 제목, 장소</p></li>
-        </ul>
-        <hr>
-      </div>
-      <div>
-        <h3 class="m-b">학력</h3>
-        <ul>
-          <li><p>0000 00대학교 0000 졸업</p></li>
-          <li><p>0000 00대학교 0000 졸업</p></li>
-        </ul>
+        <p class="text-right"><%= link_to content_tag(:span, "", class: "fa fa-pencil-square-o")+"사용자 정보 수정", edit_user_registration_path, class: "btn btn-xs btn-outline btn-primary" %></p>
+        
       </div>
     </div>
   </div>
-</div> 
+</div>
 <br>

@@ -1,68 +1,87 @@
 <%= form_for artwork, class: "artwork_group_form", enctype: "multipart/form-data" do |f| %>
 
-  <div class="panel panel-danger">
-  
-    <%= render 'layouts/error_messages', object: f.object %>
-  
-  
-    <div class="field" col="3">
-      <%= f.label :category %><br>
-      <%= f.text_field :category %>
-    </div>
-    <% if artwork.image.present? %>
-      <div id="image-preview">
-        <%= image_tag artwork.image.url(:thumb) %><br/>
-      </div>
-      <%= link_to '작품이미지 삭제/복구', '#', class: 'toggle_remove_image'%>
-      <%= f.hidden_field :remove_image, value: false%>
-  
-    <% end %>
+      <%= render 'layouts/error_messages', object: f.object %>
+
+
+      <div class="row m-b">
+          <%= f.hidden_field :image_cache %>
+          <%= f.file_field :image, label: false, accept: 'image/*', name: "artwork[image]", class: 'image_edit'%>
+          <% if artwork.image.present? %>
+            <%= link_to '이미지만제거', '#', class: 'toggle_remove_image btn btn-primary'%>
+            <%= f.hidden_field :remove_image, value: false%>
+          <% end %>
+          
+          <div class="image-edit-preview">
+            <div id="image-preview">
+              <%= image_tag artwork.image.url(:thumb) %><br/>
+            </div>
+          </div>
+          
+            <style>
+          		.image-edit-preview img{
+          			width: 100px;
+          		}
+        	  </style>
+        </div>     
     
-    <div class="field">
-      <%= f.hidden_field :image_cache %>
-      <%= f.file_field :image, label: false, accept: 'image/*', name: "artwork[image]", class: 'image_edit'%>
-  
-      <div class="image-edit-preview">
-        <style>
-    		.image-edit-preview img{
-    			width: 100px;
-    		}
-    	  </style>
-      </div>
-    </div>
-  
-    <script id="edit-upload" type="text/x-tmpl">
-      <div class="upload">
-        <div class="progress">
-          <div class="bar"></div>
+      <!--<div class="row">-->
+
+        
+        <div class="row m-b">
+          <div class="col-lg-6 border-right">
+            
+            <div class="row">
+              <%= f.label :title, "작품 제목", class: "m-l-lg col-lg-2 col-md-2 control-label" %><br>
+              <div class="col-lg-8 col-md-8">
+                <%= f.text_field :title, placeholder: "작품 제목", class: "form-control" %>
+              </div>
+            </div>   
+            
+            <div class="row">
+              <%= f.label :category, "분류", class: "m-l-lg col-lg-2 col-md-2 control-label" %><br>
+              <div class="col-lg-8 col-md-8">
+                <%= f.text_field :category, placeholder: "작품 분류", class: "form-control" %>
+              </div>
+            </div>
+            
+            <%= f.label :created_date, "제작 연도", class: "m-l-lg col-lg-2 col-md-2 control-label" %><br>
+            <div class="row">
+              <div class="col-lg-8 col-md-8">
+                <%= f.date_select :created_date, start_year: 1800, end_year: Date.current.year, discard_month: true, discard_day: true, include_blank: true, class: "form-control" %>
+              </div>
+            </div>            
+          </div>
+          
+          <div class="col-lg-6 border-right">
+            <%= f.label :material, "작품 재료", class: "m-l-lg col-lg-2 col-md-2 control-label" %><br>
+            <div class="row">
+              <div class="col-lg-8 col-md-8">
+                <%= f.text_field :material, placeholder: "작품 재료", class: "form-control" %>
+              </div>
+            </div>              
+              
+            <%= f.label :size, "작품 크기", class: "m-l-lg col-lg-2 col-md-2 control-label" %><br>
+            <div class="row">
+              <div class="col-lg-8 col-md-8">
+                <%= f.text_field :size, placeholder: "작품 크기 ex) '120x90'", class: "form-control" %>
+              </div>
+            </div>
+            
+            <%= f.label :unit, "크기 단위", class: "m-l-lg col-lg-2 col-md-2 control-label" %><br>
+            <div clas="row">
+              <div class="col-lg-8 col-md-8">
+                <%= f.select(:unit, options_for_select([['mm', 'mm'], ['cm', 'cm'], ['m', 'm'], ['없음', 'none']], f.object.category), {prompt: '단위'}, {class: 'form-control'}) %>
+              </div>
+            </div>
+
+          </div>
         </div>
-        {%=o.name%}
+      <!--</div>-->
+
+
+      <div class="row p-w-md">
+          <div class="form-actions">
+            <br><br><%= f.submit "생성/등록", class: 'btn btn-primary' %>
+          </div>
       </div>
-    </script>
-  
-    <div class="field">
-      <%= f.label :title %><br>
-      <%= f.text_area :title %>
-    </div>
-    <div class="field">
-      <%= f.text_field :size, as: :array %>
-      <button class="add-size-button">추가</button><br>
-    </div>
-    <div class="field">
-      <%= f.label :unit %><br>
-      <%= f.text_area :unit %>
-    </div>
-    <div class="field">
-      <%= f.label :material %><br>
-      <%= f.text_area :material %>
-    </div>
-    <div class="field">
-      <%= f.label :created_date %><br>
-      <%= f.date_select :created_date, start_year: 1800, end_year: Date.current.year, discard_month: true, discard_day: true, include_blank: true %>
-    </div>
-    <div class="actions">
-      <%= f.submit %>
-    </div>
-    
-  </div>
-<% end %>
+  <% end %>

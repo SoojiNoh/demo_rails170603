@@ -1,6 +1,6 @@
 class ArtworksController < ApplicationController
   before_action :set_artwork, only: [:show, :edit, :update, :destroy]
-  before_action :set_parent_artwork, only: [:new, :add_form, :create, :update]
+  before_action :set_parent_artwork, only: [:new, :edit, :add_form, :create, :update]
   before_filter :authenticate_user!
   before_action :authenticate_artist
   before_action :permission_artwork, only: [:show, :edit, :update, :destroy]
@@ -47,13 +47,11 @@ class ArtworksController < ApplicationController
 
   # GET /artworks/1/edit
   def edit
-    if @parent_object.present?
-        @artworks_parent = @parent_object.artworks.all
-        @artwork_parent = @parent_object.artworks.new
-    else
-      @artworks = current_user.artist.artworks.all
-      @artwork = current_user.artist.artworks.new
-    end
+    # if @parent_object.present?
+    #     @artworks_parent = @parent_object.artworks.all
+    # else
+    #   @artworks = current_user.artist.artworks.all
+    # end
   end
   
   def add_form
@@ -79,13 +77,16 @@ class ArtworksController < ApplicationController
     else
       puts "artist artwork successfully created"
       @artwork = current_user.artist.artworks.create(artwork_params)
+      puts @artwork.url
+      @artwork.image = @artwork.url
+      puts @artwork.image
     end
     
     # @artwork = Artwork.create(artwork_params)
 
     respond_to do |format|
       if @artwork.save
-        format.html { redirect_to :back, notice: 'Artwork was successfully created.' }
+        format.html { redirect_to :back, notice: '작품이 성공적으로 등록되었습니다.' }
         # format.json { render :show, status: :created, location: @artwork }
       else
         format.html { render :new }
@@ -118,7 +119,7 @@ class ArtworksController < ApplicationController
   def destroy
     @artwork.destroy
     respond_to do |format|
-      format.html { redirect_to :back, notice: 'Artwork was successfully destroyed.' }
+      format.html { redirect_to :back, notice: '작품이 성공적으로 삭제되었습니다.' }
       # format.json { head :no_content }
     end
   end

@@ -39,6 +39,14 @@ class ApplicationController < ActionController::Base
     end
   end  
   
+  def permission_admin
+    if current_admin.nil?
+      respond_to do |format|
+        format.html { redirect_to "/", notice: '올바른 접근이 아닙니다.'}
+        # format.json { head :no_content }
+      end
+    end
+  end
 
   
     def authenticate_artist

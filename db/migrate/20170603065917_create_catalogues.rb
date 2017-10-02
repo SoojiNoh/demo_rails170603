@@ -2,7 +2,6 @@ class CreateCatalogues < ActiveRecord::Migration
   def change
     create_table :catalogues do |t|
       t.references :user, index: true, null: false
-      t.references :artist, index: true
       t.references :space, index: true
       t.string :title, default: "Untitled"
       t.string :description

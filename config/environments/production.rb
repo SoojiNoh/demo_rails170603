@@ -55,7 +55,7 @@ Rails.application.configure do
   # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
 
   # Use a different cache store in production.
-  # config.cache_store = :mem_cache_store
+  # config.cache_st/ore = :mem_cache_store
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   # config.action_controller.asset_host = 'http://assets.example.com'
@@ -63,6 +63,17 @@ Rails.application.configure do
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.default_url_options = { :host => "decx.io" }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = { 
+    :authentication => :plain,
+    :address => ENV["MAILER_ADDRESS"],
+    :port => 587,
+    :domain => ENV["MAILER_DOMAIN"],
+    :user_name => ENV["MAILER_USER_NAME"],
+    :password => ENV["MAILER_PASSWORD"]
+  }
+
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).

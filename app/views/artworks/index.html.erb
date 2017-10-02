@@ -10,14 +10,14 @@
           <div class="white-bg p-h-xs catalog border-top clearfix">
             <div class="col-md-5 catalog-cover m-t-xs">
               <figure class="text-center">
-                <%= image_tag artwork.image.url(:thumb), size: '120', alt: ''%>
+                <%= image_tag artwork.image.url(:thumb), alt: '', class: 'thumbnail_img'%>
                 <figcaption class="hidden"><%=artwork.title%></figcaption>
               </figure>
             </div>
             <div class="col-md-7 catalog-text p-xs">
               <p class="text-primary"><%=artwork.title%></p>
               <span class="text-muted"><%=artwork.material%></span><br>
-              <span class="text-muted"><%=artwork.size%><%=artwork.unit%> <%=artwork.created_date%></span>
+              <span class="text-muted"><%=artwork.size%><%=artwork.unit%><br/> <%=artwork.created_date%></span>
               <td><br><%= link_to content_tag(:span, "", class: "fa fa-pencil-square-o")+"수정", edit_artwork_path(artwork), class: "btn btn-xs btn-outline btn-primary" %></td>
 
             </div>

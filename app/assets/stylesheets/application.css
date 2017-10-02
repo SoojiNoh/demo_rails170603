@@ -41,3 +41,8 @@
 .bar {
     width: 0%; height: 25px; background-color: #29c7c9; /* mediumturquoise */
 }
+
+.thumbnail_img {
+    max-height: 100px;
+    max-width: 80px;
+}

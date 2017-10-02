@@ -173,4 +173,5 @@ class ArtworksController < ApplicationController
     def artwork_params
       params.require(:artwork).permit(:category, :title, :unit, :material, :created_date, :image, :remove_image, :image_cache, :size)
     end
+  
 end

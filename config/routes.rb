@@ -17,10 +17,11 @@ Rails.application.routes.draw do
 
   get 'contacts/new'
   
-  devise_for :admins, controllers: {     
-    sessions: 'users/sessions',
-    registrations: 'users/registrations',
-    passwords: 'users/passwords' }
+  # devise_for :admins, controllers: {     
+    # sessions: 'admins/sessions'
+    # registrations: 'users/registrations',
+    # passwords: 'users/passwords' 
+  # }
     
   devise_for :users, controllers: {
     sessions: 'users/sessions',

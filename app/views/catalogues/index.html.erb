@@ -11,7 +11,7 @@
           <div class="white-bg p-h-xs catalog border-top clearfix">
             <div class="col-md-5 catalog-cover m-t-xs">
               <figure class="text-center">
-                <%=image_tag catalogue.artworks.present? ? catalogue.artworks.first.image.url(:thumb) : "http://placehold.it/90x120"%>
+                <%=image_tag catalogue.artworks.present? ? catalogue.artworks.first.image.url(:thumb) : "http://placehold.it/90x120", class: 'thumbnail_img'%>
                 <figcaption class="hidden"><%=catalogue.title%></figcaption>
               </figure>
             </div>

@@ -155,7 +155,7 @@
                       <% @artworks.last(6).each do |artwork| %>
                         <li class="m-t col-md-6" style="height: 130px;">
                           <figure class="text-center">
-                            <%=image_tag artwork.image.url(:thumb), size: "80x100", alt: "" %>
+                            <%=image_tag artwork.image.url(:thumb), alt: "", class: 'thumbnail_img' %>
                             <figcaption><%=artwork.title%></figcaption>
                           </figure>
                         </li>

@@ -1,6 +1,6 @@
 class NoticesController < ApplicationController
   before_action :set_notice, only: [:show, :edit, :update, :destroy]
-  before_action :permission_admin, except: [:show]
+  before_action :permission_admin
 
   # GET /notices
   # GET /notices.json

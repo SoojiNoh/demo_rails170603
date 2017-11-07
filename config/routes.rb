@@ -1,7 +1,14 @@
 Rails.application.routes.draw do
 
+  get 'auth0/callback'
+
+  get 'auth0/failure'
+
+get "/auth/oauth2/callback" => "auth0#callback"
+get "/auth/failure" => "auth0#failure"
 
   resources :notices
+  
 # namespace :api do
 #   devise_for :users
 #   resources :catalogues, :only=>[:index, :show]

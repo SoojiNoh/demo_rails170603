@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+gem 'omniauth', '~> 1.6.1'
+gem 'omniauth-auth0', '~> 2.0.0'
 gem 'seed_dump'
 gem 'mysql2'
 gem 'active_model_serializers'

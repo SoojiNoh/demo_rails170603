@@ -111,7 +111,6 @@ ActiveRecord::Schema.define(version: 20170829060713) do
 
   create_table "catalogues", force: :cascade do |t|
     t.integer  "user_id",                          null: false
-    t.integer  "artist_id"
     t.integer  "space_id"
     t.string   "title",       default: "Untitled"
     t.string   "description"
@@ -119,7 +118,6 @@ ActiveRecord::Schema.define(version: 20170829060713) do
     t.datetime "updated_at",                       null: false
   end
 
-  add_index "catalogues", ["artist_id"], name: "index_catalogues_on_artist_id"
   add_index "catalogues", ["space_id"], name: "index_catalogues_on_space_id"
   add_index "catalogues", ["user_id"], name: "index_catalogues_on_user_id"
 
@@ -223,6 +221,10 @@ ActiveRecord::Schema.define(version: 20170829060713) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string   "unconfirmed_email"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
   end

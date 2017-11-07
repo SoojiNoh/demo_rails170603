@@ -1,5 +1,7 @@
 class DashboardsController < ApplicationController
   before_filter :authenticate_user!
+  
+  # include Secured
   def index
     @catalogues = current_user.catalogues
     
